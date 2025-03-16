@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    utils.url = "github:numtide/flake-utils";
+    flakeUtils.url = "github:numtide/flake-utils";
 
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -13,25 +13,33 @@
 
   outputs = inputs @ {
     nixpkgs,
-    utils,
+    flakeUtils,
     nixvim,
     ...
   }:
-    utils.lib.eachDefaultSystem (system: let
+    flakeUtils.lib.eachDefaultSystem (system: let
       pkgs = import nixpkgs {
         inherit system;
         config = {allowUnfree = true;};
+        overlays = [(import ./packages.nix)];
+      };
+      utils = import ./utils.nix {
+        inherit inputs system pkgs;
+        lib = inputs.nixpkgs.lib;
       };
       nixvimLib = nixvim.lib.${system};
       nixvim' = nixvim.legacyPackages.${system};
       nixvimConfiguration = {
         inherit pkgs;
         module = import ./configuration.nix;
-        extraSpecialArgs = {inherit inputs;};
+        extraSpecialArgs = {inherit inputs utils;};
       };
     in {
       packages.default = nixvim'.makeNixvimWithModule nixvimConfiguration;
-      checks.default = nixvimLib.check.mkTestDerivationFromNvim nixvimConfiguration;
+
+      checks.default =
+        nixvimLib.check.mkTestDerivationFromNvim nixvimConfiguration;
+
       formatter = pkgs.alejandra;
     });
 }
