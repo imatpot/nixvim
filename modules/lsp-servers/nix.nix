@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  utils,
   ...
 }: {
   options = {
@@ -9,6 +8,6 @@
   };
 
   config = lib.mkIf (config.modules.lsp.nix.enable || config.modules.lsp.all.enable) {
-    plugins.lsp.servers = utils.enable ["nil_ls"];
+    plugins.lsp.servers = lib.utils.enable ["nil_ls"];
   };
 }

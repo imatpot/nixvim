@@ -26,9 +26,9 @@
       pkgs = import nixpkgs {
         inherit system;
         config = {allowUnfree = true;};
-        overlays = [(import ./packages.nix)];
+        overlays = [(import ./overlays/vim-plugins.nix)];
       };
-      utils = import ./utils.nix {
+      utils = import ./lib/utils.nix {
         inherit inputs system pkgs;
         lib = inputs.nixpkgs.lib;
       };
@@ -37,7 +37,12 @@
       nixvimConfiguration = {
         inherit pkgs;
         module = import ./configuration.nix;
-        extraSpecialArgs = {inherit inputs utils;};
+        extraSpecialArgs = let
+          lib' = inputs.nixpkgs.lib.extend (self: super: {inherit utils;});
+          lib = lib'.extend inputs.nixvim.lib.overlay;
+        in {
+          inherit inputs lib;
+        };
       };
     in {
       packages.default = nixvim'.makeNixvimWithModule nixvimConfiguration;

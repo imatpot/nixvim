@@ -1,9 +1,9 @@
 {
   pkgs,
-  utils,
+  lib,
   ...
 }: {
-  imports = utils.umport {path = ./modules;};
+  imports = lib.utils.umport {path = ./modules;};
 
   enableMan = false;
 
