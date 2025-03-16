@@ -1,4 +1,4 @@
-{
+args @ {
   inputs,
   system,
   lib,
@@ -6,15 +6,7 @@
 }: rec {
   umport = inputs.nypkgs.lib.${system}.umport;
 
-  luaToViml = str: ''
-    lua << trim EOF
-      ${str}
-    EOF
-  '';
-
-  joinViml = str:
-    lib.concatStringsSep " | "
-    (lib.filter (line: line != "") (lib.splitString "\n" str));
+  viml = import ./viml.nix args;
 
   enable = xs: fill {enable = true;} xs;
 

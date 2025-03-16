@@ -28,7 +28,7 @@
         config = {allowUnfree = true;};
         overlays = [(import ./overlays/vim-plugins.nix)];
       };
-      utils = import ./lib/utils.nix {
+      utils = import ./utils {
         inherit inputs system pkgs;
         lib = inputs.nixpkgs.lib;
       };
