@@ -5,6 +5,7 @@
       which-key.enable = true;
       mini.enable = true;
       neo-tree.enable = true;
+      telescope.enable = true;
 
       lsp = {
         enable = true;
