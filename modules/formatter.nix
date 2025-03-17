@@ -21,7 +21,7 @@
       }
       {
         key = "<leader>F";
-        action = "<CMD>${runFormatter} | w<CR>";
+        action = "<CMD>${runFormatter}<CR><CMD>w<CR>";
         options.desc = "Format and save current file";
       }
     ];
