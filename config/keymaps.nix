@@ -1,10 +1,21 @@
-{...}: {
+{helpers, ...}: {
   config = {
     globals = {
       mapleader = " ";
     };
 
     keymaps = [
+      {
+        key = "<C-k>";
+        action = "<C-u>";
+        mode = "n";
+      }
+      {
+        key = "<C-j>";
+        action = "<C-d>";
+        mode = "n";
+      }
+
       {
         key = "<";
         action = "<<";

@@ -3,8 +3,8 @@
     enableMan = false;
     clipboard.register = "unnamedplus";
 
-    viAlias = true;
-    vimAlias = true;
+    # viAlias = true;
+    # vimAlias = true;
 
     opts = {
       autoindent = true;

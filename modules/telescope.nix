@@ -45,17 +45,18 @@
     ];
 
     keymaps = let
+      search = "lua require('search')";
       teleOpts = "tele_opts = { no_ignore = true, no_ignore_parent = true, hidden = true, use_regex = true, file_ignore_patterns = { '^.git/' }  }";
     in [
       {
-        key = "<leader>p";
-        action = "<CMD>lua require('search').open({ ${teleOpts} })<CR>";
+        key = "<C-p>";
+        action = "<CMD>${search}.open({ tab_name = 'Files', ${teleOpts} })<CR>";
         options.desc = "Search files";
         mode = "n";
       }
       {
-        key = "<leader>P";
-        action = "<CMD>lua require('search').open({ tab_name = 'Grep', ${teleOpts} })<CR>";
+        key = "<C-f>";
+        action = "<CMD>${search}.open({ tab_name = 'Grep', ${teleOpts} })<CR>";
         options.desc = "Grep files";
         mode = "n";
       }

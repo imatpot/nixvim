@@ -58,7 +58,7 @@
 
     keymaps = [
       {
-        key = "<leader>e";
+        key = "<C-e>";
         action = "<CMD>Neotree toggle<CR>";
         options.desc = "Toggle file explorer";
       }
