@@ -2,6 +2,7 @@
   config = {
     modules = {
       treesitter.enable = true;
+      which-key.enable = true;
 
       lsp = {
         enable = true;
