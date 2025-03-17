@@ -12,7 +12,9 @@
   config = {
     plugins.lsp.servers =
       lib.mkIf (config.modules.lsp.nix.enable || config.modules.lsp.all.enable)
-      (lib.utils.enable ["nil_ls"]);
+      {
+        nil_ls.enable = true;
+      };
 
     plugins.conform-nvim =
       lib.mkIf (config.modules.formatter.nix.enable || config.modules.formatter.all.enable)
