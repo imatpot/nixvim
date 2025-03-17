@@ -42,6 +42,17 @@
       }
 
       {
+        key = "<leader> ";
+        action = "<CMD>nohlsearch<CR>";
+        options.desc = "Turn off highlighted matches";
+      }
+      {
+        key = "<leader><Esc>";
+        action = "<CMD>nohlsearch<CR>";
+        options.desc = "Turn off highlighted matches";
+      }
+
+      {
         key = " ";
         action = "<nop>";
         mode = "n";
