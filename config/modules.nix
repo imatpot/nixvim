@@ -4,6 +4,7 @@
       treesitter.enable = true;
       which-key.enable = true;
       mini.enable = true;
+      neo-tree.enable = true;
 
       lsp = {
         enable = true;
