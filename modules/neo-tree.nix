@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  helpers,
   ...
 }: {
   options = {
@@ -27,10 +26,32 @@
         };
 
         filteredItems = {
+          showHiddenCount = false;
           hideDotfiles = false;
           hideGitignored = false;
 
           hideByName = [".git"];
+        };
+      };
+
+      defaultComponentConfigs = {
+        diagnostics.symbols = {
+          error = "E";
+          hint = "H";
+          info = "I";
+          warn = "W";
+        };
+
+        gitStatus.symbols = {
+          added = "+";
+          conflict = "ϟ";
+          deleted = "×";
+          ignored = "";
+          modified = "*";
+          renamed = ">";
+          staged = "A";
+          unstaged = "";
+          untracked = "";
         };
       };
     };

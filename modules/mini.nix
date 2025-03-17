@@ -7,9 +7,10 @@
   options = {modules.mini.enable = lib.mkEnableOption "mini suite";};
 
   config = lib.mkIf config.modules.mini.enable {
+    modules.icons.enable = true;
+
     plugins.mini = {
       enable = true;
-      mockDevIcons = true;
 
       modules = {
         pairs = {};
@@ -19,7 +20,6 @@
         move = {};
         trailspace = {};
         tabline = {};
-        icons = {};
 
         # files = {
         #   mappings = {
