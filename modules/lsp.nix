@@ -5,7 +5,7 @@
 }: {
   options = {
     modules.lsp.enable = lib.mkEnableOption "lsp plugin";
-    modules.lsp.all.enable = lib.mkEnableOption "all configured lsp servers";
+    modules.lsp.all.enable = lib.mkEnableOption "all configured language servers";
   };
 
   config = lib.mkIf config.modules.lsp.enable {

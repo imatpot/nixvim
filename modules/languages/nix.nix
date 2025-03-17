@@ -5,7 +5,7 @@
   ...
 }: {
   options = {
-    modules.lsp.nix.enable = lib.mkEnableOption "nix lsp server";
+    modules.lsp.nix.enable = lib.mkEnableOption "nix language server";
     modules.formatter.nix.enable = lib.mkEnableOption "nix formatter";
   };
 
