@@ -1,5 +1,6 @@
 {...}: {
   config = {
+    enableMan = false;
     clipboard.register = "unnamedplus";
 
     opts = {

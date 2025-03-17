@@ -34,9 +34,13 @@
       };
       nixvimLib = nixvim.lib.${system};
       nixvim' = nixvim.legacyPackages.${system};
-      nixvimConfiguration = {
+      config = {
         inherit pkgs;
-        module = import ./configuration.nix;
+
+        module = {
+          imports = utils.umport {paths = [./config ./modules];};
+        };
+
         extraSpecialArgs = let
           lib' = inputs.nixpkgs.lib.extend (self: super: {inherit utils;});
           lib = lib'.extend inputs.nixvim.lib.overlay;
@@ -45,11 +49,12 @@
         };
       };
     in {
-      packages.default = nixvim'.makeNixvimWithModule nixvimConfiguration;
+      packages.default = nixvim'.makeNixvimWithModule config;
 
-      checks.default =
-        nixvimLib.check.mkTestDerivationFromNvim nixvimConfiguration;
+      checks.default = nixvimLib.check.mkTestDerivationFromNvim config;
 
-      formatter = pkgs.alejandra;
+      formatter = pkgs.writeShellScriptBin "alejandra" ''
+        exec ${pkgs.alejandra}/bin/alejandra --quiet "$@"
+      '';
     });
 }
