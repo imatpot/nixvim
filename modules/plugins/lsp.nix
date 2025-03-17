@@ -9,11 +9,6 @@
   };
 
   config = lib.mkIf config.modules.plugins.lsp.enable {
-    # lower semantic token priorities to <100, so treesitter takes priority
-    extraConfigLuaPost = ''
-      vim.highlight.priorities.semantic_tokens = 95
-    '';
-
     plugins.lsp = {
       enable = true;
       inlayHints = true;

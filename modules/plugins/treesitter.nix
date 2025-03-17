@@ -8,6 +8,10 @@
   };
 
   config = lib.mkIf config.modules.plugins.treesitter.enable {
+    extraConfigLuaPost = ''
+      vim.highlight.priorities.semantic_tokens = 95
+    '';
+
     plugins.treesitter = {
       enable = true;
       settings = {
