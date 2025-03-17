@@ -3,6 +3,7 @@
     modules = {
       treesitter.enable = true;
       which-key.enable = true;
+      mini.enable = true;
 
       lsp = {
         enable = true;
