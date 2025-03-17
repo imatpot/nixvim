@@ -1,12 +1,17 @@
 {...}: {
   config = {
     modules = {
+      treesitter.enable = true;
+
       lsp = {
         enable = true;
         all.enable = true;
       };
 
-      treesitter.enable = true;
+      formatter = {
+        enable = true;
+        all.enable = true;
+      };
 
       themes.all.enable = true;
     };
