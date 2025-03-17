@@ -8,7 +8,7 @@
     modules.themes.vscode.enable = lib.mkEnableOption "vscode";
   };
 
-  config = lib.mkIf config.modules.themes.vscode.enable {
+  config = lib.mkIf (config.modules.themes.vscode.enable || config.modules.themes.all.enable) {
     colorschemes.vscode = {
       enable = true;
 
