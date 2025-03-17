@@ -4,10 +4,10 @@
   ...
 }: {
   options = {
-    modules.plugins.treesitter.enable = lib.mkEnableOption "treesitter";
+    modules.treesitter.enable = lib.mkEnableOption "treesitter";
   };
 
-  config = lib.mkIf config.modules.plugins.treesitter.enable {
+  config = lib.mkIf config.modules.treesitter.enable {
     extraConfigLuaPost = ''
       vim.highlight.priorities.semantic_tokens = 95
     '';

@@ -5,10 +5,10 @@
   ...
 }: {
   options = {
-    modules.plugins.kak.enable = lib.mkEnableOption "kak.nvim";
+    modules.kak.enable = lib.mkEnableOption "kak.nvim";
   };
 
-  config = lib.mkIf config.modules.plugins.kak.enable {
+  config = lib.mkIf config.modules.kak.enable {
     extraPlugins = with pkgs.vimPlugins; [
       {
         plugin = kak-nvim;
