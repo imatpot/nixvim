@@ -13,7 +13,6 @@
 
       settings = {
         bigfile.enabled = true;
-        scroll.enabled = true;
         quickfile.enabled = true;
         words.enabled = true;
       };

@@ -88,13 +88,14 @@
 
             window = {
               completion = {
-                scrollbar = false;
+                scrollbar = true;
                 scrolloff = 2;
                 border = "rounded";
                 winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None";
                 col_offset = -4;
                 side_padding = 0;
               };
+
               documentation = {
                 border = "rounded";
                 maxHeight = "math.floor(vim.o.lines / 2)";

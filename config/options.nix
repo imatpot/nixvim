@@ -13,6 +13,7 @@
       cursorline = true;
       expandtab = true;
       filetype = "on";
+      fillchars.eob = " ";
       ignorecase = true;
       linebreak = true;
       number = true;
