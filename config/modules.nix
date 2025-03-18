@@ -6,6 +6,7 @@
       mini.enable = true;
       neo-tree.enable = true;
       telescope.enable = true;
+      indent-lines.enable = true;
 
       lsp = {
         enable = true;
