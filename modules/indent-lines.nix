@@ -4,7 +4,7 @@
   ...
 }: {
   options = {
-    modules.indent-lines.enable = lib.mkEnableOption "indent lines";
+    modules.indent-lines.enable = lib.utils.mkDefaultEnableOption true "indent lines";
   };
 
   config = lib.mkIf config.modules.indent-lines.enable {

@@ -4,7 +4,7 @@
   ...
 }: {
   options = {
-    modules.which-key.enable = lib.mkEnableOption "which-key";
+    modules.which-key.enable = lib.utils.mkDefaultEnableOption true "which-key";
   };
 
   config = lib.mkIf config.modules.which-key.enable {

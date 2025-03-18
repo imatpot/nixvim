@@ -6,8 +6,8 @@
   ...
 }: {
   options = {
-    modules.completions.enable = lib.mkEnableOption "completions";
-    modules.completions.copilot.enable = lib.mkEnableOption "copilot";
+    modules.completions.enable = lib.utils.mkDefaultEnableOption true "completions";
+    modules.completions.copilot.enable = lib.utils.mkDefaultEnableOption true "copilot";
   };
 
   config = let
@@ -101,23 +101,25 @@
               };
             };
 
-            sources = mkSources [
-              "nvim_lsp"
-              "async_path"
-              "buffer"
-              "calc"
-              "digraphs"
-              "emoji"
-              "greek"
-              "nvim_lsp_signature_help"
-              "treesitter"
-              "luasnip"
-              (lib.mkIf config.modules.completions.copilot.enable "copilot")
-              {
-                name = "rg";
-                keyword_length = 3;
-              }
-            ];
+            sources = mkSources (
+              lib.optional config.modules.completions.copilot.enable "copilot"
+              ++ [
+                "nvim_lsp"
+                "async_path"
+                "buffer"
+                "calc"
+                "digraphs"
+                "emoji"
+                "greek"
+                "nvim_lsp_signature_help"
+                "treesitter"
+                "luasnip"
+                {
+                  name = "rg";
+                  keyword_length = 3;
+                }
+              ]
+            );
 
             mapping = {
               "<C-Space>" = ''

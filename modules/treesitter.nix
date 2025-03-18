@@ -4,7 +4,7 @@
   ...
 }: {
   options = {
-    modules.treesitter.enable = lib.mkEnableOption "treesitter";
+    modules.treesitter.enable = lib.utils.mkDefaultEnableOption true "treesitter";
   };
 
   config = lib.mkIf config.modules.treesitter.enable {

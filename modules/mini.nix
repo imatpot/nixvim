@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  options = {modules.mini.enable = lib.mkEnableOption "mini suite";};
+  options = {modules.mini.enable = lib.utils.mkDefaultEnableOption true "mini suite";};
 
   config = lib.mkIf config.modules.mini.enable {
     modules.icons.enable = true;
@@ -12,13 +12,12 @@
       enable = true;
 
       modules = {
-        pairs = {};
-        comment = {};
-        align = {};
-        surround = {};
-        move = {};
-        trailspace = {};
-        tabline = {};
+        pairs.enabled = true;
+        comment.enabled = true;
+        align.enabled = true;
+        surround.enabled = true;
+        move.enabled = true;
+        trailspace.enabled = true;
       };
     };
   };

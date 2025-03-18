@@ -5,7 +5,7 @@
   ...
 }: {
   options = {
-    modules.kak.enable = lib.mkEnableOption "kak.nvim";
+    modules.kak.enable = lib.utils.mkDefaultEnableOption false "kak.nvim";
   };
 
   config = lib.mkIf config.modules.kak.enable {

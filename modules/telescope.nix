@@ -6,7 +6,7 @@
   ...
 }: {
   options = {
-    modules.telescope.enable = lib.mkEnableOption "telescope";
+    modules.telescope.enable = lib.utils.mkDefaultEnableOption true "telescope";
   };
 
   config = lib.mkIf config.modules.telescope.enable {

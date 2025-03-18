@@ -4,7 +4,7 @@
   ...
 }: {
   options = {
-    modules.snacks.enable = lib.mkEnableOption "snacks suite";
+    modules.snacks.enable = lib.utils.mkDefaultEnableOption true "snacks suite";
   };
 
   config = lib.mkIf config.modules.snacks.enable {

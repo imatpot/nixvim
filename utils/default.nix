@@ -4,9 +4,17 @@ args @ {
   lib,
   ...
 }: rec {
+  viml = import ./viml.nix args;
+
   umport = inputs.nypkgs.lib.${system}.umport;
 
-  viml = import ./viml.nix args;
+  mkDefaultEnableOption = default: name:
+    lib.mkOption {
+      inherit default;
+      type = lib.types.bool;
+      example = !default;
+      description = "Whether to enable ${name}";
+    };
 
   enable = xs: fill {enable = true;} xs;
 

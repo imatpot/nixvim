@@ -5,7 +5,7 @@
   ...
 }: {
   options = {
-    modules.themes.vscode.enable = lib.mkEnableOption "vscode";
+    modules.themes.vscode.enable = lib.utils.mkDefaultEnableOption true "vscode";
   };
 
   config = lib.mkIf (config.modules.themes.vscode.enable || config.modules.themes.all.enable) {

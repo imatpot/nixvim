@@ -4,7 +4,7 @@
   ...
 }: {
   options = {
-    modules.neo-tree.enable = lib.mkEnableOption "neo-tree";
+    modules.neo-tree.enable = lib.utils.mkDefaultEnableOption true "neo-tree";
   };
 
   config = lib.mkIf config.modules.neo-tree.enable {

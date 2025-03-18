@@ -38,7 +38,12 @@
         inherit pkgs;
 
         module = {
-          imports = utils.umport {paths = [./config ./modules];};
+          imports = utils.umport {
+            paths = [
+              ./modules
+              ./config
+            ];
+          };
         };
 
         extraSpecialArgs = let
