@@ -4,6 +4,7 @@
       treesitter.enable = true;
       which-key.enable = true;
       mini.enable = true;
+      snacks.enable = true;
       neo-tree.enable = true;
       telescope.enable = true;
       indent-lines.enable = true;
