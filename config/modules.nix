@@ -8,6 +8,8 @@
       neo-tree.enable = true;
       telescope.enable = true;
       indent-lines.enable = true;
+      completions.enable = true;
+      completions.copilot.enable = true;
 
       lsp = {
         enable = true;
