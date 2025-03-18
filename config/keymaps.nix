@@ -51,13 +51,15 @@
       }
 
       {
-        key = "<leader>l";
+        key = "<C-l>";
         action = "<CMD>set cursorline!<CR>";
+        mode = "n";
         options.desc = "Toggle cursorline";
       }
       {
-        key = "<leader>L";
+        key = "<C-c>";
         action = "<CMD>set cursorcolumn!<CR>";
+        mode = "n";
         options.desc = "Toggle cursorcolumn";
       }
 

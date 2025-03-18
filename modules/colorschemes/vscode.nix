@@ -19,6 +19,18 @@
         group_overrides = let
           color = name: helpers.mkRaw "require('vscode.colors').get_colors().${name}";
         in {
+          CursorLine = {
+            bg = color "vscTabCurrent";
+          };
+
+          CursorColumn = {
+            bg = color "vscTabOther";
+          };
+
+          NeoTreeGitIgnored = {
+            fg = color "vscGray";
+          };
+
           "@string.special.path.nix" = {
             fg = color "vscOrange";
           };
