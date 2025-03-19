@@ -7,6 +7,8 @@
     # vimAlias = true;
 
     opts = {
+      timeout = false;
+
       autoindent = true;
       breakindent = true;
       confirm = true;

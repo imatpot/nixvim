@@ -15,9 +15,13 @@
         pairs.enabled = true;
         comment.enabled = true;
         align.enabled = true;
-        surround.enabled = true;
         move.enabled = true;
         trailspace.enabled = true;
+
+        surround = {
+          denabled = true;
+          silent = true;
+        };
       };
     };
   };
