@@ -355,7 +355,7 @@
                   local sections = vim.split(line, ";")
                   local char = utf_8_char(sections[1])
                   local hex = "U+" .. sections[1]
-                  local name = sections[2]:lower()
+                  local name = sections[2]
 
                   if char and name then
                     table.insert(unicode_cmp, {
@@ -366,7 +366,8 @@
                       filterText = char .. " " .. hex .. " " .. name,
                       kind = cmp.lsp.CompletionItemKind.Text,
                       documentation = {
-                        value = hex .. " " .. name,
+                        kind = "markdown",
+                        value = "**" .. hex .. "** *" .. name .. "*",
                       },
                     })
                   end
