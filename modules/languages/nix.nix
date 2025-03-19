@@ -5,16 +5,20 @@
   ...
 }: {
   options = {
-    modules.lsp.nix.enable = lib.utils.mkDefaultEnableOption config.modules.lsp.all.enable "nix language server";
-    modules.formatter.nix.enable = lib.utils.mkDefaultEnableOption config.modules.formatter.all.enable "nix formatter";
+    modules.languages.nix = {
+      enable = lib.utils.mkDefaultEnableOption config.modules.languages.all.enable "Nix";
+
+      lsp.enable = lib.utils.mkDefaultEnableOption config.modules.languages.nix.enable "Nix language server";
+      formatter.enable = lib.utils.mkDefaultEnableOption config.modules.languages.nix.enable "Nix formatter";
+    };
   };
 
   config = {
-    plugins.lsp.servers = lib.mkIf (config.modules.lsp.nix.enable) {
+    plugins.lsp.servers = lib.mkIf (config.modules.languages.nix.lsp.enable) {
       nil_ls.enable = true;
     };
 
-    plugins.conform-nvim = lib.mkIf (config.modules.formatter.nix.enable) {
+    plugins.conform-nvim = lib.mkIf (config.modules.languages.nix.formatter.enable) {
       settings = {
         formatters_by_ft.nix = {
           __unkeyed-1 = "alejandra";

@@ -5,7 +5,6 @@
 }: {
   options = {
     modules.formatter.enable = lib.utils.mkDefaultEnableOption true "formatter";
-    modules.formatter.all.enable = lib.utils.mkDefaultEnableOption true "all configured formatters";
   };
 
   config = lib.mkIf config.modules.formatter.enable {
