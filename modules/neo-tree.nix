@@ -16,6 +16,10 @@
       closeIfLastWindow = true;
 
       filesystem = {
+        scanMode = "deep";
+        groupEmptyDirs = true;
+        followCurrentFile.enabled = true;
+
         window.mappings = {
           n = "add";
           N = "add_directory";
@@ -35,6 +39,10 @@
       };
 
       defaultComponentConfigs = {
+        indent = {
+          highlight = "NeoTreeIndentMarker2";
+        };
+
         diagnostics.symbols = {
           error = "E";
           hint = "H";

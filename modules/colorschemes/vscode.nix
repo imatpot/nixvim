@@ -31,6 +31,11 @@
             fg = color "vscGray";
           };
 
+          NeoTreeIndentMarker2 = {
+            bg = color "vscNone";
+            fg = color "vscGray";
+          };
+
           "@string.special.path.nix" = {
             fg = color "vscOrange";
           };
