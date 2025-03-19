@@ -303,10 +303,14 @@
               local byte2 = 0x80 + (math.floor(code / 0x1000) % 0x40)
               local byte3 = 0x80 + (math.floor(code / 0x40) % 0x40)
               local byte4 = 0x80 + (code % 0x40)
-              return string.char(byte1, byte2, byte3, byte4)
+              return string.format(string.char(byte1, byte2, byte3, byte4))
             else
               error("Invalid Unicode: " .. hex)
             end
+          end
+
+          function contains_utf8_control_chars(str)
+            return str:match("[''\0-''\31''\127-''\159]") ~= nil
           end
 
           cmp.register_source('unicode', {
@@ -347,7 +351,7 @@
                   local contents = file:read("*a")
                   file:close()
                   unicode_table = vim.tbl_filter(function(line)
-                    return line ~= ""
+                    return line ~= "" and not contains_utf8_control_chars(line)
                   end, vim.split(contents, "\n"))
                 end
 
