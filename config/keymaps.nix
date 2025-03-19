@@ -6,6 +6,13 @@
 
     keymaps = [
       {
+        key = "U";
+        action = "<C-r>";
+        mode = "n";
+        options.desc = "Redo";
+      }
+
+      {
         key = "<C-k>";
         action = "<C-u>";
         mode = "n";
