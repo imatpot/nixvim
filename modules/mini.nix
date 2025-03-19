@@ -6,7 +6,7 @@
   options = {modules.mini.enable = lib.utils.mkDefaultEnableOption true "mini suite";};
 
   config = lib.mkIf config.modules.mini.enable {
-    modules.icons.enable = true;
+    modules.icons.enable = lib.mkForce true;
 
     plugins.mini = {
       enable = true;

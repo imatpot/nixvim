@@ -8,7 +8,7 @@
   };
 
   config = lib.mkIf config.modules.neo-tree.enable {
-    modules.icons.enable = true;
+    modules.icons.enable = lib.mkForce true;
 
     plugins.neo-tree = {
       enable = true;
