@@ -76,27 +76,52 @@
             snippet.expand = "function(args) luasnip.lsp_expand(args.body) end";
 
             formatting = {
-              fields = ["kind" "abbr"];
+              fields = ["kind" "abbr" "menu"];
               format =
                 ''
                   function(entry, vim_item)
-                    local kind = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+                    local format = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+
+                    local strings = vim.split(format.kind, "%s", { trimempty = true })
+                    local icon = strings[1] or ""
+                    local description = strings[2] or ""
+
+                    local description_delim = ""
+                    if description ~= "" then
+                      description_delim = "."
+                    end
+
+                    format.menu = "    " .. entry.source.name .. description_delim .. description
+
+                    if entry.source.name == "rg" then
+                      icon = "";
+                    end
+
+                    if entry.source.name == "luasnip" then
+                      icon = "";
+                    end
+
+                    if entry.source.name == "calc" then
+                      icon = "";
+                    end
                 ''
                 + lib.optionalString config.modules.completions.unicode.enable ''
                   --
                     if entry.source.name == "unicode" then
-                      kind.kind = " 󰻐 ";
-                      kind.menu = "    Unicode"
-                      return kind
+                      icon = "󰻐";
+                    end
+                  --
+                ''
+                + lib.optionalString config.modules.completions.copilot.enable ''
+                  --
+                    if entry.source.name == "copilot" then
+                      icon = "";
                     end
                   --
                 ''
                 + ''
-                    local strings = vim.split(kind.kind, "%s", { trimempty = true })
-                    kind.kind = " " .. (strings[1] or "") .. " "
-                    kind.menu = "    " .. (strings[2] or "")
-
-                    return kind
+                    format.kind = " " .. icon .. " "
+                    return format
                   end
                 '';
             };
@@ -113,7 +138,7 @@
 
               documentation = {
                 border = "rounded";
-                maxHeight = "math.floor(vim.o.lines / 2)";
+                max_height = "math.floor(vim.o.lines / 2)";
               };
             };
 
@@ -331,16 +356,18 @@
                   local char = utf_8_char(sections[1])
                   local hex = "U+" .. sections[1]
                   local name = sections[2]:lower()
-                  local label = char .. " " .. hex .. " " .. name
 
                   if char and name then
                     table.insert(unicode_cmp, {
                       word = char,
                       abbr = char,
-                      label = label,
+                      label = char,
                       insertText = char,
-                      filterText = label,
+                      filterText = char .. " " .. hex .. " " .. name,
                       kind = cmp.lsp.CompletionItemKind.Text,
+                      documentation = {
+                        value = hex .. " " .. name,
+                      },
                     })
                   end
                 end
