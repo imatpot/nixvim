@@ -103,8 +103,7 @@
             };
 
             sources = mkSources (
-              lib.optional config.modules.completions.copilot.enable "copilot"
-              ++ [
+              [
                 "nvim_lsp"
                 "async_path"
                 "buffer"
@@ -117,10 +116,42 @@
                 "luasnip"
                 {
                   name = "rg";
-                  keyword_length = 3;
+                  keyword_length = 5;
+                  group_index = 3;
                 }
               ]
+              ++ lib.optionals config.modules.completions.copilot.enable [
+                "copilot"
+              ]
             );
+
+            sorting = {
+              priority_weight = 2;
+              comparators =
+                lib.optionals config.modules.completions.copilot.enable [
+                  ''
+                    function(entry1, entry2)
+                      local copilot1 = entry1.source.name == "copilot"
+                      local copilot2 = entry2.source.name == "copilot"
+                      if copilot1 and not copilot2 then
+                        return true
+                      elseif not copilot1 and copilot2 then
+                        return false
+                      end
+                    end
+                  ''
+                ]
+                ++ [
+                  # defaults
+                  "cmp.config.compare.offset"
+                  "cmp.config.compare.exact"
+                  "cmp.config.compare.score"
+                  "cmp.config.compare.recently_used"
+                  "cmp.config.compare.kind"
+                  "cmp.config.compare.length"
+                  "cmp.config.compare.order"
+                ];
+            };
 
             mapping = {
               "<C-Space>" = ''
