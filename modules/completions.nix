@@ -6,8 +6,11 @@
   ...
 }: {
   options = {
-    modules.completions.enable = lib.utils.mkDefaultEnableOption true "completions";
-    modules.completions.copilot.enable = lib.utils.mkDefaultEnableOption true "copilot";
+    modules.completions = {
+      enable = lib.utils.mkDefaultEnableOption true "completions";
+      unicode.enable = lib.utils.mkDefaultEnableOption true "unicode";
+      copilot.enable = lib.utils.mkDefaultEnableOption true "copilot";
+    };
   };
 
   config = let
@@ -73,17 +76,29 @@
             snippet.expand = "function(args) luasnip.lsp_expand(args.body) end";
 
             formatting = {
-              fields = ["kind" "abbr" "menu"];
-              format = ''
-                function(entry, vim_item)
-                  local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
-                  local strings = vim.split(kind.kind, "%s", { trimempty = true })
-                  kind.kind = " " .. (strings[1] or "") .. " "
-                  kind.menu = "    " .. (strings[2] or "")
+              fields = ["kind" "abbr"];
+              format =
+                ''
+                  function(entry, vim_item)
+                    local kind = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+                ''
+                + lib.optionalString config.modules.completions.unicode.enable ''
+                  --
+                    if entry.source.name == "unicode" then
+                      kind.kind = " 󰻐 ";
+                      kind.menu = "    Unicode"
+                      return kind
+                    end
+                  --
+                ''
+                + ''
+                    local strings = vim.split(kind.kind, "%s", { trimempty = true })
+                    kind.kind = " " .. (strings[1] or "") .. " "
+                    kind.menu = "    " .. (strings[2] or "")
 
-                  return kind
-                end
-              '';
+                    return kind
+                  end
+                '';
             };
 
             window = {
@@ -108,17 +123,13 @@
                 "async_path"
                 "buffer"
                 "calc"
-                "digraphs"
-                "emoji"
-                "greek"
                 "nvim_lsp_signature_help"
                 "treesitter"
                 "luasnip"
-                {
-                  name = "rg";
-                  keyword_length = 5;
-                  group_index = 3;
-                }
+                "rg"
+              ]
+              ++ lib.optionals config.modules.completions.unicode.enable [
+                "unicode"
               ]
               ++ lib.optionals config.modules.completions.copilot.enable [
                 "copilot"
@@ -128,21 +139,33 @@
             sorting = {
               priority_weight = 2;
               comparators =
-                lib.optionals config.modules.completions.copilot.enable [
+                lib.optionals config.modules.completions.unicode.enable [
                   ''
-                    function(entry1, entry2)
-                      local copilot1 = entry1.source.name == "copilot"
-                      local copilot2 = entry2.source.name == "copilot"
-                      if copilot1 and not copilot2 then
+                    function(a, b)
+                      local a_unicode = a.source.name == "unicode"
+                      local b_unicode = b.source.name == "unicode"
+                      if a_unicode and b_unicode then
+                        a_code = tonumber(a.filter_text:match("U%+(%x+)"), 16)
+                        b_code = tonumber(b.filter_text:match("U%+(%x+)"), 16)
+                        return a_code < b_code
+                      end
+                    end
+                  ''
+                ]
+                ++ lib.optionals config.modules.completions.copilot.enable [
+                  ''
+                    function(a, b)
+                      local a_copilot = a.source.name == "copilot"
+                      local b_copilot = b.source.name == "copilot"
+                      if a_copilot and not b_copilot then
                         return true
-                      elseif not copilot1 and copilot2 then
+                      elseif not a_copilot and b_copilot then
                         return false
                       end
                     end
                   ''
                 ]
                 ++ [
-                  # defaults
                   "cmp.config.compare.offset"
                   "cmp.config.compare.exact"
                   "cmp.config.compare.score"
@@ -227,16 +250,117 @@
         };
       };
 
+      extraConfigLuaPre =
+        ''
+          luasnip = require("luasnip")
+          lspkind = require("lspkind")
+          cmp = require("cmp")
+        ''
+        + lib.optionalString config.modules.completions.unicode.enable ''
+          unicode_table = {} -- populated in autocommand
+          unicode_cmp = {} -- populated in autocommand
+
+          function utf_8_char(hex)
+            code = tonumber(hex, 16)
+            if code < 0x80 then
+              return string.char(code)
+            elseif code < 0x800 then
+              local byte1 = 0xC0 + math.floor(code / 0x40)
+              local byte2 = 0x80 + (code % 0x40)
+              return string.char(byte1, byte2)
+            elseif code < 0x10000 then
+              local byte1 = 0xE0 + math.floor(code / 0x1000)
+              local byte2 = 0x80 + (math.floor(code / 0x40) % 0x40)
+              local byte3 = 0x80 + (code % 0x40)
+              return string.char(byte1, byte2, byte3)
+            elseif code < 0x200000 then
+              local byte1 = 0xF0 + math.floor(code / 0x40000)
+              local byte2 = 0x80 + (math.floor(code / 0x1000) % 0x40)
+              local byte3 = 0x80 + (math.floor(code / 0x40) % 0x40)
+              local byte4 = 0x80 + (code % 0x40)
+              return string.char(byte1, byte2, byte3, byte4)
+            else
+              error("Invalid Unicode: " .. hex)
+            end
+          end
+
+          cmp.register_source('unicode', {
+            -- keyword_length = 3,
+            complete = function(self, request, callback)
+              callback({ items = unicode_cmp, isIncomplete = false })
+            end
+          })
+        '';
+
+      autoCmd = lib.optionals config.modules.completions.unicode.enable [
+        {
+          event = ["VimEnter"];
+          pattern = ["*"];
+          callback = helpers.mkRaw ''
+            function()
+              vim.defer_fn(function()
+                local unicode_file = vim.fn.stdpath('data') .. '/site/unicode/UnicodeData.txt'
+
+                local function should_update_unicode_table()
+                  local one_month = 30 * 24 * 60 * 60
+
+                  local stat = vim.loop.fs_stat(unicode_file)
+                  if stat then
+                    local age = os.time() - stat.mtime.sec
+                    return age > one_month
+                  end
+
+                  return true
+                end
+
+                if should_update_unicode_table() then
+                    vim.cmd("silent! UnicodeDownload!")
+                end
+
+                local file = io.open(unicode_file, "r")
+                if file then
+                  local contents = file:read("*a")
+                  file:close()
+                  unicode_table = vim.tbl_filter(function(line)
+                    return line ~= ""
+                  end, vim.split(contents, "\n"))
+                end
+
+                for _, line in ipairs(unicode_table) do
+                  local sections = vim.split(line, ";")
+                  local char = utf_8_char(sections[1])
+                  local hex = "U+" .. sections[1]
+                  local name = sections[2]:lower()
+                  local label = char .. " " .. hex .. " " .. name
+
+                  if char and name then
+                    table.insert(unicode_cmp, {
+                      word = char,
+                      abbr = char,
+                      label = label,
+                      insertText = char,
+                      filterText = label,
+                      kind = cmp.lsp.CompletionItemKind.Text,
+                    })
+                  end
+                end
+              end, 1000)
+            end
+          '';
+        }
+      ];
+
       extraPackages = with pkgs; [
         ripgrep
       ];
 
-      extraPlugins = with pkgs.vimPlugins; [
-        lspkind-nvim
-      ];
-
-      extraConfigLuaPre = ''
-        luasnip = require("luasnip")
-      '';
+      extraPlugins = with pkgs.vimPlugins; (
+        [
+          lspkind-nvim
+        ]
+        ++ lib.optionals config.modules.completions.unicode.enable [
+          unicode-vim
+        ]
+      );
     };
 }
