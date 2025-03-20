@@ -24,5 +24,20 @@
         };
       };
     };
+
+    keymaps = [
+      {
+        key = "<leader>c";
+        action = ''<CMD>lua MiniComment.toggle_lines(vim.fn.line("."), vim.fn.line("."))<CR>'';
+        mode = "n";
+        options.desc = "Toggle comment";
+      }
+      {
+        key = "<leader>c";
+        action = ''<CMD>lua MiniComment.toggle_visual()<CR>'';
+        mode = "v";
+        options.desc = "Toggle comment";
+      }
+    ];
   };
 }
