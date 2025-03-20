@@ -36,6 +36,14 @@
             fg = color "vscGray";
           };
 
+          IndentLine = {
+            fg = color "vscCursorDarkDark";
+          };
+
+          IndentLineCurrent = {
+            fg = color "vscLineNumber";
+          };
+
           "@string.special.path.nix" = {
             fg = color "vscOrange";
           };

@@ -23,5 +23,16 @@ self: super: {
         };
         doCheck = false;
       };
+
+      indentmini = super.vimUtils.buildVimPlugin rec {
+        name = "indentmini.nvim";
+        src = super.fetchFromGitHub {
+          owner = "nvimdev";
+          repo = name;
+          rev = "59c2be5387e3a3308bb43f07e7e39fde0628bd4d";
+          hash = "sha256-RtNPlILvlEyIFfDK8NTq8LPZR5vIl6uBxeE3vftUS6g=";
+        };
+        doCheck = false;
+      };
     };
 }
