@@ -23,15 +23,18 @@
     ...
   }:
     flakeUtils.lib.eachDefaultSystem (system: let
-      lib = nixpkgs.lib;
+      lib'' = nixpkgs.lib;
       pkgs = import nixpkgs {
         inherit system;
         config = {allowUnfree = true;};
         overlays = [(import ./overlays/vim-plugins.nix)];
       };
       utils = import ./utils {
-        inherit inputs system pkgs lib;
+        inherit inputs system pkgs;
+        lib = lib'';
       };
+      lib' = inputs.nixpkgs.lib.extend (self: super: {inherit utils;});
+      lib = lib'.extend inputs.nixvim.lib.overlay;
       nixvimLib = nixvim.lib.${system};
       nixvim' = nixvim.legacyPackages.${system};
       config = {
@@ -46,10 +49,7 @@
           };
         };
 
-        extraSpecialArgs = let
-          lib' = inputs.nixpkgs.lib.extend (self: super: {inherit utils;});
-          lib = lib'.extend inputs.nixvim.lib.overlay;
-        in {
+        extraSpecialArgs = {
           inherit inputs lib;
         };
       };
@@ -58,7 +58,7 @@
       packages = {
         default = nvim;
         updater = pkgs.writeShellScriptBin "nixvim-flake-updater" ''
-          ${lib.getExe pkgs.update-nix-fetchgit} --verbose ./**/*.nix 2>&1 | grep --line-buffered -i "updating"
+          ${lib''.getExe pkgs.update-nix-fetchgit} --verbose ./**/*.nix 2>&1 | grep --line-buffered -i "updating"
           nix flake update
         '';
       };

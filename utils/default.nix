@@ -4,6 +4,7 @@ args @ {
   lib,
   ...
 }: rec {
+  modules = import ./modules.nix (args // {inherit mkDefaultEnableOption;});
   viml = import ./viml.nix args;
 
   umport = inputs.nypkgs.lib.${system}.umport;
