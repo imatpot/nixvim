@@ -21,9 +21,7 @@
 
       conform-nvim = lib.mkIf (config.modules.languages.nix.formatter.enable) {
         settings = {
-          formatters_by_ft.nix = {
-            __unkeyed-1 = "alejandra";
-          };
+          formatters_by_ft.nix = ["alejandra"];
 
           formatters.alejandra = {
             command = lib.getExe pkgs.alejandra;
