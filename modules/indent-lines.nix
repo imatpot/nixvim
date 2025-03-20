@@ -10,7 +10,14 @@
   config = lib.mkIf config.modules.indent-lines.enable {
     plugins.indent-blankline = {
       enable = true;
-      settings.indent.char = "▏";
+      settings = {
+        indent.char = "▏";
+        scope = {
+          highlight = ["@punctuation.delimiter"];
+          show_start = false;
+          show_end = false;
+        };
+      };
     };
   };
 }
