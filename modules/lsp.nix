@@ -10,7 +10,7 @@
   config = lib.mkIf config.modules.lsp.enable {
     plugins.lsp = {
       enable = true;
-      inlayHints = true;
+      inlayHints = false;
     };
 
     keymaps = let
@@ -36,7 +36,7 @@
         options.desc = "Rename";
       }
       {
-        key = "<C-i>";
+        key = "<C-h>";
         action = "<CMD>${lsp}.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>";
         options.desc = "Toggle inlay hints";
       }
