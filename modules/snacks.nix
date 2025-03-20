@@ -2,20 +2,15 @@
   config,
   lib,
   ...
-}: {
-  options = {
-    modules.snacks.enable = lib.utils.mkDefaultEnableOption true "snacks suite";
-  };
+}:
+lib.utils.modules.mkSimple config "snacks" true {
+  plugins.snacks = {
+    enable = true;
 
-  config = lib.mkIf config.modules.snacks.enable {
-    plugins.snacks = {
-      enable = true;
-
-      settings = {
-        bigfile.enabled = true;
-        quickfile.enabled = true;
-        words.enabled = true;
-      };
+    settings = {
+      bigfile.enabled = true;
+      quickfile.enabled = true;
+      words.enabled = true;
     };
   };
 }

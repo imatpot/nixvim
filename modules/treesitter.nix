@@ -2,28 +2,23 @@
   config,
   lib,
   ...
-}: {
-  options = {
-    modules.treesitter.enable = lib.utils.mkDefaultEnableOption true "treesitter";
-  };
+}:
+lib.utils.modules.mkSimple config "treesitter" true {
+  extraConfigLuaPost = ''
+    vim.highlight.priorities.semantic_tokens = 95
+  '';
 
-  config = lib.mkIf config.modules.treesitter.enable {
-    extraConfigLuaPost = ''
-      vim.highlight.priorities.semantic_tokens = 95
-    '';
-
-    plugins = {
-      treesitter = {
-        enable = true;
-        settings = {
-          highlight = {
-            enable = true;
-            additional_vim_regex_highlighting = false;
-          };
+  plugins = {
+    treesitter = {
+      enable = true;
+      settings = {
+        highlight = {
+          enable = true;
+          additional_vim_regex_highlighting = false;
         };
       };
-
-      treesitter-textobjects.enable = true;
     };
+
+    treesitter-textobjects.enable = true;
   };
 }

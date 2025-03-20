@@ -1,4 +1,15 @@
-{mkDefaultEnableOption, ...}: {
+{
+  lib,
+  mkDefaultEnableOption,
+  ...
+}: {
+  mkSimple = config: name: enableByDefault: moduleConfig: {
+    options.modules.${name}.enable = mkDefaultEnableOption enableByDefault name;
+    config =
+      lib.mkIf config.modules.${name}.enable
+      moduleConfig;
+  };
+
   mkLanguage = config: language: moduleConfig: {
     options.modules.languages.${language} = {
       enable =
@@ -14,6 +25,19 @@
         "${language} formatter";
     };
 
-    config = moduleConfig;
+    config =
+      lib.mkIf config.modules.languages.${language}.enable
+      moduleConfig;
+  };
+
+  mkTheme = config: name: moduleConfig: {
+    options.modules.themes.${name}.enable =
+      mkDefaultEnableOption
+      config.modules.themes.all.enable
+      name;
+
+    config =
+      lib.mkIf config.modules.themes.${name}.enable
+      moduleConfig;
   };
 }
