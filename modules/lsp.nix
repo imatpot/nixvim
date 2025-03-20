@@ -14,19 +14,19 @@ lib.utils.modules.mkSimple config "lsp" true {
     lspBuffer = "${lsp}.buf";
   in [
     {
-      key = "<C-.>";
+      key = "<leader>.";
       action = "<CMD>${lspBuffer}.code_action()<CR>";
       mode = ["n" "i"];
       options.desc = "Code action";
     }
     {
-      key = "<C-.>";
+      key = "<leader>.";
       action = "<CMD>lua vim.lsp.buf.range_code_action()<CR>";
       mode = ["x"];
       options.desc = "Code actions";
     }
     {
-      key = "<C-r>";
+      key = "<leader>r";
       action = "<CMD>${lspBuffer}.rename()<CR>";
       mode = ["n" "i"];
       options.desc = "Rename";
