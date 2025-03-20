@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkSimple config "mini" true {
+lib.utils.modules.mkSimple config true "mini" {
   modules.icons.enable = lib.mkForce true;
 
   plugins.mini = {

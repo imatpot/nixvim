@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkSimple config "toggleterm" true {
+lib.utils.modules.mkSimple config true "toggleterm" {
   plugins.toggleterm = {
     enable = true;
     settings = {

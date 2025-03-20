@@ -5,7 +5,7 @@
   helpers,
   ...
 }:
-lib.utils.modules.mkSimple config "telescope" true {
+lib.utils.modules.mkSimple config true "telescope" {
   plugins.telescope = {
     enable = true;
 

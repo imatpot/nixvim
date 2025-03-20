@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkSimple config "treesitter" true {
+lib.utils.modules.mkSimple config true "treesitter" {
   extraConfigLuaPost = ''
     vim.highlight.priorities.semantic_tokens = 95
   '';

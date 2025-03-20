@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkSimple config "lsp" true {
+lib.utils.modules.mkSimple config true "lsp" {
   plugins.lsp = {
     enable = true;
     inlayHints = false;

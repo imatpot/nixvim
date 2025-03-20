@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkSimple config "indents" true {
+lib.utils.modules.mkSimple config true "indents" {
   plugins.intellitab.enable = true;
   extraPlugins = with pkgs.vimPlugins; [
     {

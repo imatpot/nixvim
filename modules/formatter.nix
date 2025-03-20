@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkSimple config "formatter" true {
+lib.utils.modules.mkSimple config true "formatter" {
   plugins.conform-nvim.enable = true;
 
   keymaps = let

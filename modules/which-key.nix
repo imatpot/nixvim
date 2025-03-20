@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkSimple config "which-key" true {
+lib.utils.modules.mkSimple config true "which-key" {
   plugins.which-key = {
     enable = true;
     settings = {

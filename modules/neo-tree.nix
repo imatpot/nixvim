@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkSimple config "neo-tree" true {
+lib.utils.modules.mkSimple config true "neo-tree" {
   modules.icons.enable = lib.mkForce true;
 
   plugins.neo-tree = {
