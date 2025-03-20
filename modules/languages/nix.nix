@@ -14,21 +14,25 @@
   };
 
   config = {
-    plugins.lsp.servers = lib.mkIf (config.modules.languages.nix.lsp.enable) {
-      nil_ls.enable = true;
-    };
+    plugins = {
+      lsp.servers = lib.mkIf (config.modules.languages.nix.lsp.enable) {
+        nil_ls.enable = true;
+      };
 
-    plugins.conform-nvim = lib.mkIf (config.modules.languages.nix.formatter.enable) {
-      settings = {
-        formatters_by_ft.nix = {
-          __unkeyed-1 = "alejandra";
-        };
+      conform-nvim = lib.mkIf (config.modules.languages.nix.formatter.enable) {
+        settings = {
+          formatters_by_ft.nix = {
+            __unkeyed-1 = "alejandra";
+          };
 
-        formatters.alejandra = {
-          command = lib.getExe pkgs.alejandra;
-          args = ["--quiet" "-"];
+          formatters.alejandra = {
+            command = lib.getExe pkgs.alejandra;
+            args = ["--quiet" "-"];
+          };
         };
       };
+
+      hmts.enable = true;
     };
   };
 }
