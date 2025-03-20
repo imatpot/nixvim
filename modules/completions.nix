@@ -8,8 +8,8 @@
   options = {
     modules.completions = {
       enable = lib.utils.mkDefaultEnableOption true "completions";
-      unicode.enable = lib.utils.mkDefaultEnableOption true "unicode";
-      copilot.enable = lib.utils.mkDefaultEnableOption true "copilot";
+      unicode.enable = lib.utils.mkDefaultEnableOption config.modules.completions.enable "unicode";
+      copilot.enable = lib.utils.mkDefaultEnableOption config.modules.completions.enable "copilot";
     };
   };
 
@@ -309,8 +309,22 @@
             end
           end
 
-          function contains_utf8_control_chars(str)
-            return str:match("[''\0-''\31''\127-''\159]") ~= nil
+          function is_control_char(hex)
+            local code = tonumber(hex, 16)
+
+            if not code then
+              return false
+            end
+
+            if
+              (code >= 0x00 and code <= 0x1F)
+              or (code == 0x7F)
+              or (code >= 0x80 and code <= 0x9F)
+            then
+              return true
+            end
+
+            return false
           end
 
           cmp.register_source('unicode', {
@@ -351,7 +365,7 @@
                   local contents = file:read("*a")
                   file:close()
                   unicode_table = vim.tbl_filter(function(line)
-                    return line ~= "" and not contains_utf8_control_chars(line)
+                    return line ~= ""
                   end, vim.split(contents, "\n"))
                 end
 
@@ -361,7 +375,7 @@
                   local hex = "U+" .. sections[1]
                   local name = sections[2]
 
-                  if char and name then
+                  if char and name and not is_control_char(sections[1]) then
                     table.insert(unicode_cmp, {
                       word = char,
                       abbr = char,
