@@ -71,6 +71,12 @@
       }
 
       {
+        key = "<leader>s";
+        action = ":%!sort<CR>";
+        mode = ["n" "v"];
+        options.desc = "Sort lines";
+      }
+      {
         key = "<leader> ";
         action = "<CMD>nohlsearch<CR>";
         options.desc = "Turn off highlighted matches";
