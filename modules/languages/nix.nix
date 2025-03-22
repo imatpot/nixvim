@@ -7,7 +7,7 @@
 lib.utils.modules.mkLanguage config "nix" {
   plugins = {
     lsp.servers = lib.mkIf (config.modules.languages.nix.lsp.enable) {
-      nil_ls.enable = true;
+      nixd.enable = true;
     };
 
     conform-nvim = lib.mkIf (config.modules.languages.nix.formatter.enable) {
