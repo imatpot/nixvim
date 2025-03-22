@@ -13,7 +13,10 @@ lib.utils.modules.mkLanguage config "lua" {
     conform-nvim = lib.mkIf (config.modules.languages.lua.formatter.enable) {
       settings = {
         formatters_by_ft.lua = ["stylua"];
-        formatters.stylua.command = lib.getExe pkgs.stylua;
+        formatters.stylua = {
+          command = lib.getExe pkgs.stylua;
+          args = ["--indent-type" "Spaces" "--indent-width" "2" "-"];
+        };
       };
     };
   };
