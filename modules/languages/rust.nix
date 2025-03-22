@@ -7,6 +7,7 @@
 lib.utils.modules.mkLanguage config "rust" {
   plugins = {
     rustaceanvim = lib.mkIf (config.modules.languages.rust.lsp.enable) {
+      # TODO: configure components (analyzer, clippy, etc.)
       enable = true;
     };
 

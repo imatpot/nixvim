@@ -20,6 +20,10 @@
         mkDefaultEnableOption config.modules.languages.${language}.enable
         "${language} lsp";
 
+      linter.enable =
+        mkDefaultEnableOption config.modules.languages.${language}.enable
+        "${language} linter";
+
       formatter.enable =
         mkDefaultEnableOption config.modules.languages.${language}.enable
         "${language} formatter";

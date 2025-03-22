@@ -10,6 +10,10 @@ lib.utils.modules.mkLanguage config "nix" {
       nixd.enable = true;
     };
 
+    lint.lintersByFt = lib.mkIf (config.modules.languages.nix.linter.enable) {
+      nix = ["statix" "deadnix"];
+    };
+
     conform-nvim = lib.mkIf (config.modules.languages.nix.formatter.enable) {
       settings = {
         formatters_by_ft.nix = ["alejandra"];

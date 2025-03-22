@@ -10,6 +10,10 @@ lib.utils.modules.mkLanguage config "lua" {
       lua_ls.enable = true;
     };
 
+    lint.lintersByFt = lib.mkIf (config.modules.languages.nix.linter.enable) {
+      nix = ["luacheck" "selene"];
+    };
+
     conform-nvim = lib.mkIf (config.modules.languages.lua.formatter.enable) {
       settings = {
         formatters_by_ft.lua = ["stylua"];

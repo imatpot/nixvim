@@ -10,6 +10,10 @@ lib.utils.modules.mkLanguage config "shell" {
       bashls.enable = true;
     };
 
+    lint.lintersByFt = lib.mkIf (config.modules.languages.nix.linter.enable) {
+      nix = ["shellcheck"];
+    };
+
     conform-nvim = lib.mkIf (config.modules.languages.shell.formatter.enable) {
       settings = {
         formatters_by_ft.bash = ["shfmt"];
