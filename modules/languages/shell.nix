@@ -11,7 +11,7 @@ lib.utils.modules.mkLanguage config "shell" {
     };
 
     lint.lintersByFt = lib.mkIf (config.modules.languages.nix.linter.enable) {
-      nix = ["shellcheck"];
+      bash = ["shellcheck"];
     };
 
     conform-nvim = lib.mkIf (config.modules.languages.shell.formatter.enable) {

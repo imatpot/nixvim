@@ -11,7 +11,7 @@ lib.utils.modules.mkLanguage config "lua" {
     };
 
     lint.lintersByFt = lib.mkIf (config.modules.languages.nix.linter.enable) {
-      nix = ["luacheck" "selene"];
+      lua = ["luacheck" "selene"];
     };
 
     conform-nvim = lib.mkIf (config.modules.languages.lua.formatter.enable) {
