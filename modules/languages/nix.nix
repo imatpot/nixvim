@@ -5,26 +5,25 @@
   ...
 }:
 lib.utils.modules.mkLanguage config "nix" {
-  plugins = {
-    lsp.servers = lib.mkIf (config.modules.languages.nix.lsp.enable) {
-      nixd.enable = true;
+  lsp = {
+    plugins = {
+      lsp.servers.nixd.enable = true;
+      hmts.enable = true;
     };
+  };
 
-    lint.lintersByFt = lib.mkIf (config.modules.languages.nix.linter.enable) {
-      nix = ["statix" "deadnix"];
-    };
+  linter = {
+    plugins.lint.lintersByFt.nix = ["statix" "deadnix"];
+  };
 
-    conform-nvim = lib.mkIf (config.modules.languages.nix.formatter.enable) {
-      settings = {
-        formatters_by_ft.nix = ["alejandra"];
+  formatter = {
+    plugins.conform-nvim.settings = {
+      formatters_by_ft.nix = ["alejandra"];
 
-        formatters.alejandra = {
-          command = lib.getExe pkgs.alejandra;
-          args = ["--quiet" "-"];
-        };
+      formatters.alejandra = {
+        command = lib.getExe pkgs.alejandra;
+        args = ["--quiet" "-"];
       };
     };
-
-    hmts.enable = true;
   };
 }
