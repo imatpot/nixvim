@@ -33,7 +33,7 @@ lib.utils.modules.mkSimple config true "toggleterm" {
 
   keymaps = [
     {
-      key = "<C-g>";
+      key = "<leader>G";
       action = "<CMD>lua ToggleGitUi()<CR>";
       options.desc = "Toggle GitUI";
     }

@@ -32,10 +32,11 @@ lib.utils.modules.mkSimple config true "lsp" {
       options.desc = "Rename";
     }
     {
-      key = "<C-h>";
+      key = "<leader>h";
       action = "<CMD>${lsp}.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>";
       options.desc = "Toggle inlay hints";
     }
+
     {
       key = "gd";
       action = "<CMD>lua vim.lsp.buf.definition()<CR>";

@@ -2,27 +2,15 @@
   config = {
     globals = {
       mapleader = " ";
+      maplocalleader = ",";
     };
 
     keymaps = [
       {
-        key = "U";
-        action = "<C-r>";
-        mode = "n";
-        options.desc = "Redo";
-      }
-
-      {
-        key = "<C-k>";
-        action = "<C-u>";
-        mode = "n";
-        options.desc = "Jump up half a page";
-      }
-      {
-        key = "<C-j>";
-        action = "<C-d>";
-        mode = "n";
-        options.desc = "Jump down half a page";
+        key = "D";
+        action = ''"_d'';
+        mode = ["n" "v"];
+        options.desc = "Delete and discard";
       }
 
       {
@@ -51,30 +39,48 @@
       }
 
       {
-        key = "<C-d>";
-        action = "£";
-        mode = ["n"];
-        options.desc = "Go to previous occurence";
-      }
-
-      {
-        key = "<C-l>";
-        action = "<CMD>set cursorline!<CR>";
-        mode = "n";
-        options.desc = "Toggle cursorline";
-      }
-      {
-        key = "<C-c>";
-        action = "<CMD>set cursorcolumn!<CR>";
-        mode = "n";
-        options.desc = "Toggle cursorcolumn";
-      }
-
-      {
-        key = "<leader>s";
+        key = "<leader><down>";
         action = ":%!sort<CR>";
         mode = ["n" "v"];
         options.desc = "Sort lines";
+      }
+
+      {
+        key = "<leader>q";
+        action = "<CMD>q<CR>";
+        mode = ["n" "v"];
+        options.desc = "Quit";
+      }
+      {
+        key = "<leader>Q";
+        action = "<CMD>qa<CR>";
+        mode = ["n" "v"];
+        options.desc = "Quit all";
+      }
+      {
+        key = "<leader>s";
+        action = "<CMD>w<CR>";
+        mode = ["n" "v"];
+        options.desc = "Save";
+      }
+      {
+        key = "<leader>S";
+        action = "<CMD>wa<CR>";
+        mode = ["n" "v"];
+        options.desc = "Save all";
+      }
+
+      {
+        key = "<leader>l";
+        action = "<CMD>set cursorline!<CR>";
+        mode = ["n" "v"];
+        options.desc = "Toggle cursorline";
+      }
+      {
+        key = "<leader>L";
+        action = "<CMD>set cursorcolumn!<CR>";
+        mode = ["n" "v"];
+        options.desc = "Toggle cursorcolumn";
       }
       {
         key = "<leader> ";
@@ -88,10 +94,35 @@
       }
 
       {
+        key = "<C-d>";
+        action = "£";
+        mode = ["n"];
+        options.desc = "Go to previous occurence";
+      }
+      {
+        key = "<C-k>";
+        action = "<C-u>";
+        mode = "n";
+        options.desc = "Jump up half a page";
+      }
+      {
+        key = "<C-j>";
+        action = "<C-d>";
+        mode = "n";
+        options.desc = "Jump down half a page";
+      }
+
+      {
         key = " ";
         action = "<nop>";
         mode = "n";
         options.desc = "Disable space motions";
+      }
+      {
+        key = "<bslash>";
+        action = "<nop>";
+        mode = "n";
+        options.desc = "Disable backslash motions";
       }
     ];
   };
