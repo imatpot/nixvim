@@ -71,5 +71,7 @@
       formatter = pkgs.writeShellScriptBin "alejandra" ''
         exec ${pkgs.alejandra}/bin/alejandra --quiet "$@"
       '';
+
+      inherit lib; # this is nice for debugging in the repl
     });
 }
