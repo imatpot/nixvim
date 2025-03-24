@@ -24,6 +24,7 @@
   }:
     flakeUtils.lib.eachDefaultSystem (system: let
       lib'' = nixpkgs.lib;
+      lib' = lib''.extend inputs.nixvim.lib.overlay;
       pkgs = import nixpkgs {
         inherit system;
         config = {allowUnfree = true;};
@@ -31,10 +32,9 @@
       };
       utils = import ./utils {
         inherit inputs system pkgs;
-        lib = lib'';
+        lib = lib';
       };
-      lib' = inputs.nixpkgs.lib.extend (self: super: {inherit utils;});
-      lib = lib'.extend inputs.nixvim.lib.overlay;
+      lib = lib'.extend (self: super: {inherit utils;});
       nixvimLib = nixvim.lib.${system};
       nixvim' = nixvim.legacyPackages.${system};
       config = {

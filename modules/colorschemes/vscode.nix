@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  helpers,
   ...
 }:
 lib.utils.modules.mkTheme config "vscode" {
@@ -14,7 +13,7 @@ lib.utils.modules.mkTheme config "vscode" {
 
       group_overrides = let
         # https://github.com/Mofiqul/vscode.nvim/blob/main/lua/vscode/colors.lua
-        color = name: helpers.mkRaw "require('vscode.colors').get_colors().${name}";
+        color = name: lib.utils.lua.mkExpr "require('vscode.colors').get_colors().${name}";
       in
         {
           CursorLine.bg = color "vscTabCurrent";

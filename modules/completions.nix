@@ -339,7 +339,7 @@
         {
           event = ["VimEnter"];
           pattern = ["*"];
-          callback = helpers.mkRaw ''
+          callback = lib.utils.lua.mkExpr ''
             function()
               vim.defer_fn(function()
                 local unicode_file = vim.fn.stdpath('data') .. '/site/unicode/UnicodeData.txt'
