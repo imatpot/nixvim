@@ -15,36 +15,49 @@ lib.utils.modules.mkTheme config "vscode" {
       group_overrides = let
         # https://github.com/Mofiqul/vscode.nvim/blob/main/lua/vscode/colors.lua
         color = name: helpers.mkRaw "require('vscode.colors').get_colors().${name}";
-      in {
-        CursorLine = {
-          bg = color "vscTabCurrent";
-        };
+      in
+        {
+          CursorLine.bg = color "vscTabCurrent";
+          CursorColumn.bg = color "vscTabOther";
 
-        CursorColumn = {
-          bg = color "vscTabOther";
-        };
+          NeoTreeGitIgnored.fg = color "vscGray";
+          NeoTreeIndentMarker2 = {
+            bg = color "vscNone";
+            fg = color "vscGray";
+          };
 
-        NeoTreeGitIgnored = {
-          fg = color "vscGray";
-        };
+          IndentLine.fg = color "vscCursorDarkDark";
+          IndentLineCurrent.fg = color "vscLineNumber";
 
-        NeoTreeIndentMarker2 = {
-          bg = color "vscNone";
-          fg = color "vscGray";
-        };
+          "@string.special.path.nix".fg = color "vscOrange";
+        }
+        // (let
+          error = color "vscRed";
+          warn = color "vscYellow";
+          info = color "vscBlue";
+          debug = color "vscPink";
+          trace' = color "vscViolet";
+        in {
+          NotifyERRORBorder.fg = error;
+          NotifyERRORIcon.fg = error;
+          NotifyERRORTitle.fg = error;
 
-        IndentLine = {
-          fg = color "vscCursorDarkDark";
-        };
+          NotifyWARNBorder.fg = warn;
+          NotifyWARNIcon.fg = warn;
+          NotifyWARNTitle.fg = warn;
 
-        IndentLineCurrent = {
-          fg = color "vscLineNumber";
-        };
+          NotifyINFOBorder.fg = info;
+          NotifyINFOIcon.fg = info;
+          NotifyINFOTitle.fg = info;
 
-        "@string.special.path.nix" = {
-          fg = color "vscOrange";
-        };
-      };
+          NotifyDEBUGBorder.fg = debug;
+          NotifyDEBUGIcon.fg = debug;
+          NotifyDEBUGTitle.fg = debug;
+
+          NotifyTRACEBorder.fg = trace';
+          NotifyTRACEIcon.fg = trace';
+          NotifyTRACETitle.fg = trace';
+        });
     };
   };
 }

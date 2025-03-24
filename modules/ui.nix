@@ -15,6 +15,7 @@ lib.utils.modules.mkSimple config true "ui" {
         render = "compact";
         fps = 60;
         timeout = 3000;
+        max_width = 80;
         icons = {
           trace = "";
           debug = "";
@@ -31,6 +32,14 @@ lib.utils.modules.mkSimple config true "ui" {
         messages.view = "notify";
         notify.view = "notify";
         lsp.progress.enable = true;
+
+        cmdline.format.find_and_replace = {
+          title = " Find & replace ";
+          icon = "󰛔";
+          pattern = "^:%%s/";
+          lang = "regex";
+        };
+
         presets = {
           bottom_search.enable = true;
           command_palette.enable = true;
