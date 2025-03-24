@@ -7,6 +7,7 @@
 
     keymaps = with lib.utils.keymaps; [
       (mkKeymap' "D" ''"_d'' "Delete and discard")
+      (mkKeymap' "U" "<C-r>" "Redo")
 
       (mkKeymap ["n"] "<" "<<" "Decrease indent")
       (mkKeymap ["n"] ">" ">>" "Increase indent")
@@ -14,11 +15,6 @@
       (mkKeymap ["x"] ">" ">gv" "Increase indent")
 
       (mkKeymap' "<leader><down>" ":%!sort<CR>" "Sort lines")
-
-      (mkKeymap' "<leader>q" "<CMD>q<CR>" "Quit")
-      (mkKeymap' "<leader>Q" "<CMD>qa<CR>" "Quit all")
-      (mkKeymap' "<leader>s" "<CMD>w<CR>" "Save")
-      (mkKeymap' "<leader>S" "<CMD>wa<CR>" "Save all")
 
       (mkKeymap' "<leader>l" "<CMD>set cursorline!<CR>" "Toggle cursorline")
       (mkKeymap' "<leader>L" "<CMD>set cursorcolumn!<CR>" "Toggle cursorcolumn")
