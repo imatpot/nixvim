@@ -1,7 +1,7 @@
 {...}: {
   config = {
     modules = {
-      # use defaults
+      # keep defaults
     };
   };
 }
