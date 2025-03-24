@@ -43,20 +43,11 @@ lib.utils.modules.mkSimple config true "telescope" {
   keymaps = let
     search = "lua require('search')";
     teleOpts = "tele_opts = { no_ignore = true, no_ignore_parent = true, hidden = true, use_regex = true, file_ignore_patterns = { '^.git/' }  }";
-  in [
-    {
-      key = "<leader>p";
-      action = "<CMD>${search}.open({ tab_name = 'Files', ${teleOpts} })<CR>";
-      options.desc = "Search files";
-      mode = "n";
-    }
-    {
-      key = "<leader>P";
-      action = "<CMD>${search}.open({ tab_name = 'Grep', ${teleOpts} })<CR>";
-      options.desc = "Grep files";
-      mode = "n";
-    }
-  ];
+  in
+    with lib.utils.keymaps; [
+      (mkKeymap ["n"] "<leader>p" "<CMD>${search}.open({ tab_name = 'Files', ${teleOpts} })<CR>" "Search files")
+      (mkKeymap ["n"] "<leader>P" "<CMD>${search}.open({ tab_name = 'Grep', ${teleOpts} })<CR>" "Grep files")
+    ];
 
   extraPackages = with pkgs; [
     ripgrep

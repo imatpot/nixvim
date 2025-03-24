@@ -12,48 +12,15 @@ lib.utils.modules.mkSimple config true "lsp" {
   keymaps = let
     lsp = "lua vim.lsp";
     lspBuffer = "${lsp}.buf";
-  in [
-    {
-      key = "<leader>.";
-      action = "<CMD>${lspBuffer}.code_action()<CR>";
-      mode = ["n" "i"];
-      options.desc = "Code action";
-    }
-    {
-      key = "<leader>.";
-      action = "<CMD>lua vim.lsp.buf.range_code_action()<CR>";
-      mode = ["x"];
-      options.desc = "Code actions";
-    }
-    {
-      key = "<leader>r";
-      action = "<CMD>${lspBuffer}.rename()<CR>";
-      mode = ["n" "i"];
-      options.desc = "Rename";
-    }
-    {
-      key = "<leader>h";
-      action = "<CMD>${lsp}.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>";
-      options.desc = "Toggle inlay hints";
-    }
+  in
+    with lib.utils.keymaps; [
+      (mkKeymap ["n"] "<leader>." "<CMD>${lspBuffer}.code_action()<CR>" "Code action")
+      (mkKeymap ["x"] "<leader>." "<CMD>lua vim.lsp.buf.range_code_action()<CR>" "Code actions")
+      (mkKeymap ["n"] "<leader>r" "<CMD>${lspBuffer}.rename()<CR>" "Rename")
+      (mkKeymap' "<leader>h" "<CMD>${lsp}.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>" "Toggle inlay hints")
 
-    {
-      key = "gd";
-      action = "<CMD>lua vim.lsp.buf.definition()<CR>";
-      mode = ["n"];
-      options.desc = "Go to definition";
-    }
-    {
-      key = "gD";
-      action = "<CMD>lua vim.lsp.buf.declaration()<CR>";
-      mode = ["n"];
-      options.desc = "Go to declaration";
-    }
-    {
-      key = "gr";
-      action = "<CMD>lua vim.lsp.buf.references()<CR>";
-      mode = ["n"];
-      options.desc = "Go to references";
-    }
-  ];
+      (mkKeymap ["n"] "gd" "<CMD>lua vim.lsp.buf.definition()<CR>" "Go to definition")
+      (mkKeymap ["n"] "gD" "<CMD>lua vim.lsp.buf.declaration()<CR>" "Go to declaration")
+      (mkKeymap ["n"] "gr" "<CMD>lua vim.lsp.buf.references()<CR>" "Go to references")
+    ];
 }

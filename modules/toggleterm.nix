@@ -31,13 +31,10 @@ lib.utils.modules.mkSimple config true "toggleterm" {
     end
   '';
 
-  keymaps = [
-    {
-      key = "<leader>G";
-      action = "<CMD>lua ToggleGitUi()<CR>";
-      options.desc = "Toggle GitUI";
-    }
+  keymaps = with lib.utils.keymaps; [
+    (mkKeymap' "<leader>g" "<CMD>lua ToggleGitUi()<CR>" "Toggle GitUI")
   ];
+
   extraPackages = with pkgs; [
     gitui
   ];

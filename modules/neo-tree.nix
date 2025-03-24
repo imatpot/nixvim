@@ -60,17 +60,9 @@ lib.utils.modules.mkSimple config true "neo-tree" {
     };
   };
 
-  keymaps = [
-    {
-      key = "<leader>e";
-      action = "<CMD>Neotree show<CR>";
-      options.desc = "Focus file explorer";
-    }
-    {
-      key = "<leader>E";
-      action = "<CMD>Neotree toggle<CR>";
-      options.desc = "Toggle file explorer";
-    }
+  keymaps = with lib.utils.keymaps; [
+    (mkKeymap' "<leader>e" "<CMD>Neotree show<CR>" "Focus file explorer")
+    (mkKeymap' "<leader>E" "<CMD>Neotree toggle<CR>" "Toggle file explorer")
   ];
 
   autoCmd = [

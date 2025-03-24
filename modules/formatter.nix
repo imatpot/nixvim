@@ -8,16 +8,9 @@ lib.utils.modules.mkSimple config true "formatter" {
 
   keymaps = let
     runFormatter = "lua require('conform').format()";
-  in [
-    {
-      key = "<leader>f";
-      action = "<CMD>${runFormatter}<CR>";
-      options.desc = "Format current file";
-    }
-    {
-      key = "<leader>F";
-      action = "<CMD>${runFormatter}<CR><CMD>w<CR>";
-      options.desc = "Format and save current file";
-    }
-  ];
+  in
+    with lib.utils.keymaps; [
+      (mkKeymap' "<leader>f" "<CMD>${runFormatter}<CR>" "Format current file")
+      (mkKeymap' "<leader>F" "<CMD>${runFormatter}<CR><CMD>w<CR>" "Format and save current file")
+    ];
 }
