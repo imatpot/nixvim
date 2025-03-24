@@ -61,7 +61,7 @@ lib.utils.modules.mkSimple config true "neo-tree" {
   };
 
   keymaps = with lib.utils.keymaps; [
-    (mkKeymap' "<leader>e" "<CMD>Neotree show<CR>" "Focus file explorer")
+    (mkKeymap' "<leader>e" "<CMD>Neotree focus<CR>" "Focus file explorer")
     (mkKeymap' "<leader>E" "<CMD>Neotree toggle<CR>" "Toggle file explorer")
   ];
 
