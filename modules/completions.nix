@@ -33,7 +33,10 @@
           autoEnableSources = true;
 
           cmdline = let
-            mapping = helpers.mkRaw "cmp.mapping.preset.cmdline()";
+            mapping =
+              helpers.mkRaw
+              # lua
+              "cmp.mapping.preset.cmdline()";
           in {
             ":" = {
               inherit mapping;
@@ -78,6 +81,7 @@
             formatting = {
               fields = ["kind" "abbr" "menu"];
               format =
+                # lua
                 ''
                   function(entry, vim_item)
                     local format = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
@@ -104,22 +108,15 @@
                     if entry.source.name == "calc" then
                       icon = "";
                     end
-                ''
-                + lib.optionalString config.modules.completions.unicode.enable ''
-                  --
+
                     if entry.source.name == "unicode" then
                       icon = "󰻐";
                     end
-                  --
-                ''
-                + lib.optionalString config.modules.completions.copilot.enable ''
-                  --
+
                     if entry.source.name == "copilot" then
                       icon = "";
                     end
-                  --
-                ''
-                + ''
+
                     format.kind = " " .. icon .. " "
                     return format
                   end
@@ -165,19 +162,21 @@
               priority_weight = 2;
               comparators =
                 lib.optionals config.modules.completions.unicode.enable [
+                  # lua
                   ''
                     function(a, b)
                       local a_unicode = a.source.name == "unicode"
                       local b_unicode = b.source.name == "unicode"
                       if a_unicode and b_unicode then
-                        a_code = tonumber(a.filter_text:match("U%+(%x+)"), 16)
-                        b_code = tonumber(b.filter_text:match("U%+(%x+)"), 16)
+                        local a_code = tonumber(a.filter_text:match("U%+(%x+)"), 16)
+                        local b_code = tonumber(b.filter_text:match("U%+(%x+)"), 16)
                         return a_code < b_code
                       end
                     end
                   ''
                 ]
                 ++ lib.optionals config.modules.completions.copilot.enable [
+                  # lua
                   ''
                     function(a, b)
                       local a_copilot = a.source.name == "copilot"
@@ -202,91 +201,115 @@
             };
 
             mapping = {
-              "<C-Space>" = ''
-                cmp.mapping(function(fallback)
-                  if cmp.visible() then
-                    cmp.close()
-                  else
-                    cmp.complete()
-                  end
-                end, { "i", "n", "v" })
-              '';
+              "<C-Space>" =
+                # lua
+                ''
+                  cmp.mapping(function(_)
+                    if cmp.visible() then
+                      cmp.close()
+                    else
+                      cmp.complete()
+                    end
+                  end, { "i", "n", "v" })
+                '';
 
-              "<Down>" = ''
-                cmp.mapping(function(fallback)
-                  if not cmp.visible() then
-                    fallback()
-                  elseif cmp.visible() then
-                    cmp.select_next_item()
-                  elseif not cmp.select_next_item() and vim.bo.buftype ~= 'prompt' then
-                    cmp.complete()
-                  else
-                    fallback()
-                  end
-                end, { "i", "s" })
-              '';
-
-              "<Up>" = ''
-                cmp.mapping(function(fallback)
-                  if not cmp.visible() then
-                    fallback()
-                  elseif cmp.visible() then
-                    cmp.select_prev_item()
-                  elseif not cmp.select_next_item() and vim.bo.buftype ~= 'prompt' then
-                    cmp.complete()
-                  else
-                    fallback()
-                  end
-                end, { "i", "s" })
-              '';
-
-              "<CR>" = ''
-                cmp.mapping({
-                  i = function(fallback)
-                    if cmp.visible() and cmp.get_active_entry() then
-                      if luasnip.expandable() then
-                        luasnip.expand()
-                      else
-                        cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-                      end
+              "<Down>" =
+                # lua
+                ''
+                  cmp.mapping(function(fallback)
+                    if not cmp.visible() then
+                      fallback()
+                    elseif cmp.visible() then
+                      cmp.select_next_item()
+                    elseif not cmp.select_next_item() and vim.bo.buftype ~= 'prompt' then
+                      cmp.complete()
                     else
                       fallback()
                     end
-                  end,
-                  s = cmp.mapping.confirm({ select = false }),
-                  c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-                })
-              '';
+                  end, { "i", "s" })
+                '';
 
-              "<C-j>" = "cmp.mapping.scroll_docs(-4)";
-              "<C-k>" = "cmp.mapping.scroll_docs(4)";
+              "<Up>" =
+                # lua
+                ''
+                  cmp.mapping(function(fallback)
+                    if not cmp.visible() then
+                      fallback()
+                    elseif cmp.visible() then
+                      cmp.select_prev_item()
+                    elseif not cmp.select_next_item() and vim.bo.buftype ~= 'prompt' then
+                      cmp.complete()
+                    else
+                      fallback()
+                    end
+                  end, { "i", "s" })
+                '';
 
-              "<Esc>" = ''
-                cmp.mapping(function(fallback)
-                  if cmp.visible() and cmp.get_active_entry() then
-                    cmp.abort()
-                  else
-                    fallback()
-                  end
-                end)
-              '';
+              "<CR>" =
+                # lua
+                ''
+                  cmp.mapping({
+                    i = function(fallback)
+                      if cmp.visible() and cmp.get_active_entry() then
+                        if luasnip.expandable() then
+                          luasnip.expand()
+                        else
+                          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                        end
+                      else
+                        fallback()
+                      end
+                    end,
+                    s = cmp.mapping.confirm({ select = false }),
+                    c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                  })
+                '';
+
+              "<C-j>" =
+                # lua
+                ''
+                  cmp.mapping.scroll_docs(-4)
+                '';
+
+              "<C-k>" =
+                # lua
+                ''
+                  cmp.mapping.scroll_docs(4)
+                '';
+
+              "<Esc>" =
+                # lua
+                ''
+                  cmp.mapping(function(fallback)
+                    if cmp.visible() and cmp.get_active_entry() then
+                      cmp.abort()
+                    else
+                      fallback()
+                    end
+                  end)
+                '';
             };
           };
         };
       };
 
       extraConfigLuaPre =
+        lib.optionalString config.modules.completions.enable
+        # lua
         ''
-          luasnip = require("luasnip")
-          lspkind = require("lspkind")
-          cmp = require("cmp")
+          ---@diagnostic disable: unused-local
+          local luasnip = require("luasnip")
+          local lspkind = require("lspkind")
+          local cmp = require("cmp")
         ''
-        + lib.optionalString config.modules.completions.unicode.enable ''
-          unicode_table = {} -- populated in autocommand
-          unicode_cmp = {} -- populated in autocommand
+        + lib.optionalString config.modules.completions.unicode.enable
+        # lua
+        ''
+          UnicodeTable = {} -- populated in autocommand
+          UnicodeCompletions = {} -- populated in autocommand
 
-          function utf_8_char(hex)
-            code = tonumber(hex, 16)
+          function Utf8Character(hex)
+            local code = tonumber(hex, 16)
             if code < 0x80 then
               return string.char(code)
             elseif code < 0x800 then
@@ -309,7 +332,7 @@
             end
           end
 
-          function is_control_char(hex)
+          function IsUtf8ControlChar(hex)
             local code = tonumber(hex, 16)
 
             if not code then
@@ -328,9 +351,8 @@
           end
 
           cmp.register_source('unicode', {
-            -- keyword_length = 3,
-            complete = function(self, request, callback)
-              callback({ items = unicode_cmp, isIncomplete = false })
+            complete = function(_, _, callback)
+              callback({ items = UnicodeCompletions, isIncomplete = false })
             end
           })
         '';
@@ -339,60 +361,63 @@
         {
           event = ["VimEnter"];
           pattern = ["*"];
-          callback = lib.utils.lua.mkExpr ''
-            function()
-              vim.defer_fn(function()
-                local unicode_file = vim.fn.stdpath('data') .. '/site/unicode/UnicodeData.txt'
+          callback =
+            helpers.mkRaw
+            # lua
+            ''
+              function()
+                vim.defer_fn(function()
+                  local unicode_file = vim.fn.stdpath('data') .. '/site/unicode/UnicodeData.txt'
 
-                local function should_update_unicode_table()
-                  local one_month = 30 * 24 * 60 * 60
+                  local function should_update_unicode_table()
+                    local one_month = 30 * 24 * 60 * 60
 
-                  local stat = vim.loop.fs_stat(unicode_file)
-                  if stat then
-                    local age = os.time() - stat.mtime.sec
-                    return age > one_month
+                    local stat = vim.loop.fs_stat(unicode_file)
+                    if stat then
+                      local age = os.time() - stat.mtime.sec
+                      return age > one_month
+                    end
+
+                    return true
                   end
 
-                  return true
-                end
-
-                if should_update_unicode_table() then
-                    vim.cmd("silent! UnicodeDownload!")
-                end
-
-                local file = io.open(unicode_file, "r")
-                if file then
-                  local contents = file:read("*a")
-                  file:close()
-                  unicode_table = vim.tbl_filter(function(line)
-                    return line ~= ""
-                  end, vim.split(contents, "\n"))
-                end
-
-                for _, line in ipairs(unicode_table) do
-                  local sections = vim.split(line, ";")
-                  local char = utf_8_char(sections[1])
-                  local hex = "U+" .. sections[1]
-                  local name = sections[2]
-
-                  if char and name and not is_control_char(sections[1]) then
-                    table.insert(unicode_cmp, {
-                      word = char,
-                      abbr = char,
-                      label = char,
-                      insertText = char,
-                      filterText = char .. " " .. hex .. " " .. name,
-                      kind = cmp.lsp.CompletionItemKind.Text,
-                      documentation = {
-                        kind = "markdown",
-                        value = "**" .. hex .. "** *" .. name .. "*",
-                      },
-                    })
+                  if should_update_unicode_table() then
+                      vim.cmd("silent! UnicodeDownload!")
                   end
-                end
-              end, 1000)
-            end
-          '';
+
+                  local file = io.open(unicode_file, "r")
+                  if file then
+                    local contents = file:read("*a")
+                    file:close()
+                    UnicodeTable = vim.tbl_filter(function(line)
+                      return line ~= ""
+                    end, vim.split(contents, "\n"))
+                  end
+
+                  for _, line in ipairs(UnicodeTable) do
+                    local sections = vim.split(line, ";")
+                    local char = Utf8Character(sections[1])
+                    local hex = "U+" .. sections[1]
+                    local name = sections[2]
+
+                    if char and name and not IsUtf8ControlChar(sections[1]) then
+                      table.insert(UnicodeCompletions, {
+                        word = char,
+                        abbr = char,
+                        label = char,
+                        insertText = char,
+                        filterText = char .. " " .. hex .. " " .. name,
+                        kind = cmp.lsp.CompletionItemKind.Text,
+                        documentation = {
+                          kind = "markdown",
+                          value = "**" .. hex .. "** *" .. name .. "*",
+                        },
+                      })
+                    end
+                  end
+                end, 1000)
+              end
+            '';
         }
       ];
 

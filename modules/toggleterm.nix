@@ -15,9 +15,12 @@ lib.utils.modules.mkSimple config true "toggleterm" {
     };
   };
 
-  extraConfigLuaPre = ''
-    local Terminal  = require('toggleterm.terminal').Terminal
-      local gitui = Terminal:new({
+  extraConfigLuaPre =
+    # lua
+    ''
+      Terminal = require('toggleterm.terminal').Terminal
+
+      GitUi = Terminal:new({
         cmd = "${lib.getExe pkgs.gitui}",
         direction = "float",
         float_opts = {
@@ -26,10 +29,10 @@ lib.utils.modules.mkSimple config true "toggleterm" {
         hidden = true,
       })
 
-    function ToggleGitUi()
-      gitui:toggle()
-    end
-  '';
+      function ToggleGitUi()
+        GitUi:toggle()
+      end
+    '';
 
   keymaps = with lib.utils.keymaps; [
     (mkKeymap' "<leader>g" "<CMD>lua ToggleGitUi()<CR>" "Toggle GitUI")

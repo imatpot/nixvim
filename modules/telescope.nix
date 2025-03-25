@@ -27,16 +27,20 @@ lib.utils.modules.mkSimple config true "telescope" {
   extraPlugins = with pkgs.vimPlugins; [
     {
       plugin = search;
-      config = lib.utils.viml.fromLua ''
-        local builtin = require('telescope.builtin')
-        require('search').setup({
-          initial_tab = 1,
-          tabs = {
-            { name = "Files", tele_func = builtin.find_files },
-            { name = "Grep", tele_func = builtin.live_grep },
-          }
-        })
-      '';
+      config =
+        lib.utils.viml.fromLua
+        # lua
+        ''
+          local builtin = require('telescope.builtin')
+          require('search').setup({
+            initial_tab = 1,
+            tabs = {
+              { name = "Files", tele_func = builtin.find_files },
+              { name = "Grep", tele_func = builtin.live_grep },
+              { name = "Buffers", tele_func = builtin.buffers },
+            }
+          })
+        '';
     }
   ];
 

@@ -69,7 +69,10 @@ lib.utils.modules.mkSimple config true "neo-tree" {
     # {
     #   event = ["VimEnter"];
     #   pattern = ["*"];
-    #   callback = helpers.mkRaw ''
+    #   callback =
+    #     helpers.mkRaw
+    #     # lua
+    #     ''
     #     function()
     #       if (vim.fn.expand("%") == "") then
     #         require('neo-tree.command').execute({})

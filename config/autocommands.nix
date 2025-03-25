@@ -18,12 +18,14 @@
       }
     ];
 
-    extraConfigVim = ''
-      function ForbidReplace()
-        if v:insertmode isnot# 'i'
-          call feedkeys("\<Insert>", "n")
-        endif
-      endfunction
-    '';
+    extraConfigVim =
+      # vim
+      ''
+        function ForbidReplace()
+          if v:insertmode isnot# 'i'
+            call feedkeys("\<Insert>", "n")
+          endif
+        endfunction
+      '';
   };
 }

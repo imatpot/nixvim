@@ -9,11 +9,14 @@ lib.utils.modules.mkSimple config true "indents" {
   extraPlugins = with pkgs.vimPlugins; [
     {
       plugin = indentmini;
-      config = lib.utils.viml.fromLua ''
-        require("indentmini").setup({
-          char = "▏",
-        })
-      '';
+      config =
+        lib.utils.viml.fromLua
+        # lua
+        ''
+          require("indentmini").setup({
+            char = "▏",
+          })
+        '';
     }
   ];
 }
