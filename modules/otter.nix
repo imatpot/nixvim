@@ -19,7 +19,7 @@ lib.utils.modules.mkSimple config true "otter" {
         preambles = {
           lua = [
             # lua
-            "---@diagnostic disable: trailing-space, undefined-global"
+            "---@diagnostic disable: trailing-space, undefined-global, unreachable-code"
           ];
         };
       };
@@ -46,7 +46,7 @@ lib.utils.modules.mkSimple config true "otter" {
               "Unexpected <exp> .",
               "<name> expected.",
               "Missed symbol `\"`.",
-              "Miss symbol `,` or `;` ."
+              "Miss symbol `,` or `;` .",
             }
 
             for _, diagnostic in ipairs(result.diagnostics) do
