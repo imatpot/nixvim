@@ -6,6 +6,7 @@
 lib.utils.modules.mkSimple config true "ui" {
   plugins = {
     nui.enable = true;
+    fidget.enable = true;
 
     notify = {
       # TODO: padding around notifications
@@ -29,9 +30,13 @@ lib.utils.modules.mkSimple config true "ui" {
     noice = {
       enable = true;
       settings = {
-        messages.view = "notify";
+        messages.view = "mini";
         notify.view = "notify";
-        lsp.progress.enable = true;
+
+        lsp.progress = {
+          enable = true;
+          view = "mini";
+        };
 
         cmdline.format.find_and_replace = {
           title = " Find & replace ";
@@ -47,6 +52,8 @@ lib.utils.modules.mkSimple config true "ui" {
           inc_rename.enable = true;
           lsp_doc_border.enable = true;
         };
+
+        views.notify.replace = true;
       };
     };
   };
