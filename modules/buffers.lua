@@ -1,7 +1,7 @@
 function CountBuffersByType(loaded_only)
   loaded_only = loaded_only == nil and true or loaded_only
   local buffer_types = vim.api.nvim_list_bufs()
-  local counts = {}
+  local counts = { normal = 0 }
 
   for _, buf in ipairs(buffer_types) do
     if not loaded_only or vim.api.nvim_buf_is_loaded(buf) then
