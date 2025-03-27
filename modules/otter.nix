@@ -47,6 +47,7 @@ lib.utils.modules.mkModule config true "otter" {
               "<name> expected.",
               "Missed symbol `\"`.",
               "Miss symbol `,` or `;` .",
+              "<field> expected.",
             }
 
             for _, diagnostic in ipairs(result.diagnostics) do
