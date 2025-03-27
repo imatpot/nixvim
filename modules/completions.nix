@@ -1,3 +1,5 @@
+# TODO: put lua in separate files, or publish as separate plugin
+
 {
   config,
   lib,

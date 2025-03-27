@@ -4,9 +4,11 @@
   ...
 }:
 lib.utils.modules.mkModule config true "treesitter" {
-  extraConfigLuaPost = ''
-    vim.highlight.priorities.semantic_tokens = 95
-  '';
+  extraConfigLuaPost =
+    # lua
+    ''
+      vim.highlight.priorities.semantic_tokens = 95
+    '';
 
   plugins = {
     treesitter = {

@@ -6,11 +6,12 @@
 }:
 lib.utils.modules.mkLanguage config "lua" {
   lsp = {
-    plugins.lsp.servers.lua_ls.enable = true;
-  };
-
-  linter = {
-    plugins.lint.lintersByFt.lua = ["luacheck" "selene"];
+    plugins.lsp.servers.lua_ls = {
+      enable = true;
+      settings.diagnostics.globals = [
+        "vim"
+      ];
+    };
   };
 
   formatter = {
