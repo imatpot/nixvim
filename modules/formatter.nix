@@ -4,6 +4,7 @@
   ...
 }:
 lib.utils.modules.mkSimple config true "formatter" {
+  plugins.sleuth.enable = true;
   plugins.conform-nvim.enable = true;
 
   keymaps = let
