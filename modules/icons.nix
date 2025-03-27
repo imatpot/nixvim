@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkSimple config true "icons" {
+lib.utils.modules.mkModule config true "icons" {
   plugins.mini = {
     enable = true;
     mockDevIcons = true;

@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkSimple config true "otter" {
+lib.utils.modules.mkModule config true "otter" {
   plugins.otter = {
     enable = true;
     settings = {

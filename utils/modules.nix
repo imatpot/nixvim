@@ -3,7 +3,7 @@
   mkDefaultEnableOption,
   ...
 }: {
-  mkSimple = config: default: name: moduleConfig: {
+  mkModule = config: default: name: moduleConfig: {
     options.modules.${name}.enable = mkDefaultEnableOption default name;
     config =
       lib.mkIf config.modules.${name}.enable

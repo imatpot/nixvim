@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkSimple config true "lsp" {
+lib.utils.modules.mkModule config true "lsp" {
   plugins = {
     lsp = {
       enable = true;

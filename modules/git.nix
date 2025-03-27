@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkSimple config true "git" {
+lib.utils.modules.mkModule config true "git" {
   plugins = {
     gitsigns = {
       enable = true;

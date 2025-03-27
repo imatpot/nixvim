@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkSimple config true "ui" {
+lib.utils.modules.mkModule config true "ui" {
   plugins = {
     nui.enable = true;
     fidget.enable = true;

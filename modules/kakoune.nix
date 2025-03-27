@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkSimple config false "kakoune" {
+lib.utils.modules.mkModule config false "kakoune" {
   extraPlugins = with pkgs.vimPlugins; [
     {
       plugin = kak-nvim;
