@@ -99,8 +99,11 @@ lib.utils.modules.mkModule config true "dashboard" {
     }
   ];
 
-  extraLuaPackages = rocks: with rocks; [luautf8];
   extraConfigLuaPre = builtins.readFile ./dashboard.lua;
+
+  extraLuaPackages = rocks: with rocks; [
+    luautf8
+  ];
 
   extraPackages = with pkgs; [
     krabby

@@ -13,7 +13,7 @@ end
 
 function GetRandomPokemon(shiny_rate)
   local generate_shiny = math.random() < (shiny_rate or -1) --> use krabby's default if unset
-  local pokemon_command = "krabby random --no-title"
+  local pokemon_command = "krabby name ferrothorn --no-title"
 
   if generate_shiny then
     pokemon_command = pokemon_command .. " --shiny"
@@ -68,7 +68,7 @@ function GetPokemonSection()
 end
 
 function FindPrimaryColor(str)
-  local color_counts = {}
+  local color_frequencies = {}
 
   for code in str:gmatch("\27%[(.-)m") do
     local parts = {}
@@ -83,58 +83,84 @@ function FindPrimaryColor(str)
       local b = tonumber(parts[5])
 
       if r and g and b then
-        local color_key = string.format("%d,%d,%d", r, g, b)
-        color_counts[color_key] = (color_counts[color_key] or 0) + 1
+        local rgb_str = string.format("%d,%d,%d", r, g, b)
+        color_frequencies[rgb_str] = (color_frequencies[rgb_str] or 0) + 1
       end
     end
   end
 
   local best_color = {
-    chroma = 0,
-    count = 0,
-    luminance = 0.333,
+    value = { r = 255, g = 255, b = 255 },
+    normalized_frequency = 0,
+    luminance = 0,
+    saturation = 0,
     score = -1,
-    value = {
-      r = 255,
-      g = 255,
-      b = 255,
-    },
   }
 
-  for color_key, count in pairs(color_counts) do
-    local r, g, b = color_key:match("(%d+),(%d+),(%d+)")
+  local total_pixels = 0
+  for _, frequency in pairs(color_frequencies) do
+    total_pixels = total_pixels + frequency
+  end
+
+  for rgb_str, frequency in pairs(color_frequencies) do
+    local r, g, b = rgb_str:match("(%d+),(%d+),(%d+)")
     r, g, b = tonumber(r), tonumber(g), tonumber(b)
 
     if r and g and b then
-      local max = math.max(r, g, b)
-      local min = math.min(r, g, b)
-      local avg = (r + g + b) / 3
+      local luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 -- https://www.w3.org/WAI/GL/wiki/Relative_luminance
 
-      -- https://www.w3.org/WAI/GL/wiki/Relative_luminance
-      local luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
+      if luminance > 0.3 then
+        local normalized_frequency = frequency / total_pixels
+        local hsv = RgbToHsv(r, g, b)
+        local saturation = hsv.s
 
-      local chroma = (max - min) / 255
-      local grayness = (math.abs(avg - r) + math.abs(avg - g) + math.abs(avg - b)) / (255 * 3)
+        local frequency_weight = 0.75
+        local luminance_weight = 0.05
+        local saturation_weight = 0.2
 
-      local score = chroma + luminance - (grayness * 0.8)
+        local score = frequency_weight * normalized_frequency
+          + saturation_weight * saturation
+          - luminance_weight * luminance
 
-      local better_score = score > best_color.score
-      local equal_score = score == best_color.score
-      local better_luminance = luminance > best_color.luminance
-      local equal_luminance = luminance == best_color.luminance
-      local better_count = count > best_color.count
-
-      if better_score or (equal_score and (better_luminance or (equal_luminance and better_count))) then
-        best_color = {
-          chroma = chroma,
-          count = count,
-          luminance = luminance,
-          score = score,
-          value = { r = r, g = g, b = b },
-        }
+        if score > best_color.score then
+          best_color = {
+            value = { r = r, g = g, b = b },
+            normalized_frequency = normalized_frequency,
+            luminance = luminance,
+            saturation = saturation,
+            score = score,
+          }
+        end
       end
     end
   end
 
+  vim.notify(vim.inspect(best_color))
+
   return best_color.value
+end
+
+function RgbToHsv(r, g, b)
+  r, g, b = r / 255, g / 255, b / 255
+  local max, min = math.max(r, g, b), math.min(r, g, b)
+  local delta = max - min
+  local h, s, v = 0, 0, max
+
+  if delta > 0 then
+    s = delta / max
+    if max == r then
+      h = (g - b) / delta
+    elseif max == g then
+      h = 2 + (b - r) / delta
+    else
+      h = 4 + (r - g) / delta
+    end
+    h = (h * 60) % 360
+  end
+
+  return {
+    h = h / 360,
+    s = s,
+    v = v,
+  }
 end
