@@ -46,7 +46,7 @@ lib.utils.modules.mkModule config true "dashboard" {
             }
             {
               icon = "󱎸";
-              key = "f";
+              key = "P";
               desc = "~ Find";
               action = ":lua Snacks.dashboard.pick('live_grep')";
             }
