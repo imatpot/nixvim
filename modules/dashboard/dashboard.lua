@@ -13,7 +13,7 @@ end
 
 function GetRandomPokemon(shiny_rate)
   local generate_shiny = math.random() < (shiny_rate or -1) --> use krabby's default if unset
-  local pokemon_command = "krabby name ferrothorn --no-title"
+  local pokemon_command = "krabby random --no-title"
 
   if generate_shiny then
     pokemon_command = pokemon_command .. " --shiny"
