@@ -6,7 +6,6 @@
 lib.utils.modules.mkModule config true "ui" {
   plugins = {
     nui.enable = true;
-    fidget.enable = true;
 
     notify = {
       # TODO: padding around notifications
