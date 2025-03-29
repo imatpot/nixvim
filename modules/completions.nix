@@ -1,5 +1,4 @@
 # TODO: put lua in separate files, or publish as separate plugin
-
 {
   config,
   lib,
@@ -16,15 +15,20 @@
   };
 
   config = let
-    mkSources = sources:
-      map (source:
-        if lib.isAttrs source
-        then source
-        else {
-          name = source;
+    mkSources = sources: map mkSource sources;
+    mkSource = source:
+      if lib.isAttrs source
+      then
+        {
           group_index = 2;
-        })
-      sources;
+          keyword_length = 1;
+        }
+        // source
+      else {
+        name = source;
+        group_index = 2;
+        keyword_length = 1;
+      };
   in
     lib.mkIf config.modules.completions.enable {
       plugins = {
@@ -86,7 +90,10 @@
                 # lua
                 ''
                   function(entry, vim_item)
-                    local format = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+                    local format = lspkind.cmp_format({
+                      mode = "symbol_text",
+                      maxwidth = 50
+                    })(entry, vim_item)
 
                     local strings = vim.split(format.kind, "%s", { trimempty = true })
                     local icon = strings[1] or ""
@@ -142,42 +149,45 @@
             };
 
             sources = mkSources (
-              [
-                "nvim_lsp"
-                "async_path"
-                "buffer"
-                "calc"
+              lib.optionals config.modules.completions.copilot.enable [
+                "copilot"
+              ]
+              ++ [
+                {
+                  name = "nvim_lsp";
+                  keyword_length = 0;
+                }
                 "nvim_lsp_signature_help"
-                "treesitter"
-                "luasnip"
-                "rg"
+                "async_path"
+                "calc"
+                {
+                  name = "treesitter";
+                  keyword_length = 3;
+                }
+                {
+                  name = "luasnip";
+                  keyword_length = 3;
+                }
               ]
               ++ lib.optionals config.modules.completions.unicode.enable [
                 "unicode"
               ]
-              ++ lib.optionals config.modules.completions.copilot.enable [
-                "copilot"
+              ++ [
+                {
+                  name = "buffer";
+                  keyword_length = 5;
+                }
+                {
+                  name = "rg";
+                  keyword_length = 5;
+                }
               ]
             );
 
             sorting = {
               priority_weight = 2;
               comparators =
-                lib.optionals config.modules.completions.unicode.enable [
-                  # lua
-                  ''
-                    function(a, b)
-                      local a_unicode = a.source.name == "unicode"
-                      local b_unicode = b.source.name == "unicode"
-                      if a_unicode and b_unicode then
-                        local a_code = tonumber(a.filter_text:match("U%+(%x+)"), 16)
-                        local b_code = tonumber(b.filter_text:match("U%+(%x+)"), 16)
-                        return a_code < b_code
-                      end
-                    end
-                  ''
-                ]
-                ++ lib.optionals config.modules.completions.copilot.enable [
+                lib.optionals config.modules.completions.copilot.enable [
                   # lua
                   ''
                     function(a, b)
@@ -187,6 +197,20 @@
                         return true
                       elseif not a_copilot and b_copilot then
                         return false
+                      end
+                    end
+                  ''
+                ]
+                ++ lib.optionals config.modules.completions.unicode.enable [
+                  # lua
+                  ''
+                    function(a, b)
+                      local a_unicode = a.source.name == "unicode"
+                      local b_unicode = b.source.name == "unicode"
+                      if a_unicode and b_unicode then
+                        local a_code = tonumber(a.filter_text:match("U%+(%x+)"), 16)
+                        local b_code = tonumber(b.filter_text:match("U%+(%x+)"), 16)
+                        return a_code < b_code
                       end
                     end
                   ''
@@ -307,49 +331,22 @@
         + lib.optionalString config.modules.completions.unicode.enable
         # lua
         ''
+          local utf8 = require("lua-utf8")
+
           UnicodeTable = {} -- populated in autocommand
           UnicodeCompletions = {} -- populated in autocommand
 
           function Utf8Character(hex)
             local code = tonumber(hex, 16)
-            if code < 0x80 then
-              return string.char(code)
-            elseif code < 0x800 then
-              local byte1 = 0xC0 + math.floor(code / 0x40)
-              local byte2 = 0x80 + (code % 0x40)
-              return string.char(byte1, byte2)
-            elseif code < 0x10000 then
-              local byte1 = 0xE0 + math.floor(code / 0x1000)
-              local byte2 = 0x80 + (math.floor(code / 0x40) % 0x40)
-              local byte3 = 0x80 + (code % 0x40)
-              return string.char(byte1, byte2, byte3)
-            elseif code < 0x200000 then
-              local byte1 = 0xF0 + math.floor(code / 0x40000)
-              local byte2 = 0x80 + (math.floor(code / 0x1000) % 0x40)
-              local byte3 = 0x80 + (math.floor(code / 0x40) % 0x40)
-              local byte4 = 0x80 + (code % 0x40)
-              return string.format(string.char(byte1, byte2, byte3, byte4))
-            else
-              error("Invalid Unicode: " .. hex)
-            end
+            return utf8.char(code)
           end
 
           function IsUtf8ControlChar(hex)
             local code = tonumber(hex, 16)
 
-            if not code then
-              return false
-            end
-
-            if
-              (code >= 0x00 and code <= 0x1F)
-              or (code == 0x7F)
+            return code == 0x7F
+              or (code >= 0x00 and code <= 0x1F)
               or (code >= 0x80 and code <= 0x9F)
-            then
-              return true
-            end
-
-            return false
           end
 
           cmp.register_source('unicode', {
@@ -426,6 +423,11 @@
       extraPackages = with pkgs; [
         ripgrep
       ];
+
+      extraLuaPackages = rocks:
+        with rocks; [
+          luautf8
+        ];
 
       extraPlugins = with pkgs.vimPlugins; (
         [

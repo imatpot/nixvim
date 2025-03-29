@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -7,8 +8,33 @@
 lib.utils.modules.mkLanguage config "nix" {
   lsp = {
     plugins = {
-      lsp.servers.nixd.enable = true;
       hmts.enable = true;
+
+      lsp.servers.nixd = {
+        enable = true;
+        settings = let
+          flakeExpr =
+            # nix
+            ''(builtins.getFlake "${inputs.self}")'';
+          systemExpr =
+            # nix
+            ''''${builtins.currentSystem}'';
+        in {
+          formatting.command = ["nix fmt"];
+
+          nixpkgs.expr =
+            # nix
+            "import ${flakeExpr}.inputs.nixpkgs { system = ${systemExpr}; }";
+
+          options = {
+            nixvim.expr =
+              # nix
+              "${flakeExpr}.packages.${systemExpr}.nvim.options";
+
+            # TODO: nixos, home-manager, nix-darwin
+          };
+        };
+      };
     };
   };
 
