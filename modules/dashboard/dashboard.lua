@@ -135,8 +135,6 @@ function FindPrimaryColor(str)
     end
   end
 
-  vim.notify(vim.inspect(best_color))
-
   return best_color.value
 end
 

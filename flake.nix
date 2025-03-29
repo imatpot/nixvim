@@ -56,7 +56,9 @@
       nvim = nixvim'.makeNixvimWithModule config;
     in {
       packages = {
+        inherit nvim;
         default = nvim;
+
         updater = pkgs.writeShellScriptBin "nixvim-flake-updater" ''
           ${lib''.getExe pkgs.update-nix-fetchgit} --verbose ./**/*.nix 2>&1 | grep --line-buffered -i "updating"
           nix flake update
