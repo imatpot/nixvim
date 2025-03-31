@@ -9,6 +9,12 @@ lib.utils.modules.mkModule config true "git" {
       enable = true;
 
       settings = {
+        signs = {
+          # TODO: 🮇 is not full height in many fonts
+          add.text = "▐";
+          change.text = "▐";
+        };
+
         current_line_blame = true;
         current_line_blame_formatter = "<author>, <author_time:%R> - <summary>";
         current_line_blame_opts = {

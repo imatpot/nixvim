@@ -10,7 +10,13 @@ lib.utils.modules.mkModule config true "lsp" {
       inlayHints = false;
     };
 
-    trouble.enable = true;
+    trouble = {
+      enable = true;
+      settings = {
+        focus = true;
+        warn_no_results = false;
+      };
+    };
 
     lint = {
       enable = true;

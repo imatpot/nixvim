@@ -26,7 +26,7 @@ lib.utils.modules.mkModule config true "neo-tree" {
       };
 
       filteredItems = {
-        showHiddenCount = false;
+        showHiddenCount = let in false;
         hideDotfiles = false;
         hideGitignored = false;
 
@@ -35,15 +35,17 @@ lib.utils.modules.mkModule config true "neo-tree" {
     };
 
     defaultComponentConfigs = {
+      modified.symbol = "•";
+
       indent = {
         highlight = "NeoTreeIndentMarker2";
       };
 
       diagnostics.symbols = {
-        error = "E";
-        hint = "H";
-        info = "I";
-        warn = "W";
+        error = "";
+        warn = "";
+        info = "";
+        hint = "";
       };
 
       gitStatus.symbols = {
@@ -51,9 +53,9 @@ lib.utils.modules.mkModule config true "neo-tree" {
         conflict = "ϟ";
         deleted = "×";
         ignored = "";
-        modified = "*";
-        renamed = ">";
-        staged = "A";
+        modified = "•";
+        renamed = "»";
+        staged = "S";
         unstaged = "";
         untracked = "";
       };

@@ -6,6 +6,10 @@
     # viAlias = true;
     # vimAlias = true;
 
+    diagnostics = {
+      signs.text = ["" "" "" ""];
+    };
+
     opts = {
       timeout = false;
 
