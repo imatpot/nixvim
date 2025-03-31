@@ -50,7 +50,7 @@ lib.utils.modules.mkModule config true "telescope" {
   in
     with lib.utils.keymaps; [
       (mkKeymap ["n"] "<leader>p" "<CMD>${search}.open({ tab_name = 'Files', ${teleOpts} })<CR>" "Search files")
-      (mkKeymap ["n"] "<leader>P" "<CMD>${search}.open({ tab_name = 'Grep', ${teleOpts} })<CR>" "Grep files")
+      (mkKeymap ["n"] "<leader>/" "<CMD>${search}.open({ tab_name = 'Grep', ${teleOpts} })<CR>" "Grep files")
     ];
 
   extraPackages = with pkgs; [
