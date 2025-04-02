@@ -26,7 +26,7 @@ lib.utils.modules.mkModule config true "neo-tree" {
       };
 
       filteredItems = {
-        showHiddenCount = let in false;
+        showHiddenCount = false;
         hideDotfiles = false;
         hideGitignored = false;
 
@@ -53,12 +53,64 @@ lib.utils.modules.mkModule config true "neo-tree" {
         conflict = "ϟ";
         deleted = "×";
         ignored = "";
-        modified = "•";
+        modified = "*";
         renamed = "»";
         staged = "S";
         unstaged = "";
         untracked = "";
       };
+    };
+
+    renderers = {
+      directory = [
+        "indent"
+        "icon"
+        "name"
+        {
+          name = "container";
+          content = [
+            {
+              name = "git_status";
+              align = "right";
+              hide_when_expanded = true;
+              zindex = 10;
+            }
+            {
+              name = "diagnostics";
+              align = "right";
+              errors_only = true;
+              hide_when_expanded = true;
+              zindex = 10;
+            }
+          ];
+        }
+      ];
+
+      file = [
+        "indent"
+        "icon"
+        "name"
+        {
+          name = "container";
+          content = [
+            {
+              name = "modified";
+              align = "right";
+              zindex = 10;
+            }
+            {
+              name = "git_status";
+              align = "right";
+              zindex = 10;
+            }
+            {
+              name = "diagnostics";
+              align = "right";
+              zindex = 10;
+            }
+          ];
+        }
+      ];
     };
   };
 

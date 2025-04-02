@@ -20,6 +20,8 @@ lib.utils.modules.mkTheme config "vscode" {
           "require('vscode.colors').get_colors().${name}";
       in
         {
+          DiagnosticWarn.fg = color "vscYellowOrange";
+
           CursorLine.bg = color "vscTabCurrent";
           CursorColumn.bg = color "vscTabOther";
 

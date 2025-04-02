@@ -11,6 +11,7 @@
     };
 
     opts = {
+      mouse = "";
       timeout = false;
 
       autoindent = true;
