@@ -5,6 +5,7 @@
 }:
 lib.utils.modules.mkModule config true "ui" {
   plugins = {
+    numbertoggle.enable = true;
     nui.enable = true;
 
     notify = {

@@ -90,21 +90,26 @@
                 # lua
                 ''
                   function(entry, vim_item)
-                    local format = lspkind.cmp_format({
+                    local highlight = colorful_menu.cmp_highlights(entry)
+
+                    if highlight ~= nil then
+                      vim_item.abbr_hl_group = highlight.highlights
+                      vim_item.abbr = highlight.text
+                    end
+
+                    local kind = lspkind.cmp_format({
                       mode = "symbol_text",
                       maxwidth = 50
-                    })(entry, vim_item)
+                    })(entry, vim.deepcopy(vim_item))
 
-                    local strings = vim.split(format.kind, "%s", { trimempty = true })
+                    local strings = vim.split(kind.kind, "%s", { trimempty = true })
                     local icon = strings[1] or ""
                     local description = strings[2] or ""
-
                     local description_delim = ""
+
                     if description ~= "" then
                       description_delim = "."
                     end
-
-                    format.menu = "    " .. entry.source.name .. description_delim .. description
 
                     if entry.source.name == "rg" then
                       icon = "";
@@ -126,8 +131,10 @@
                       icon = "";
                     end
 
-                    format.kind = " " .. icon .. " "
-                    return format
+                    vim_item.kind = " " .. icon .. " "
+                    vim_item.menu = "    " .. entry.source.name .. description_delim .. description
+
+                    return vim_item
                   end
                 '';
             };
@@ -327,6 +334,7 @@
           local luasnip = require("luasnip")
           local lspkind = require("lspkind")
           local cmp = require("cmp")
+          local colorful_menu = require("colorful-menu")
         ''
         + lib.optionalString config.modules.completions.unicode.enable
         # lua
@@ -431,6 +439,7 @@
 
       extraPlugins = with pkgs.vimPlugins; (
         [
+          colorful-menu-nvim
           lspkind-nvim
         ]
         ++ lib.optionals config.modules.completions.unicode.enable [
