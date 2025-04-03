@@ -4,7 +4,11 @@
   ...
 }:
 lib.utils.modules.mkModule config true "git" {
+  modules.telescope.enable = true;
+
   plugins = {
+    gitignore.enable = true;
+
     gitsigns = {
       enable = true;
 
@@ -25,4 +29,8 @@ lib.utils.modules.mkModule config true "git" {
       };
     };
   };
+
+  keymaps = with lib.utils.keymaps; [
+    (mkKeymap' "<leader>G" "<CMD>Gitignore<CR>" "Generate .gitignore")
+  ];
 }
