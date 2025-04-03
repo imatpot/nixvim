@@ -23,3 +23,14 @@ function CloseBuffer()
     vim.api.nvim_exec(":bprevious | bdelete #", true)
   end
 end
+
+function BufferDiagnostics(_, _, diagnostics, _)
+  local str = ""
+
+  for severity, _ in pairs(diagnostics) do
+    local symbol = severity == "error" and "" or (severity == "warning" and "" or "")
+    str = str .. symbol .. " "
+  end
+
+  return str:gsub("%s+$", "")
+end

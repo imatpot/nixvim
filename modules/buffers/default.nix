@@ -11,8 +11,16 @@ lib.utils.modules.mkModule config true "bufferline" {
     settings = {
       options = {
         diagnostics = "nvim_lsp";
+        diagnostics_indicator = "BufferDiagnostics";
         show_buffer_close_icons = false;
         always_show_bufferline = false;
+        offsets = [
+          {
+            filetype = "neo-tree";
+            text = "";
+            text_align = "left";
+          }
+        ];
         style_preset =
           helpers.mkRaw
           # lua

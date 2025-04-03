@@ -11,6 +11,10 @@ lib.utils.modules.mkModule config true "neo-tree" {
     hideRootNode = true;
     closeIfLastWindow = true;
 
+    window = {
+      width = 48;
+    };
+
     filesystem = {
       scanMode = "deep";
       groupEmptyDirs = true;
