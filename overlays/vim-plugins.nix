@@ -1,4 +1,3 @@
-# nix run nixpkgs#update-nix-fetchgit --verbose overlays/*.nix
 self: super: {
   vimPlugins =
     super.vimPlugins
@@ -32,6 +31,17 @@ self: super: {
           repo = "indentmini.nvim";
           rev = "59c2be5387e3a3308bb43f07e7e39fde0628bd4d";
           sha256 = "1a2bakxvsdz1qn0sp5y8kd3xkczhxbag1jph2n44r57ghaa4zls6";
+        };
+        doCheck = false;
+      };
+
+      vim-troll-stopper = super.vimUtils.buildVimPlugin {
+        name = "vim-troll-stopper";
+        src = super.fetchFromGitHub {
+          owner = "vim-utils";
+          repo = "vim-troll-stopper";
+          rev = "24a9db129cd2e3aa2dcd79742b6cb82a53afef6c";
+          sha256 = "1avycg3nnb94kiz5sgfncg1aflg364zl57g65x8jps2zmv6bymp4";
         };
         doCheck = false;
       };
