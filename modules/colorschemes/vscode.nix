@@ -34,17 +34,9 @@ lib.utils.modules.mkTheme config "vscode" {
           IndentLine.fg = color "vscCursorDarkDark";
           IndentLineCurrent.fg = color "vscLineNumber";
 
-          SnacksDashboardIcon = {
-            fg = color "vscLightBlue";
-          };
-
-          SnacksDashboardDesc = {
-            fg = color "vscFront";
-          };
-
-          SnacksDashboardKey = {
-            fg = color "vscLineNumber";
-          };
+          SnacksDashboardIcon.fg = color "vscLightBlue";
+          SnacksDashboardDesc.fg = color "vscFront";
+          SnacksDashboardKey.fg = color "vscLineNumber";
 
           "@string.special.path.nix".fg = color "vscOrange";
         }
