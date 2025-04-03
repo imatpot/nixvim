@@ -21,6 +21,9 @@
       (mkKeymap' "<leader> " "<CMD>nohlsearch<CR>" "Turn off highlighted matches")
       (mkKeymap' "<leader><Esc>" "<CMD>nohlsearch<CR>" "Turn off highlighted matches")
 
+      (mkKeymap' "<leader>:" ":lua " "Run Lua")
+      (mkKeymap' "<leader>R" ":%s/" "Find and replace")
+
       (mkKeymap ["n"] "<C-d>" "£" "Go to previous occurence")
       (mkKeymap ["n"] "<C-k>" "<C-u>" "Jump up half a page")
       (mkKeymap ["n"] "<C-j>" "<C-d>" "Jump down half a page")
