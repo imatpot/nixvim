@@ -57,6 +57,14 @@ lib.utils.modules.mkModule config true "dashboard" {
               action = ":lua Snacks.dashboard.pick('oldfiles')";
             }
           ]
+          ++ lib.optionals config.modules.neo-tree.enable [
+            {
+              icon = "";
+              key = "e";
+              desc = "~ Explorer";
+              action = "<leader>e";
+            }
+          ]
           ++ lib.optionals config.modules.toggleterm.enable [
             {
               icon = "";
@@ -101,9 +109,10 @@ lib.utils.modules.mkModule config true "dashboard" {
 
   extraConfigLuaPre = builtins.readFile ./dashboard.lua;
 
-  extraLuaPackages = rocks: with rocks; [
-    luautf8
-  ];
+  extraLuaPackages = rocks:
+    with rocks; [
+      luautf8
+    ];
 
   extraPackages = with pkgs; [
     krabby

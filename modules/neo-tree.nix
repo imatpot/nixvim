@@ -114,10 +114,13 @@ lib.utils.modules.mkModule config true "neo-tree" {
     };
   };
 
-  keymaps = with lib.utils.keymaps; [
-    (mkKeymap' "<leader>e" "<CMD>Neotree focus<CR>" "Focus file explorer")
-    (mkKeymap' "<leader>E" "<CMD>Neotree toggle<CR>" "Toggle file explorer")
-  ];
+  keymaps = let
+    dashboard_refresher = lib.optionalString config.modules.dashboard.enable "<c-w><c-p> <CMD>lua Snacks.dashboard.update()<CR> <c-w><c-p>";
+  in
+    with lib.utils.keymaps; [
+      (mkKeymap' "<leader>e" "<CMD>Neotree focus<CR>${dashboard_refresher}" "Focus file explorer")
+      (mkKeymap' "<leader>E" "<CMD>Neotree toggle<CR>${dashboard_refresher}" "Toggle file explorer")
+    ];
 
   autoCmd = [
     # {
