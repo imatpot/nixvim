@@ -13,6 +13,7 @@ lib.utils.modules.mkModule config true "dashboard" {
 
     snacks.settings.dashboard = {
       enabled = true;
+      width = 64;
 
       sections = [
         (
