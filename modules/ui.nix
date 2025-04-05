@@ -34,7 +34,7 @@ lib.utils.modules.mkModule config true "ui" {
         notify.view = "notify";
 
         lsp.progress = {
-          enable = true;
+          enabled = false;
           view = "mini";
         };
 

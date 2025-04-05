@@ -67,23 +67,6 @@ lib.utils.modules.mkModule config true "lualine" {
             };
           }
           "diff"
-          # {
-          #   __unkeyed = "diff";
-          #   source =
-          #     # lua
-          #     ''
-          #       function()
-          #         local gitsigns = vim.b.gitsigns_status_dict
-          #         if gitsigns then
-          #           return {
-          #             added = gitsigns.added,
-          #             modified = gitsigns.changed,
-          #             removed = gitsigns.removed,
-          #           }
-          #         end
-          #       end
-          #     '';
-          # }
           {
             __unkeyed = "diagnostics";
             symbols = {
@@ -100,40 +83,61 @@ lib.utils.modules.mkModule config true "lualine" {
           {
             __unkeyed = "lsp_status";
             ignore_lsp = ["copilot"];
+            icon = {
+              __unkeyed = "󰗊";
+              # TODO: lualine doesn't update this color on refresh, it only runs once
+              color.fg =
+                helpers.mkRaw
+                # lua
+                "BufferLanguageColor()";
+            };
+            symbols.done = "";
             fmt =
               # lua
               ''
                 function(lsp_status)
+                  -- otter-ls has stuff after it, so i can't use ignore_lsp
                   return lsp_status:gsub("otter%-ls%[.+%]", ""):gsub("%s+$", "")
                 end
               '';
           }
-          "encoding"
+          {
+            __unkeyed = "encoding";
+            padding = {
+              left = 1;
+              right = 2;
+            };
+          }
         ];
 
         lualine_y = [
           {
-            __unkeyed = "progress";
-            padding = {
-              right = 2;
-              left = 1;
-            };
-            fmt =
-              # lua
-              ''
-                function(progress)
-                  if progress == "Top" then
-                    return "top"
-                  end
-
-                  if progress == "Bot" then
-                    return "end"
-                  end
-
-                  return progress
-                end
-              '';
+            __unkeyed = "searchcount";
+            padding.right = 2;
           }
+          {
+            __unkeyed = "selectioncount";
+            padding.right = 2;
+          }
+          # {
+          #   __unkeyed = "progress";
+          #   padding.right = 2;
+          #   fmt =
+          #     # lua
+          #     ''
+          #       function(progress)
+          #         if progress == "Top" then
+          #           return "TOP"
+          #         end
+
+          #         if progress == "Bot" then
+          #           return "END"
+          #         end
+
+          #         return progress
+          #       end
+          #     '';
+          # }
         ];
 
         lualine_z = [
@@ -153,5 +157,17 @@ lib.utils.modules.mkModule config true "lualine" {
         "symbols-outline"
       ];
     };
+
+    luaConfig.pre =
+      # lua
+      ''
+        local devicons = require("nvim-web-devicons");
+
+        function BufferLanguageColor()
+          local filename = vim.fn.expand("%:t")
+          local _, color = devicons.get_icon_color(filename)
+          return color
+        end
+      '';
   };
 }
