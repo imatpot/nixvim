@@ -49,7 +49,11 @@ lib.utils.modules.mkModule config true "lualine" {
               # lua
               ''
                 function(branch)
-                  return "git:" .. branch
+                  if branch ~= "" then
+                    return "git:" .. branch
+                  end
+
+                  return branch
                 end
               '';
           }
