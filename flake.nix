@@ -15,6 +15,11 @@
       url = "github:yunfachi/nypkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    dotfiles = {
+      url = "github:imatpot/dotfiles";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {

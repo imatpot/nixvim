@@ -31,7 +31,19 @@ lib.utils.modules.mkLanguage config "nix" {
               # nix
               "${flakeExpr}.packages.${systemExpr}.nvim.options";
 
-            # TODO: nixos, home-manager, nix-darwin
+            # TODO: make nixvim not rely on dotfiles for these options
+
+            nixos.expr =
+              # nix
+              "${flakeExpr}.inputs.dotfiles.nixosConfigurations.shinobi.options";
+
+            home-manager.expr =
+              # nix
+              "${flakeExpr}.inputs.dotfiles.homeConfigurations.mladen.options";
+
+            nix-darwin.expr =
+              # nix
+              "${flakeExpr}.inputs.dotfiles.darwinConfigurations.mcdonalds.options";
           };
         };
       };
