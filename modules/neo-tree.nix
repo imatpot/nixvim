@@ -21,6 +21,8 @@ lib.utils.modules.mkModule config true "neo-tree" {
       followCurrentFile.enabled = true;
 
       window.mappings = {
+        e = "noop";
+
         n = "add";
         N = "add_directory";
 

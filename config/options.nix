@@ -14,13 +14,17 @@
       mouse = "";
       timeout = false;
 
+      fillchars = {
+        eob = " ";
+        vert = "│";
+      };
+
       autoindent = true;
       breakindent = true;
       confirm = true;
       cursorline = true;
       expandtab = true;
       filetype = "on";
-      fillchars.eob = " ";
       ignorecase = true;
       linebreak = true;
       number = true;
