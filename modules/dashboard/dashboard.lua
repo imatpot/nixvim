@@ -109,7 +109,7 @@ function FindPrimaryColor(str)
     if r and g and b then
       local luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 -- https://www.w3.org/WAI/GL/wiki/Relative_luminance
 
-      if luminance > 0.3 then
+      if luminance > 0.333 then
         local normalized_frequency = frequency / total_pixels
         local hsv = RgbToHsv(r, g, b)
         local saturation = hsv.s
