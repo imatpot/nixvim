@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 lib.utils.modules.mkModule config true "neo-tree" {
@@ -8,6 +9,8 @@ lib.utils.modules.mkModule config true "neo-tree" {
 
   plugins.neo-tree = {
     enable = true;
+    package = pkgs.master.vimPlugins.neo-tree-nvim;
+
     hideRootNode = true;
     closeIfLastWindow = true;
 
