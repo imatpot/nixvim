@@ -81,7 +81,7 @@ lib.utils.modules.mkTheme config "vscode" {
       event = "VimEnter";
       callback =
         helpers.mkRaw
-          # lua
+        # lua
         ''
           function()
             vim.api.nvim_set_hl(0, "BufferTabpageFill", { bg = nil })
