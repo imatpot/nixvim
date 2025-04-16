@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    alejandra = {
+      url = "github:kamadorueda/alejandra/4.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dotfiles = {
       url = "github:imatpot/dotfiles";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,7 +39,7 @@
       pkgs = import nixpkgs {
         inherit system;
         config = {allowUnfree = true;};
-        overlays = map (f: import f {inherit inputs;}) (utils.umport {path = ./overlays;});
+        overlays = map (overlay: import overlay {inherit inputs system;}) (utils.umport {path = ./overlays;});
       };
       utils = import ./utils {
         inherit inputs system pkgs;
