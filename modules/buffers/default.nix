@@ -5,8 +5,58 @@
   ...
 }:
 lib.utils.modules.mkModule config true "bufferline" {
-  plugins.bufferline = {
+  plugins.barbar = {
     enable = true;
+
+    settings = {
+      animation = false;
+      auto_hide = 1;
+      insert_At_end = true;
+      letters = "asdfghjklqwertzuiopyxcvbnm";
+      maximum_padding = 2;
+      minimum_padding = 2;
+
+      sidebar_filetypes = {
+        "neo-tree" = {
+          event = "BufWipeout";
+        };
+      };
+
+      icons = {
+        button = "";
+        modified.button = "•";
+        inactive.separator.left = "";
+
+        separator = {
+          left = "";
+          right = "";
+          at_end = "";
+        };
+
+        diagnostics = {
+          "vim.diagnostic.severity.ERROR" = {
+            enabled = true;
+            icon = " ";
+          };
+          "vim.diagnostic.severity.WARN" = {
+            enabled = true;
+            icon = " ";
+          };
+          "vim.diagnostic.severity.INFO" = {
+            enabled = true;
+            icon = " ";
+          };
+          "vim.diagnostic.severity.HINT" = {
+            enabled = true;
+            icon = " ";
+          };
+        };
+      };
+    };
+  };
+
+  plugins.bufferline = {
+    enable = false;
 
     settings = {
       options = {
