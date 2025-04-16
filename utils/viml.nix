@@ -5,7 +5,5 @@
     EOF
   '';
 
-  join = str:
-    lib.concatStringsSep " | "
-    (lib.filter (line: line != "") (lib.splitString "\n" str));
+  join = lib.concatStringsSep " | " <| lib.filter (line: line != "") <| lib.splitString "\n";
 }
