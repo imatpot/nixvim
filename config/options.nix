@@ -6,7 +6,7 @@
     # viAlias = true;
     # vimAlias = true;
 
-    diagnostics = {
+    diagnostic.settings = {
       signs.text = ["" "" "" ""];
     };
 

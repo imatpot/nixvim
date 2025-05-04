@@ -29,8 +29,8 @@
         src = super.fetchFromGitHub {
           owner = "nvimdev";
           repo = "indentmini.nvim";
-          rev = "59c2be5387e3a3308bb43f07e7e39fde0628bd4d";
-          sha256 = "1a2bakxvsdz1qn0sp5y8kd3xkczhxbag1jph2n44r57ghaa4zls6";
+          rev = "b51cd09456c133b51115448dfb58e84465432029";
+          sha256 = "06vqn4hbwb27dw2aas0qdym88lzyvkvd60i06wcm355drci7vqz7";
         };
         doCheck = false;
       };

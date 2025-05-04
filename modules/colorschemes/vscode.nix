@@ -22,6 +22,7 @@ lib.utils.modules.mkTheme config "vscode" {
         lib.mkMerge [
           {
             DiagnosticWarn.fg = color "vscYellowOrange";
+            StatusLine.bg = color "vscNone";
 
             CursorLine.bg = color "vscTabCurrent";
             CursorColumn.bg = color "vscTabOther";
