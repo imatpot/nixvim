@@ -18,8 +18,8 @@
         src = super.fetchFromGitHub {
           owner = "mirlge";
           repo = "kak.nvim";
-          rev = "d4d55034232209d1476902ea004c48e01e06aa2a";
-          sha256 = "0i8qc1gppxkb4xj09ikd18s45jhkfy0gvwff2g1y8c6b3mx7lh9a";
+          rev = "b9a7cc37dfd02084087540ba8a1cdb174716b31f";
+          sha256 = "0w69xbmk8s05h0c34d426fjmg217d8475mhbqfaxm92zqvlczdsg";
         };
         doCheck = false;
       };
@@ -29,8 +29,8 @@
         src = super.fetchFromGitHub {
           owner = "nvimdev";
           repo = "indentmini.nvim";
-          rev = "b51cd09456c133b51115448dfb58e84465432029";
-          sha256 = "06vqn4hbwb27dw2aas0qdym88lzyvkvd60i06wcm355drci7vqz7";
+          rev = "bc6b808106315f349cdbb460a6260a97b7feaab9";
+          sha256 = "0ky38ir72mjdh0b1x92shikbfas0qhva1wsqjr4nrflvf565p1nx";
         };
         doCheck = false;
       };
