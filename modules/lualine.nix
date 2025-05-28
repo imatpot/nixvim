@@ -69,6 +69,28 @@ lib.utils.modules.mkModule config true "lualine" {
               unnamed = "Unnamed";
               newfile = "New file";
             };
+            cond =
+              helpers.mkRaw
+              # lua
+              ''
+                function()
+                  local ignored_filename_patterns = {
+                    "^Unnamed$",
+                    "^neo%-tree filesystem %[%d+%]$",
+                    "#toggleterm#%d+",
+                  }
+
+                  local filename = vim.fn.expand("%:t")
+
+                  for _, pattern in ipairs(ignored_filename_patterns) do
+                    if string.find(filename, pattern) then
+                      return false
+                    end
+                  end
+
+                  return true
+                end
+              '';
           }
           "diff"
           {
@@ -83,7 +105,23 @@ lib.utils.modules.mkModule config true "lualine" {
         ];
 
         lualine_x = [
-          "filetype"
+          {
+            __unkeyed = "filetype";
+            cond =
+              helpers.mkRaw
+              # lua
+              ''
+                function()
+                  local ignored_filetypes = {
+                    "neo-tree",
+                    "TelecopePrompt",
+                    "toggleterm",
+                  }
+
+                  return not vim.tbl_contains(ignored_filetypes, vim.bo.filetype)
+                end
+              '';
+          }
           {
             __unkeyed = "lsp_status";
             ignore_lsp = ["copilot"];
