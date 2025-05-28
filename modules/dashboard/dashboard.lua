@@ -114,9 +114,9 @@ function FindPrimaryColor(str)
         local hsv = RgbToHsv(r, g, b)
         local saturation = hsv.s
 
-        local frequency_weight = 0.75
+        local frequency_weight = 0.7
         local luminance_weight = 0.05
-        local saturation_weight = 0.2
+        local saturation_weight = 0.25
 
         local score = frequency_weight * normalized_frequency
           + saturation_weight * saturation
