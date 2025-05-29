@@ -20,8 +20,9 @@ lib.utils.modules.mkModule config true "neo-tree" {
 
     filesystem = {
       scanMode = "deep";
-      groupEmptyDirs = true;
+      groupEmptyDirs = false;
       followCurrentFile.enabled = true;
+      useLibuvFileWatcher = true;
 
       window.mappings = {
         e = "noop";

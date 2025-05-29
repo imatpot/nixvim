@@ -41,7 +41,7 @@ lib.utils.modules.mkModule config true "lsp" {
       (mkKeymap ["x"] "<leader>." "<CMD>lua vim.lsp.buf.range_code_action()<CR>" "Code actions")
       (mkKeymap ["n"] "<leader>r" "<CMD>${lspBuffer}.rename()<CR>" "Rename")
       (mkKeymap' "<leader>h" "<CMD>${lsp}.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>" "Toggle inlay hints")
-      (mkKeymap' "<leader>d" "<CMD>Trouble diagnostics toggle<CR>" "Toggle diagnostics")
+      (mkKeymap' "<leader>D" "<CMD>Trouble diagnostics toggle<CR>" "Toggle diagnostics")
 
       (mkKeymap ["n"] "gd" "<CMD>lua vim.lsp.buf.definition()<CR>" "Go to definition")
       (mkKeymap ["n"] "gD" "<CMD>lua vim.lsp.buf.declaration()<CR>" "Go to declaration")
