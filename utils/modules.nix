@@ -14,6 +14,7 @@
     lsp ? {},
     linter ? {},
     formatter ? {},
+    debugger ? {},
   }: {
     options.modules.languages.${language} = {
       enable =
@@ -31,6 +32,10 @@
       formatter.enable =
         mkDefaultEnableOption config.modules.languages.${language}.enable
         "${language} formatter";
+
+      debugger.enable =
+        mkDefaultEnableOption config.modules.languages.${language}.enable
+        "${language} debugger";
     };
 
     config = lib.mkIf config.modules.languages.${language}.enable (
@@ -38,6 +43,7 @@
         (lib.mkIf config.modules.languages.${language}.lsp.enable lsp)
         (lib.mkIf config.modules.languages.${language}.linter.enable linter)
         (lib.mkIf config.modules.languages.${language}.formatter.enable formatter)
+        (lib.mkIf config.modules.languages.${language}.debugger.enable debugger)
       ]
     );
   };
