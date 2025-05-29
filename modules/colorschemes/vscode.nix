@@ -54,12 +54,18 @@ lib.utils.modules.mkTheme config "vscode" {
             BufferTabpageFill.bg = color "vscNone";
 
             BufferInactiveMod.link = "BufferInactive";
+            BufferInactiveERROR = BufferInactive // {fg = color "vscRed";};
+            BufferInactiveWARN = BufferInactive // {fg = color "vscYellow";};
+            BufferInactiveINFO = BufferInactive // {fg = color "vscBlue";};
             BufferInactive = {
               bg = color "vscNone";
               fg = color "vscLeftLight";
             };
 
             BufferCurrentMod = BufferCurrent // {italic = true;};
+            BufferCurrentERROR = BufferCurrent // {fg = color "vscRed";};
+            BufferCurrentWARN = BufferCurrent // {fg = color "vscYellow";};
+            BufferCurrentINFO = BufferCurrent // {fg = color "vscBlue";};
             BufferCurrent.bg = color "vscTabOther";
           }
           (

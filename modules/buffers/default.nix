@@ -60,9 +60,13 @@ lib.utils.modules.mkModule config true "bufferline" {
     (mkKeymap' "<leader>n" "<CMD>enew<CR>" "New buffer")
 
     (mkKeymap' "<C-l>" "<CMD>BufferNext<CR>" "Next buffer")
-    (mkKeymap' "<C-H>" "<CMD>BufferPrevious<CR>" "Previous buffer")
+    (mkKeymap' "<C-h>" "<CMD>BufferPrevious<CR>" "Previous buffer")
+
+    (mkKeymap' "<C-S-L>" "<CMD>BufferMoveNext<CR>" "Move buffer right")
+    (mkKeymap' "<C-S-H>" "<CMD>BufferMovePrevious<CR>" "Move buffer left")
 
     (mkKeymap' "<leader><up>" "<CMD>BufferPick<CR>" "Pick buffer")
+    (mkKeymap' "<leader>P" "<CMD>BufferPin<CR>" "Pin buffer")
     (mkKeymap' "<leader>T" "<CMD>BufferRestore<CR>" "Restore buffer")
 
     (mkKeymap' "<leader>q" "<CMD>lua CloseBuffer()<CR>" "Close buffer")
