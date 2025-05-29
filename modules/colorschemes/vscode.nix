@@ -20,12 +20,20 @@ lib.utils.modules.mkTheme config "vscode" {
           "require('vscode.colors').get_colors().${name}";
       in
         lib.mkMerge [
-          {
+          rec {
+            Comment = {
+              fg = color "vscGreen";
+              italic = true;
+            };
+
+            "@comment".link = "Comment";
+            SpecialComment.link = "Comment";
+
             DiagnosticWarn.fg = color "vscYellowOrange";
             StatusLine.bg = color "vscNone";
 
-            CursorLine.bg = color "vscTabCurrent";
-            CursorColumn.bg = color "vscTabOther";
+            CursorLine.bg = color "vscBack";
+            CursorColumn.link = "CursorLine";
 
             NeoTreeGitIgnored.fg = color "vscGray";
             NeoTreeIndentMarker2 = {
@@ -41,6 +49,18 @@ lib.utils.modules.mkTheme config "vscode" {
             SnacksDashboardKey.fg = color "vscLineNumber";
 
             "@string.special.path.nix".fg = color "vscOrange";
+
+            # TODO: why is it still grey???
+            BufferTabpageFill.bg = color "vscNone";
+
+            BufferInactiveMod.link = "BufferInactive";
+            BufferInactive = {
+              bg = color "vscNone";
+              fg = color "vscLeftLight";
+            };
+
+            BufferCurrentMod = BufferCurrent // {italic = true;};
+            BufferCurrent.bg = color "vscTabOther";
           }
           (
             let
@@ -58,36 +78,7 @@ lib.utils.modules.mkTheme config "vscode" {
                 (mkCategory "TRACE" "vscViolet")
               ]
           )
-          (
-            let
-              mkHi = category: normal: {
-                "${category}".fg = color normal;
-              };
-              mkHi' = category: normal: selected: {
-                "${category}Visible".fg = color normal;
-                "${category}Selected".fg = color selected;
-              };
-              mkFullHi = category: normal: selected:
-                mkHi category normal
-                // mkFullHi category normal selected;
-            in
-              lib.mkMerge []
-          )
         ];
     };
   };
-
-  autoCmd = [
-    {
-      event = "VimEnter";
-      callback =
-        helpers.mkRaw
-        # lua
-        ''
-          function()
-            vim.api.nvim_set_hl(0, "BufferTabpageFill", { bg = nil })
-          end
-        '';
-    }
-  ];
 }

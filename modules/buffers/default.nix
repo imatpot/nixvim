@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  helpers,
   ...
 }:
 lib.utils.modules.mkModule config true "bufferline" {
@@ -55,34 +54,16 @@ lib.utils.modules.mkModule config true "bufferline" {
     };
   };
 
-  plugins.bufferline = {
-    enable = false;
-
-    settings = {
-      options = {
-        diagnostics = "nvim_lsp";
-        diagnostics_indicator = "BufferDiagnostics";
-        show_buffer_close_icons = false;
-        always_show_bufferline = false;
-        offsets = [
-          {
-            filetype = "neo-tree";
-            text = "";
-            text_align = "left";
-          }
-        ];
-        style_preset =
-          helpers.mkRaw
-          # lua
-          "require('bufferline').style_preset.no_italic";
-      };
-    };
-  };
-
   keymaps = with lib.utils.keymaps; [
-    (mkKeymap' "<C-t>" "<CMD>enew<CR>" "New buffer")
-    (mkKeymap' "<C-l>" "<CMD>bnext<CR>" "Next buffer")
-    (mkKeymap' "<C-H>" "<CMD>bprevious<CR>" "Previous buffer")
+    # i never know which one it is, so let's have both!
+    (mkKeymap' "<leader>t" "<CMD>enew<CR>" "New buffer")
+    (mkKeymap' "<leader>n" "<CMD>enew<CR>" "New buffer")
+
+    (mkKeymap' "<C-l>" "<CMD>BufferNext<CR>" "Next buffer")
+    (mkKeymap' "<C-H>" "<CMD>BufferPrevious<CR>" "Previous buffer")
+
+    (mkKeymap' "<leader><up>" "<CMD>BufferPick<CR>" "Pick buffer")
+    (mkKeymap' "<leader>T" "<CMD>BufferRestore<CR>" "Restore buffer")
 
     (mkKeymap' "<leader>q" "<CMD>lua CloseBuffer()<CR>" "Close buffer")
     (mkKeymap' "<leader>Q" "<CMD>qa<CR>" "Close all buffers")

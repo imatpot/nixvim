@@ -75,7 +75,7 @@ lib.utils.modules.mkModule config true "lualine" {
               ''
                 function()
                   local ignored_filename_patterns = {
-                    "^Unnamed$",
+                    "^$",
                     "^neo%-tree filesystem %[%d+%]$",
                     "#toggleterm#%d+",
                   }
@@ -114,7 +114,8 @@ lib.utils.modules.mkModule config true "lualine" {
                 function()
                   local ignored_filetypes = {
                     "neo-tree",
-                    "TelecopePrompt",
+                    "TelescopePrompt",
+                    "TelescopeResults",
                     "toggleterm",
                   }
 
