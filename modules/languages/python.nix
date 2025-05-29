@@ -5,12 +5,10 @@
   ...
 }:
 lib.utils.modules.mkLanguage config "python" {
-  lsp = {
-    plugins.lsp.servers.ruff.enable = true;
-  };
+  plugins = {
+    lsp.servers.ruff.enable = true;
 
-  formatter = {
-    plugins.conform-nvim.settings = {
+    conform-nvim.settings = {
       formatters_by_ft.python = [
         "ruff_fix"
         "ruff_format"
@@ -23,9 +21,7 @@ lib.utils.modules.mkLanguage config "python" {
         ruff_organize_imports.command = lib.getExe pkgs.ruff;
       };
     };
-  };
 
-  debugger = {
-    plugins.dap-python.enable = true;
+    dap-python.enable = true;
   };
 }

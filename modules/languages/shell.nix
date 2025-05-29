@@ -5,16 +5,12 @@
   ...
 }:
 lib.utils.modules.mkLanguage config "shell" {
-  lsp = {
-    plugins.lsp.servers.bashls.enable = true;
-  };
+  plugins = {
+    lsp.servers.bashls.enable = true;
 
-  linter = {
-    plugins.lint.lintersByFt.bash = ["shellcheck"];
-  };
+    lint.lintersByFt.bash = ["shellcheck"];
 
-  formatter = {
-    plugins.conform-nvim.settings = {
+    conform-nvim.settings = {
       formatters_by_ft.bash = ["shfmt"];
       formatters.shfmt.command = lib.getExe pkgs.shfmt;
     };

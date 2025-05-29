@@ -5,13 +5,11 @@
   ...
 }:
 lib.utils.modules.mkLanguage config "rust" {
-  lsp = {
+  plugins = {
     # TODO: configure components (analyzer, clippy, etc.) or use manual config
-    plugins.rustaceanvim.enable = true;
-  };
+    rustaceanvim.enable = true;
 
-  formatter = {
-    plugins.conform-nvim.settings = {
+    conform-nvim.settings = {
       formatters_by_ft.rust = ["rustfmt"];
       formatters.rustfmt.command = lib.getExe pkgs.rustfmt;
     };

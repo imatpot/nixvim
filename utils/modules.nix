@@ -10,42 +10,16 @@
       moduleConfig;
   };
 
-  mkLanguage = config: language: {
-    lsp ? {},
-    linter ? {},
-    formatter ? {},
-    debugger ? {},
-  }: {
+  mkLanguage = config: language: languageConfig: {
     options.modules.languages.${language} = {
       enable =
         mkDefaultEnableOption config.modules.languages.all.enable
         language;
-
-      lsp.enable =
-        mkDefaultEnableOption config.modules.languages.${language}.enable
-        "${language} lsp";
-
-      linter.enable =
-        mkDefaultEnableOption config.modules.languages.${language}.enable
-        "${language} linter";
-
-      formatter.enable =
-        mkDefaultEnableOption config.modules.languages.${language}.enable
-        "${language} formatter";
-
-      debugger.enable =
-        mkDefaultEnableOption config.modules.languages.${language}.enable
-        "${language} debugger";
     };
 
-    config = lib.mkIf config.modules.languages.${language}.enable (
-      lib.mkMerge [
-        (lib.mkIf config.modules.languages.${language}.lsp.enable lsp)
-        (lib.mkIf config.modules.languages.${language}.linter.enable linter)
-        (lib.mkIf config.modules.languages.${language}.formatter.enable formatter)
-        (lib.mkIf config.modules.languages.${language}.debugger.enable debugger)
-      ]
-    );
+    config =
+      lib.mkIf config.modules.languages.${language}.enable
+      languageConfig;
   };
 
   mkTheme = config: name: moduleConfig: {

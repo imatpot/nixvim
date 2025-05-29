@@ -4,8 +4,10 @@
   ...
 }:
 lib.utils.modules.mkModule config true "formatter" {
-  plugins.sleuth.enable = true;
-  plugins.conform-nvim.enable = true;
+  plugins = {
+    sleuth.enable = true;
+    conform-nvim.enable = true;
+  };
 
   keymaps = let
     runFormatter = "lua require('conform').format()";
