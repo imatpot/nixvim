@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkLanguage config "lua" {
+lib.utils.modules.mkLanguage' config "lua" {
   plugins = {
     lsp.servers.lua_ls = {
       enable = true;

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkLanguage config "python" {
+lib.utils.modules.mkLanguage' config "python" {
   plugins = {
     lsp.servers.ruff.enable = true;
 

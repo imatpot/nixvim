@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkLanguage config "shell" {
+lib.utils.modules.mkLanguage' config "shell" {
   plugins = {
     lsp.servers.bashls.enable = true;
 

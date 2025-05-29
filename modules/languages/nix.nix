@@ -5,7 +5,7 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkLanguage config "nix" {
+lib.utils.modules.mkLanguage' config "nix" {
   plugins = {
     hmts.enable = true;
 
