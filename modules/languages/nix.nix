@@ -58,4 +58,9 @@ lib.utils.modules.mkLanguage config "nix" {
       };
     };
   };
+
+  extraPackages = with pkgs; [
+    statix
+    deadnix
+  ];
 }

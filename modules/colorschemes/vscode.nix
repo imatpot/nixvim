@@ -30,6 +30,7 @@ lib.utils.modules.mkTheme config "vscode" {
             SpecialComment.link = "Comment";
 
             DiagnosticWarn.fg = color "vscYellowOrange";
+            DiagnosticHint.fg = color "vscBlueGreen";
             StatusLine.bg = color "vscNone";
 
             CursorLine.bg = color "vscBack";
@@ -53,10 +54,11 @@ lib.utils.modules.mkTheme config "vscode" {
             # TODO: why is it still grey???
             BufferTabpageFill.bg = color "vscNone";
 
-            BufferInactiveMod.link = "BufferInactive";
+            BufferInactiveMod = BufferInactive // {italic = true;};
             BufferInactiveERROR = BufferInactive // {fg = color "vscRed";};
             BufferInactiveWARN = BufferInactive // {fg = color "vscYellow";};
             BufferInactiveINFO = BufferInactive // {fg = color "vscBlue";};
+            BufferInactiveHINT = BufferInactive // {fg = color "vscBlueGreen";};
             BufferInactive = {
               bg = color "vscNone";
               fg = color "vscLeftLight";
@@ -66,7 +68,11 @@ lib.utils.modules.mkTheme config "vscode" {
             BufferCurrentERROR = BufferCurrent // {fg = color "vscRed";};
             BufferCurrentWARN = BufferCurrent // {fg = color "vscYellow";};
             BufferCurrentINFO = BufferCurrent // {fg = color "vscBlue";};
-            BufferCurrent.bg = color "vscTabOther";
+            BufferCurrentHINT = BufferCurrent // {fg = color "vscBlueGreen";};
+            BufferCurrent = {
+              bg = color "vscTabOther";
+              fg = color "vscFront";
+            };
           }
           (
             let

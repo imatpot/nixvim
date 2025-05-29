@@ -22,6 +22,8 @@ lib.utils.modules.mkLanguage config "python" {
       };
     };
 
+    lint.lintersByFt.python = ["ruff"];
+
     dap-python.enable = true;
   };
 }

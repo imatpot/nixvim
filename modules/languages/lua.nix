@@ -13,6 +13,8 @@ lib.utils.modules.mkLanguage config "lua" {
       ];
     };
 
+    lint.lintersByFt.lua = ["luacheck"];
+
     conform-nvim.settings = {
       formatters_by_ft.lua = ["stylua"];
       formatters.stylua = {
@@ -21,4 +23,8 @@ lib.utils.modules.mkLanguage config "lua" {
       };
     };
   };
+
+  extraPackages = with pkgs; [
+    luajitPackages.luacheck
+  ];
 }
