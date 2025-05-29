@@ -139,6 +139,18 @@ lib.utils.modules.mkModule config true "lualine" {
               # lua
               ''
                 function(lsp_status)
+                  local seen = {}
+                  local unique = {}
+
+                  for ls in lsp_status:gmatch("%S+") do
+                    if not seen[ls] then
+                      table.insert(unique, ls)
+                      seen[ls] = true
+                    end
+                  end
+
+                  lsp_status = table.concat(unique, " ")
+
                   -- otter-ls has stuff after it, so i can't use ignore_lsp
                   return lsp_status:gsub("otter%-ls%[.+%]", ""):gsub("%s+$", "")
                 end
