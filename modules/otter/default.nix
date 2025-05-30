@@ -19,7 +19,7 @@ lib.utils.modules.mkModule config true "otter" {
         preambles = {
           lua = [
             # lua
-            "---@diagnostic disable: trailing-space, undefined-global, unreachable-code"
+            "---@diagnostic disable: trailing-space, undefined-global, unreachable-code, unused-local"
           ];
         };
       };

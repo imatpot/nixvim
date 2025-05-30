@@ -330,7 +330,6 @@
         lib.optionalString config.modules.completions.enable
         # lua
         ''
-          ---@diagnostic disable: unused-local
           local luasnip = require("luasnip")
           local lspkind = require("lspkind")
           local cmp = require("cmp")
