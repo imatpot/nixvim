@@ -13,8 +13,11 @@ lib.utils.modules.mkModule config true "lualine" {
     settings = {
       options = {
         always_divide_middle = false;
-        disabled_filetypes = ["snacks_dashboard"];
         globalstatus = true;
+
+        disabled_filetypes = [
+          "snacks_dashboard"
+        ];
 
         component_separators = {
           left = "";
@@ -29,6 +32,34 @@ lib.utils.modules.mkModule config true "lualine" {
 
       sections = {
         lualine_a = [
+          {
+            __unkeyed =
+              helpers.mkRaw
+              # lua
+              ''
+                function()
+                  return require('dap').status()
+                end
+              '';
+
+            fmt =
+              helpers.mkRaw
+              # lua
+              ''
+                function(status)
+                  return ""
+                end
+              '';
+
+            cond =
+              helpers.mkRaw
+              # lua
+              ''
+                function()
+                  return package.loaded.dap and require("dap").session() ~= nil
+                end
+              '';
+          }
           {
             __unkeyed = "mode";
             fmt =
@@ -78,6 +109,8 @@ lib.utils.modules.mkModule config true "lualine" {
                     "^$",
                     "^neo%-tree filesystem %[%d+%]$",
                     "#toggleterm#%d+",
+                    "^dap-view%:%/%/.*",
+                    "^%[dap%-repl%-%d+%]$",
                   }
 
                   local filename = vim.fn.expand("%:t")
@@ -117,6 +150,8 @@ lib.utils.modules.mkModule config true "lualine" {
                     "TelescopePrompt",
                     "TelescopeResults",
                     "toggleterm",
+                    "dap-repl",
+                    "dap-view",
                   }
 
                   return not vim.tbl_contains(ignored_filetypes, vim.bo.filetype)
@@ -207,7 +242,7 @@ lib.utils.modules.mkModule config true "lualine" {
       };
 
       extensions = [
-        "nvim-dap-ui"
+        # "nvim-dap-ui"
         "overseer"
         "symbols-outline"
       ];

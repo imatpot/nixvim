@@ -8,57 +8,86 @@ lib.utils.modules.mkModule config true "debugging" {
     dap = {
       enable = true;
       signs.dapBreakpoint = {
-        text = "";
+        text = "󰏧";
         texthl = "DiagnosticSignError";
       };
     };
 
-    dap-ui.enable = true;
     dap-virtual-text.enable = true;
 
-    cmp.settings.sources = [{name = "dap";}];
+    dap-ui = {
+      enable = true;
+
+      settings = {
+        controls.enabled = false;
+
+        icons = {
+          collapsed = "";
+          expanded = "";
+          current_frame = "";
+        };
+      };
+    };
+
+    cmp.settings.sources = [
+      {
+        name = "dap";
+      }
+    ];
   };
 
   keymaps = [
     {
-      key = "<Leader>db";
-      action = "<CMD>lua require('dap').toggle_breakpoint()<CR>";
-      options.desc = "(Debugger) Add breakpoint";
+      key = "<leader>db";
+      action = "<CMD>DapToggleBreakpoint<CR>";
+      options.desc = "Add breakpoint";
     }
     {
-      key = "<Leader>ds";
-      action = "<CMD>lua require('dap').continue()<CR>";
-      options.desc = "(Debugger) Start / Continue";
+      key = "<leader>ds";
+      action = "<CMD>DapContinue<CR>";
+      options.desc = "Start / Continue";
     }
     {
-      key = "<Leader>do";
-      action = "<CMD>lua require('dap').step_over()<CR>";
-      options.desc = "(Debugger) Step over";
+      key = "<leader>do";
+      action = "<CMD>DapStepOver<CR>";
+      options.desc = "Step over";
     }
     {
-      key = "<Leader>di";
-      action = "<CMD>lua require('dap').step_into()<CR>";
-      options.desc = "(Debugger) Step into";
+      key = "<leader>di";
+      action = "<CMD>DapStepInto<CR>";
+      options.desc = "Step into";
     }
     {
-      key = "<Leader>dO";
-      action = "<CMD>lua require('dap').step_out()<CR>";
-      options.desc = "(Debugger) Step out";
+      key = "<leader>dO";
+      action = "<CMD>DapStepOut<CR>";
+      options.desc = "Step out";
     }
     {
-      key = "<Leader>dr";
-      action = "<CMD>lua require('dap').repl.toggle()<CR>";
-      options.desc = "(Debugger) REPL";
+      key = "<leader>dr";
+      action = "<CMD>DapToggleRepl<CR>";
+      options.desc = "REPL";
     }
     {
-      key = "<Leader>dS";
-      action = "<CMD>lua require('dap').close()<CR>";
-      options.desc = "(Debugger) Stop";
+      key = "<leader>dp";
+      action = "<CMD>DapPause<CR>";
+      options.desc = "Pause";
     }
     {
-      key = "<Leader>dd";
+      key = "<leader>dq";
+      action = "<CMD>DapTerminate<CR>";
+      options.desc = "Stop";
+    }
+    {
+      key = "<leader>dd";
       action = "<CMD>lua require('dapui').toggle()<CR>";
-      options.desc = "(Debugger) Toggle UI";
+      options.desc = "Toggle Debugger UI";
+    }
+    {
+      key = "<leader>de";
+      options.desc = "Evaluate expression";
+
+      # first eval() evaluates, second eval() focuses floating window
+      action = "<CMD>lua require('dapui').eval(); require('dapui').eval()<CR>";
     }
   ];
 }
