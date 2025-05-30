@@ -3,68 +3,50 @@
   lib,
   ...
 }:
-lib.utils.modules.mkLanguage config "dart"
-{
-  flutter.enable =
-    lib.utils.mkDefaultEnableOption
-    config.modules.languages.dart.enable
-    "flutter";
-}
+lib.utils.modules.mkLanguage' config "dart"
 {
   plugins = {
-    lsp.servers.dartls = {
+    conform-nvim.settings.formatters_by_ft.dart.lsp_format = "prefer";
+
+    flutter-tools = {
       enable = true;
 
       settings = {
-        showTodos = true;
-        updateImportsOnRename = true;
-        enableSnippets = true;
+        fvm = true;
+        dev_log.enabled = false;
+        debugger.enabled = true;
+        closing_tags.enabled = false;
       };
     };
+  };
 
-    conform-nvim.settings = {
-      formatters_by_ft.dart = ["dart_format"];
-      formatters.dart_format = {
-        command = "fvm";
-        args = ["dart" "format" "$FILENAME"];
-        stdin = false;
-      };
-    };
-
-    dap = {
-      adapters = {
-        executables = {
-          dart = {
-            command = "fvm";
-            args = ["dart" "debug_adapter"];
-          };
-
-          flutter = lib.mkIf config.modules.languages.dart.flutter.enable {
-            command = "fvm";
-            args = ["flutter" "debug_adapter"];
-          };
-        };
-      };
-
-      configurations = {
-        dart = [
-          {
-            name = "Dart";
-            type = "dart";
-            request = "launch";
-            autoReload.enable = true;
-          }
-
-          (lib.mkIf config.modules.languages.dart.flutter.enable {
-            name = "Flutter";
-            type = "flutter";
-            request = "launch";
-            autoReload.enable = true;
-          })
-        ];
-      };
-    };
-
-    flutter-tools.enable = config.modules.languages.dart.flutter.enable;
+  files."ftplugin/dart.lua" = {
+    keymaps = [
+      {
+        key = "<leader>ds";
+        action = "<CMD>lua if require('dap').session() ~= nil then require('dap').continue() else vim.cmd('FlutterRun') end<CR>";
+        options.desc = "Start / Continue";
+      }
+      {
+        key = "<leader>dr";
+        action = "<CMD>FlutterReload<CR>";
+        options.desc = "Hot-Relod";
+      }
+      {
+        key = "<leader>dR";
+        action = "<CMD>FlutterRestart<CR>";
+        options.desc = "Hot-Restart";
+      }
+      {
+        key = "<leader>dE";
+        action = "<CMD>FlutterEmulators<CR>";
+        options.desc = "Emulators";
+      }
+      {
+        key = "<leader>dD";
+        action = "<CMD>FlutterDevices<CR>";
+        options.desc = "Devices";
+      }
+    ];
   };
 }
