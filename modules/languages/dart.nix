@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 lib.utils.modules.mkLanguage' config "dart"
@@ -19,6 +20,18 @@ lib.utils.modules.mkLanguage' config "dart"
       };
     };
   };
+
+  extraPlugins = with pkgs.vimPlugins; [
+    {
+      plugin = pubspec-assist;
+      config =
+        lib.utils.viml.fromLua
+        # lua
+        ''
+          require("pubspec-assist").setup()
+        '';
+    }
+  ];
 
   files."ftplugin/dart.lua" = {
     keymaps = [

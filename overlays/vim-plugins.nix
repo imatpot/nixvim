@@ -29,8 +29,8 @@
         src = super.fetchFromGitHub {
           owner = "nvimdev";
           repo = "indentmini.nvim";
-          rev = "bc6b808106315f349cdbb460a6260a97b7feaab9";
-          sha256 = "0ky38ir72mjdh0b1x92shikbfas0qhva1wsqjr4nrflvf565p1nx";
+          rev = "6211f93b0c8161d2a2b4000b9bf0c01c0a115455";
+          sha256 = "05mbzqwqnr96g43b9lw7hfhzs0saz7p7j9n2y5rb6cz8ajfwmnyj";
         };
         doCheck = false;
       };
@@ -42,6 +42,28 @@
           repo = "vim-troll-stopper";
           rev = "24a9db129cd2e3aa2dcd79742b6cb82a53afef6c";
           sha256 = "1avycg3nnb94kiz5sgfncg1aflg364zl57g65x8jps2zmv6bymp4";
+        };
+        doCheck = false;
+      };
+
+      plenary-nvim = super.vimUtils.buildVimPlugin {
+        name = "plenary-nvim";
+        src = super.fetchFromGitHub {
+          owner = "nvim-lua";
+          repo = "plenary.nvim";
+          rev = "857c5ac632080dba10aae49dba902ce3abf91b35";
+          sha256 = "0jxx9nfga7z87v78cifglqs8w4mrpf99wcp483kb0hbv6537jmgh";
+        };
+        doCheck = false;
+      };
+
+      pubspec-assist = super.vimUtils.buildVimPlugin {
+        name = "pubspec-assist.nvim";
+        src = super.fetchFromGitHub {
+          owner = "nvim-flutter";
+          repo = "pubspec-assist.nvim";
+          rev = "c79dbf94967d69dbabc1f7ad35662eb79a007b4b";
+          sha256 = "1mymhnn3mlrjx55na1lxll41iy8g1bqqq644k179nd50xrjbdmmf";
         };
         doCheck = false;
       };
