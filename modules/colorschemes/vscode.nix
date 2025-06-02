@@ -36,6 +36,7 @@ lib.utils.modules.mkTheme config "vscode" {
             CursorLine.bg = color "vscBack";
             CursorColumn.link = "CursorLine";
 
+            NeoTreeFileIcon.link = "MiniIconsGrey";
             NeoTreeGitIgnored.fg = color "vscGray";
             NeoTreeIndentMarker2 = {
               bg = color "vscNone";
@@ -73,6 +74,10 @@ lib.utils.modules.mkTheme config "vscode" {
               bg = color "vscTabOther";
               fg = color "vscFront";
             };
+
+            MiniIconsOrange.fg = "#FC6D27";
+            MiniIconsBlue.fg = color "vscBlue";
+            MiniIconsAzure.fg = color "vscMediumBlue";
           }
           (
             let

@@ -40,7 +40,11 @@ lib.utils.modules.mkModule config true "neo-tree" {
         hideDotfiles = false;
         hideGitignored = false;
 
-        hideByName = [".git"];
+        hideByName = [
+          ".git"
+          ".DS_Store"
+          "thumbs.db"
+        ];
       };
     };
 
@@ -49,6 +53,14 @@ lib.utils.modules.mkModule config true "neo-tree" {
 
       indent = {
         highlight = "NeoTreeIndentMarker2";
+      };
+
+      icon = {
+        default = "";
+        folderClosed = "󰉋";
+        folderEmpty = "󰉋";
+        folderOpen = "󰝰";
+        folderEmptyOpen = "󰝰";
       };
 
       diagnostics.symbols = {

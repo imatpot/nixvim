@@ -153,6 +153,8 @@ lib.utils.modules.mkModule config true "lualine" {
                     "dap-repl",
                     "trouble",
                     "dap-view",
+                    "neo-tree-popup",
+                    "snacks_dashboard",
                   }
 
                   return not vim.tbl_contains(ignored_filetypes, vim.bo.filetype)
