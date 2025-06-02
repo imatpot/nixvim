@@ -20,7 +20,8 @@ lib.utils.modules.mkModule config true "git" {
         };
 
         current_line_blame = true;
-        current_line_blame_formatter = "<author>, <author_time:%R> - <summary>";
+        current_line_blame_formatter = " <author>, <author_time:%R> - <summary> ";
+        current_line_blame_formatter_nc = " Uncommitted change ";
         current_line_blame_opts = {
           virt_text = true;
           virt_text_pos = "right_align";

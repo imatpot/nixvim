@@ -151,6 +151,7 @@ lib.utils.modules.mkModule config true "lualine" {
                     "TelescopeResults",
                     "toggleterm",
                     "dap-repl",
+                    "trouble",
                     "dap-view",
                   }
 
