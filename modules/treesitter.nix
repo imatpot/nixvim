@@ -21,6 +21,13 @@ lib.utils.modules.mkModule config true "treesitter" {
       };
     };
 
+    treesitter-context = {
+      enable = true;
+      settings = {
+        mode = "topline";
+      };
+    };
+
     treesitter-textobjects.enable = true;
   };
 }
