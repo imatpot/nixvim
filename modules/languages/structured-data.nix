@@ -16,8 +16,8 @@ lib.utils.modules.mkLanguage' config "structured data (json, yaml, toml, xml)" {
 
     conform-nvim.settings = {
       formatters_by_ft = {
-        json = ["jq"];
-        yaml = ["yq"];
+        json = ["prettierd"];
+        yaml = ["prettierd"];
         toml = ["taplo"];
         xml = ["xmllint"];
       };
@@ -30,20 +30,20 @@ lib.utils.modules.mkLanguage' config "structured data (json, yaml, toml, xml)" {
     "ftplugin/json.vim" = {
       keymaps = with lib.utils.keymaps; [
         (mkBufferKeymap' "<localleader>s" "<CMD>%!jq -S<CR>" "Sort")
-        (mkBufferKeymap' "<localleader>S" "<CMD>%!jq -S | w<CR>" "Sort and save")
+        (mkBufferKeymap' "<localleader>S" "<CMD>%!jq -S<CR><CMD>w<CR>" "Sort and save")
       ];
     };
 
     "ftplugin/yaml.vim" = {
       keymaps = with lib.utils.keymaps; [
         (mkBufferKeymap' "<localleader>s" "<CMD>%!yq eval 'sort_keys(..)' -<CR>" "Sort")
-        (mkBufferKeymap' "<localleader>S" "<CMD>%!yq eval 'sort_keys(..)' -<CR>" "Sort and save")
+        (mkBufferKeymap' "<localleader>S" "<CMD>%!yq eval 'sort_keys(..)' -<CR><CMD>w<CR>" "Sort and save")
       ];
     };
   };
 
   extraPackages = with pkgs; [
+    prettierd
     yq-go
-    yamllint
   ];
 }
