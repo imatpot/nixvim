@@ -43,6 +43,10 @@ lib.utils.modules.mkLanguage' config "dart"
       extraConfigVim =
         # vim
         ''
+          if &filetype !=# 'yaml.pubspec'
+            finish
+          endif
+
           runtime! -buffer ftplugin/yaml.vim
         '';
 
