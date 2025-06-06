@@ -10,7 +10,9 @@ lib.utils.modules.mkTheme config "vscode" {
 
     settings = {
       transparent = true;
+
       underline_links = true;
+      italic_comments = true;
 
       group_overrides = let
         # https://github.com/Mofiqul/vscode.nvim/blob/main/lua/vscode/colors.lua
@@ -21,9 +23,16 @@ lib.utils.modules.mkTheme config "vscode" {
       in
         lib.mkMerge [
           rec {
-            Comment = {
-              fg = color "vscGreen";
-              italic = true;
+            WarningMsg = {
+              fg = color "vscYellow";
+              italic = false;
+              bold = false;
+            };
+
+            ErrorMsg = {
+              fg = color "vscRed";
+              italic = false;
+              bold = false;
             };
 
             "@comment".link = "Comment";
