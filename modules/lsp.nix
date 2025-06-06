@@ -4,6 +4,12 @@
   ...
 }:
 lib.utils.modules.mkModule config true "lsp" {
+  extraConfigLua =
+    # lua
+    ''
+      vim.lsp.set_log_level("off")
+    '';
+
   plugins = {
     lsp = {
       enable = true;
