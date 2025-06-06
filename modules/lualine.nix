@@ -38,6 +38,34 @@ lib.utils.modules.mkModule config true "lualine" {
               # lua
               ''
                 function()
+                  return vim.fn.reg_recording()
+                end
+              '';
+
+            fmt =
+              helpers.mkRaw
+              # lua
+              ''
+                function(register)
+                  return "󰘳"
+                end
+              '';
+
+            cond =
+              helpers.mkRaw
+              # lua
+              ''
+                function()
+                  return vim.fn.reg_recording() ~= ""
+                end
+              '';
+          }
+          {
+            __unkeyed =
+              helpers.mkRaw
+              # lua
+              ''
+                function()
                   return require('dap').status()
                 end
               '';
