@@ -78,5 +78,16 @@
         };
         doCheck = false;
       };
+
+      nx-nvim = super.vimUtils.buildVimPlugin {
+        name = "nx.nvim";
+        src = super.fetchFromGitHub {
+          owner = "Equilibris";
+          repo = "nx.nvim";
+          rev = "f8a3a21b3d540889401a40d1f2803083794c0372";
+          sha256 = "1yn7k6ki1f5f3l0avfpzmj9mg62icxbvhp16w0q9vsxsis1yspk2";
+        };
+        doCheck = false;
+      };
     };
 }
