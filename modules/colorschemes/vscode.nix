@@ -87,6 +87,10 @@ lib.utils.modules.mkTheme config "vscode" {
             MiniIconsOrange.fg = "#FC6D27";
             MiniIconsBlue.fg = color "vscBlue";
             MiniIconsAzure.fg = color "vscMediumBlue";
+
+            PackageInfoUpToDateVersion.link = "Comment";
+            PackageInfoOutdatedVersion.link = "WarningMsg";
+            PackageInfoInErrorVersion.link = "ErrorMsg";
           }
           (
             let

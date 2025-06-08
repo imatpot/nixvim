@@ -67,5 +67,16 @@
         };
         doCheck = false;
       };
+
+      deno-nvim = super.vimUtils.buildVimPlugin {
+        name = "deno-nvim";
+        src = super.fetchFromGitHub {
+          owner = "sigmaSd";
+          repo = "deno-nvim";
+          rev = "5a2f9205df5539c4a0696e73893bf8d1b0cae406";
+          sha256 = "1l75wk79hc358h4cg35l4x07igdqy3yrrbf0ca9w80rg7i95nagr";
+        };
+        doCheck = false;
+      };
     };
 }
