@@ -43,6 +43,7 @@ lib.utils.modules.mkModule config true "lsp" {
     lspBuffer = "${lsp}.buf";
   in
     with lib.utils.keymaps; [
+      (mkKeymap' "." "<CMD>${lspBuffer}.hover()<CR>" "Hover")
       (mkKeymap' "<leader>." "<C-.>" "Code actions")
       (mkKeymap ["n"] "<C-.>" "<CMD>${lspBuffer}.code_action()<CR>" "Code actions")
       (mkKeymap ["x"] "<C-.>" "<CMD>lua vim.lsp.buf.range_code_action()<CR>" "Code actions")
