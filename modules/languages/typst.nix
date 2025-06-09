@@ -9,8 +9,8 @@ lib.utils.modules.mkLanguage' config "typst" {
     lsp.servers.tinymist.enable = true;
 
     conform-nvim.settings = {
-      formatters_by_ft.typst = ["typstyle"];
       formatters.typstyle.command = lib.getExe pkgs.typstyle;
+      formatters_by_ft.typst = ["typstyle"];
     };
 
     typst-preview.enable = true;

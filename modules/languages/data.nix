@@ -15,6 +15,8 @@ lib.utils.modules.mkLanguage' config "structured data (json, yaml, toml, xml)" {
     };
 
     conform-nvim.settings = {
+      formatters.prettierd.command = lib.getExe pkgs.prettierd;
+
       formatters_by_ft = {
         json = ["prettierd"];
         yaml = ["prettierd"];
@@ -43,7 +45,7 @@ lib.utils.modules.mkLanguage' config "structured data (json, yaml, toml, xml)" {
   };
 
   extraPackages = with pkgs; [
-    prettierd
+    # prettierd
     yq-go
   ];
 }

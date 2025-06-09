@@ -205,11 +205,15 @@ lib.utils.modules.mkModule config true "lualine" {
               # lua
               ''
                 function(lsp_status)
+                  local ignored = {
+                    "emmet_language_server",
+                  }
+
                   local seen = {}
                   local unique = {}
 
                   for ls in lsp_status:gmatch("%S+") do
-                    if not seen[ls] then
+                    if not seen[ls] and not vim.tbl_contains(ignored, ls) then
                       table.insert(unique, ls)
                       seen[ls] = true
                     end

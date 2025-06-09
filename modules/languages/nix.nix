@@ -47,7 +47,14 @@ lib.utils.modules.mkLanguage' config "nix" {
       };
     };
 
-    lint.lintersByFt.nix = ["statix" "deadnix"];
+    lint = {
+      linters = {
+        statix.cmd = lib.getExe pkgs.statix;
+        deadnix.cmd = lib.getExe pkgs.deadnix;
+      };
+
+      lintersByFt.nix = ["statix" "deadnix"];
+    };
 
     conform-nvim.settings = {
       formatters_by_ft.nix = ["alejandra"];
@@ -58,9 +65,4 @@ lib.utils.modules.mkLanguage' config "nix" {
       };
     };
   };
-
-  extraPackages = with pkgs; [
-    statix
-    deadnix
-  ];
 }

@@ -31,6 +31,7 @@ lib.utils.modules.mkLanguage' config "markdown" {
   };
 
   extraPackages = with pkgs; [
+    # can't use linters.markdownlint-cli2.cmd because Lua shits itself due to the "-" in the name
     markdownlint-cli2
   ];
 }

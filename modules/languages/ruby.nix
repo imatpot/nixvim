@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 lib.utils.modules.mkLanguage' config "ruby" {

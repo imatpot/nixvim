@@ -9,14 +9,24 @@ lib.utils.modules.mkLanguage' config "javascript, typescript" {
     lsp.servers = {
       eslint.enable = true;
       ts_ls.enable = true;
+      angularls.enable = true;
     };
 
-    lint.lintersByFt.lua = ["eslint_d"];
+    lint = {
+      linters.eslint_d.cmd = lib.getExe pkgs.eslint_d;
+
+      lintersByFt = rec {
+        javascript = ["eslint_d"];
+        typescript = javascript;
+      };
+    };
 
     conform-nvim.settings = {
-      formatters_by_ft = {
+      formatters.prettierd.command = lib.getExe pkgs.prettierd;
+
+      formatters_by_ft = rec {
         javascript = ["prettierd"];
-        typescript = ["prettierd"];
+        typescript = javascript;
       };
     };
 
@@ -86,11 +96,6 @@ lib.utils.modules.mkLanguage' config "javascript, typescript" {
           require("deno-nvim").setup()
         '';
     }
-  ];
-
-  extraPackages = with pkgs; [
-    eslint_d
-    prettierd
   ];
 
   filetype = {
