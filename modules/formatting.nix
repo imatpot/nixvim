@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkModule config true "formatter" {
+lib.utils.modules.mkModule' config true "formatter" {
   plugins = {
     sleuth.enable = true;
     conform-nvim.enable = true;

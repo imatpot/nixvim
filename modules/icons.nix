@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkModule config true "icons" {
+lib.utils.modules.mkModule' config true "icons" {
   plugins = {
     # web-devicons.enable = true;
 

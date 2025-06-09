@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkModule config true "debugging" {
+lib.utils.modules.mkModule' config true "debugging" {
   plugins = {
     dap = {
       enable = true;

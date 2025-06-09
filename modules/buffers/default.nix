@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkModule config true "bufferline" {
+lib.utils.modules.mkModule' config true "bufferline" {
   plugins.barbar = {
     enable = true;
 

@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkModule config true "snacks" {
+lib.utils.modules.mkModule' config true "snacks" {
   plugins.snacks = {
     enable = true;
 

@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkModule config true "git" {
+lib.utils.modules.mkModule' config true "git" {
   modules.telescope.enable = true;
 
   plugins = {

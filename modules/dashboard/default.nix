@@ -5,7 +5,7 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkModule config true "dashboard" {
+lib.utils.modules.mkModule' config true "dashboard" {
   modules.snacks.enable = true;
 
   plugins = {

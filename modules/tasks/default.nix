@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkModule config true "tasks" {
+lib.utils.modules.mkModule' config true "tasks" {
   plugins.overseer = {
     enable = true;
     luaConfig.post = builtins.readFile ./tasks.lua;

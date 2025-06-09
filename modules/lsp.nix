@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkModule config true "lsp" {
+lib.utils.modules.mkModule' config true "lsp" {
   extraConfigLua =
     # lua
     ''

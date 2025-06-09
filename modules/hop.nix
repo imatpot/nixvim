@@ -1,10 +1,9 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
-lib.utils.modules.mkModule config true "hop" {
+lib.utils.modules.mkModule' config true "hop" {
   plugins.hop.enable = true;
 
   keymaps = [

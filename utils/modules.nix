@@ -3,19 +3,24 @@
   mkDefaultEnableOption,
   ...
 }: rec {
-  mkModule = config: default: name: moduleConfig: {
-    options.modules.${name}.enable = mkDefaultEnableOption default name;
+  mkModule = config: default: name: moduleOptions: moduleConfig: {
+    options.modules.${name} = moduleOptions // {enable = mkDefaultEnableOption default name;};
     config =
       lib.mkIf config.modules.${name}.enable
       moduleConfig;
   };
 
+  mkModule' = config: default: name: moduleConfig:
+    mkModule config default name {} moduleConfig;
+
   mkLanguage = config: language: languageOptions: languageConfig: {
-    options.modules.languages.${language} = {
-      enable =
-        mkDefaultEnableOption config.modules.languages.all.enable
-        language;
-    } // languageOptions;
+    options.modules.languages.${language} =
+      {
+        enable =
+          mkDefaultEnableOption config.modules.languages.all.enable
+          language;
+      }
+      // languageOptions;
 
     config =
       lib.mkIf config.modules.languages.${language}.enable

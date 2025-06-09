@@ -5,7 +5,7 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkModule config true "lualine" {
+lib.utils.modules.mkModule' config true "lualine" {
   plugins.lualine = {
     enable = true;
     package = pkgs.master.vimPlugins.lualine-nvim;

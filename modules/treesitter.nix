@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkModule config true "treesitter" {
+lib.utils.modules.mkModule' config true "treesitter" {
   extraConfigLuaPost =
     # lua
     ''

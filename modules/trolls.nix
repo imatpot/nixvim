@@ -2,11 +2,10 @@
 {
   config,
   lib,
-  helpers,
   pkgs,
   ...
 }:
-lib.utils.modules.mkModule config false "trolls" {
+lib.utils.modules.mkModule' config false "trolls" {
   extraPlugins = with pkgs.vimPlugins; [
     vim-troll-stopper
   ];
