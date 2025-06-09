@@ -25,6 +25,7 @@ lib.utils.modules.mkModule config true "icons" {
           json.glyph = "";
           yaml.glyph = "";
           yml.glyph = "";
+          typ.glyph = "";
           dart.glyph = ""; # let's be real, that's the only reason people use dart
           gradle.glyph = "";
           properties.glyph = "";
