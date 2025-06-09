@@ -9,7 +9,15 @@ lib.utils.modules.mkModule config true "telescope" {
   plugins.telescope = {
     enable = true;
 
-    settings.defaults.mappings.i."<esc>" = helpers.mkRaw "require('telescope.actions').close";
+    settings.defaults = {
+      mappings.i."<esc>" = helpers.mkRaw "require('telescope.actions').close";
+
+      file_ignore_patterns = [
+        "^node_modules/"
+        "^venv/"
+        "^.venv/"
+      ];
+    };
 
     extensions = {
       ui-select.enable = true;
