@@ -10,6 +10,7 @@ lib.utils.modules.mkLanguage' config "javascript, typescript" {
       eslint.enable = true;
       ts_ls.enable = true;
       angularls.enable = true;
+      denols.enable = false; # FIXME: https://github.com/neovim/nvim-lspconfig/issues/3728
     };
 
     lint = {
@@ -85,18 +86,6 @@ lib.utils.modules.mkLanguage' config "javascript, typescript" {
       };
     };
   };
-
-  extraPlugins = with pkgs.vimPlugins; [
-    {
-      plugin = deno-nvim;
-      config =
-        lib.utils.viml.fromLua
-        # lua
-        ''
-          require("deno-nvim").setup()
-        '';
-    }
-  ];
 
   filetype = {
     filename."package.json" = "json.package";
