@@ -4,8 +4,19 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkModule' config true "indents" {
-  plugins.intellitab.enable = true;
+lib.utils.modules.mkModule' config true "lines" {
+  plugins = {
+    intellitab.enable = true;
+
+    virt-column = {
+      enable = true;
+      settings = {
+        char = "╎";
+        virtcolumn = "81,101,121";
+      };
+    };
+  };
+
   extraPlugins = with pkgs.vimPlugins; [
     {
       plugin = indentmini;

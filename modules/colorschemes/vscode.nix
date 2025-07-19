@@ -52,6 +52,7 @@ lib.utils.modules.mkTheme config "vscode" {
               fg = color "vscGray";
             };
 
+            VirtColumn.fg = color "vscCursorDarkDark";
             IndentLine.fg = color "vscCursorDarkDark";
             IndentLineCurrent.fg = color "vscLineNumber";
 
