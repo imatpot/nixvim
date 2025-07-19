@@ -31,8 +31,10 @@ lib.utils.modules.mkLanguage' config "web (html, css)" {
     #   ];
     # };
 
-    conform-nvim.settings.formatters_by_ft = {
+    conform-nvim.settings.formatters_by_ft = rec {
       html = ["prettierd"];
+      htmlangular = html;
+
       css = ["prettierd"];
     };
   };
