@@ -10,7 +10,14 @@ lib.utils.modules.mkLanguage' config "javascript, typescript" {
       eslint.enable = true;
       ts_ls.enable = true;
       angularls.enable = true;
-      denols.enable = false; # FIXME: https://github.com/neovim/nvim-lspconfig/issues/3728
+
+      denols = {
+        enable = false; # FIXME: https://github.com/neovim/nvim-lspconfig/issues/3728#issuecomment-2966741537
+        settings = {
+          root_markers = ["deno.json" "deno.jsonc"];
+          workspace_required = true;
+        };
+      };
     };
 
     lint = {
