@@ -9,8 +9,6 @@ lib.utils.modules.mkModule' config true "dashboard" {
   modules.snacks.enable = true;
 
   plugins = {
-    lazy.enable = true;
-
     snacks.settings.dashboard = {
       enabled = true;
       width = 64;
