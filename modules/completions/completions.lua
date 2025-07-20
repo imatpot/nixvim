@@ -150,8 +150,43 @@ function IsUtf8ControlChar(hex)
 end
 
 cmp.register_source('unicode', {
-    complete = function(_, _, callback)
-        callback({ items = UnicodeCompletions, isIncomplete = false })
+    complete = function(_, request, callback)
+        return callback({ items = UnicodeCompletions, isIncomplete = false })
+
+        -- TODO: only show completions if a prefix is present
+
+        -- local input = request.context.cursor_before_line:lower()
+
+        -- local prefixes = {
+        --     "0x",
+        --     "u+",
+        --     "unicode",
+        --     "utf",
+        -- }
+
+        -- local word = nil
+
+        -- for _, prefix in ipairs(prefixes) do
+        --     _, word = string.match(input, "(" .. prefix .. ")(.+)$")
+        --     if word then
+        --         break
+        --     end
+        -- end
+
+        -- if not word then
+        --     callback({ items = {}, isIncomplete = false })
+        --     return
+        -- end
+
+        -- local matches = {}
+
+        -- for _, item in ipairs(UnicodeCompletions) do
+        --     if item.filter_text:match(word) then
+        --         table.insert(matches, item)
+        --     end
+        -- end
+
+        -- callback({ items = matches, isIncomplete = false })
     end
 })
 
