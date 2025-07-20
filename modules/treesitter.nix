@@ -9,6 +9,8 @@ lib.utils.modules.mkModule' config true "treesitter" {
   plugins = {
     treesitter = {
       enable = true;
+      lazyLoad.settings.event = ["BufNewFile" "BufRead"];
+
       settings = {
         highlight = {
           enable = true;
@@ -19,6 +21,8 @@ lib.utils.modules.mkModule' config true "treesitter" {
 
     treesitter-context = {
       enable = true;
+      lazyLoad.settings.event = ["BufNewFile" "BufRead"];
+
       settings = {
         mode = "topline";
       };

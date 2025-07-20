@@ -7,6 +7,8 @@ lib.utils.modules.mkModule' config true "bufferline" {
   plugins.barbar = {
     enable = true;
 
+    lazyLoad.settings.event = ["BufNewFile" "BufRead"];
+
     settings = {
       animation = false;
       auto_hide = 1;

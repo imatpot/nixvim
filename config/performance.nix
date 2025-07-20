@@ -1,4 +1,9 @@
 {...}: {
+  plugins = {
+    lz-n.enable = true;
+    lazy.enable = false;
+  };
+
   performance = {
     combinePlugins.enable = true;
 

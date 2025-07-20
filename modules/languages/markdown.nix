@@ -18,8 +18,15 @@ lib.utils.modules.mkLanguage' config "markdown" {
       lintersByFt.markdown = ["markdownlint-cli2"];
     };
 
-    markview.enable = true;
-    helpview.enable = true;
+    markview = {
+      enable = true;
+      lazyLoad.settings.ft = ["markdown"];
+    };
+
+    helpview = {
+      enable = true;
+      lazyLoad.settings.ft = ["help"];
+    };
   };
 
   files."ftplugin/markdown.lua" = {

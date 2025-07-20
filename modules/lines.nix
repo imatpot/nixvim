@@ -10,6 +10,8 @@ lib.utils.modules.mkModule' config true "lines" {
 
     virt-column = {
       enable = true;
+      lazyLoad.settings.event = ["BufNewFile" "BufRead"];
+
       settings = {
         char = "╎";
         virtcolumn = "81,101,121";
@@ -19,6 +21,7 @@ lib.utils.modules.mkModule' config true "lines" {
 
   extraPlugins = with pkgs.vimPlugins; [
     {
+      # TODO: lazy load on event = BufNewFile, BufRead
       plugin = indentmini;
       config =
         lib.utils.viml.fromLua

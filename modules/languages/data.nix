@@ -25,7 +25,27 @@ lib.utils.modules.mkLanguage' config "structured data (json, yaml, toml, xml)" {
       };
     };
 
-    ts-autotag.enable = true;
+    ts-autotag = {
+      enable = true;
+      lazyLoad.settings.ft = [
+        "astro"
+        "glimmer"
+        "handlebars"
+        "html"
+        "javascript"
+        "jsx"
+        "liquid"
+        "markdown"
+        "php"
+        "rescript"
+        "svelte"
+        "tsx"
+        "twig"
+        "typescript"
+        "vue"
+        "xml"
+      ];
+    };
   };
 
   files = {

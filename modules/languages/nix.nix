@@ -7,7 +7,10 @@
 }:
 lib.utils.modules.mkLanguage' config "nix" {
   plugins = {
-    hmts.enable = true;
+    hmts = {
+      enable = true;
+      lazyLoad.settings.ft = ["nix"];
+    };
 
     lsp.servers.nixd = {
       enable = true;

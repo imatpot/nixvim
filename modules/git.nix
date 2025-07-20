@@ -11,6 +11,7 @@ lib.utils.modules.mkModule' config true "git" {
 
     gitsigns = {
       enable = true;
+      lazyLoad.settings.event = ["BufNewFile" "BufRead"];
 
       settings = {
         signs = {
