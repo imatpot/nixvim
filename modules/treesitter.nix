@@ -4,11 +4,7 @@
   ...
 }:
 lib.utils.modules.mkModule' config true "treesitter" {
-  extraConfigLuaPost =
-    # lua
-    ''
-      vim.hl.priorities.semantic_tokens = 95
-    '';
+  performance.combinePlugins.standalonePlugins = ["nvim-treesitter"];
 
   plugins = {
     treesitter = {
@@ -30,4 +26,10 @@ lib.utils.modules.mkModule' config true "treesitter" {
 
     treesitter-textobjects.enable = true;
   };
+
+  extraConfigLuaPost =
+    # lua
+    ''
+      vim.hl.priorities.semantic_tokens = 95
+    '';
 }

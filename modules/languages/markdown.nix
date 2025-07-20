@@ -5,6 +5,8 @@
   ...
 }:
 lib.utils.modules.mkLanguage' config "markdown" {
+  performance.combinePlugins.standalonePlugins = ["helpview.nvim" "markview.nvim"];
+
   plugins = {
     lsp.servers.marksman.enable = true;
 

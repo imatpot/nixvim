@@ -4,11 +4,7 @@
   ...
 }:
 lib.utils.modules.mkModule' config true "lsp" {
-  extraConfigLua =
-    # lua
-    ''
-      vim.lsp.set_log_level("off")
-    '';
+  performance.combinePlugins.standalonePlugins = ["lsp"];
 
   plugins = {
     lsp = {
@@ -56,4 +52,10 @@ lib.utils.modules.mkModule' config true "lsp" {
       (mkKeymap ["n"] "gD" "<CMD>lua vim.lsp.buf.declaration()<CR>" "Go to declaration")
       (mkKeymap ["n"] "gr" "<CMD>lua vim.lsp.buf.references()<CR>" "Go to references")
     ];
+
+  extraConfigLua =
+    # lua
+    ''
+      vim.lsp.set_log_level("off")
+    '';
 }

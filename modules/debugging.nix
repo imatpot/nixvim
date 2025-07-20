@@ -4,6 +4,8 @@
   ...
 }:
 lib.utils.modules.mkModule' config true "debugging" {
+  performance.combinePlugins.standalonePlugins = ["nvim-dap"];
+
   plugins = {
     dap = {
       enable = true;

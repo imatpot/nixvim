@@ -10,6 +10,11 @@ lib.utils.modules.mkModule config true "completions" {
   copilot.enable = lib.utils.mkDefaultEnableOption config.modules.completions.enable "copilot";
 }
 {
+  performance.combinePlugins.standalonePlugins =
+    lib.optionals
+    config.modules.completions.copilot.enable
+    ["copilot.lua"];
+
   plugins = {
     luasnip.enable = true;
 
