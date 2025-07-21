@@ -15,11 +15,7 @@ lib.utils.modules.mkModule' config true "bufferline" {
       maximum_padding = 2;
       minimum_padding = 2;
 
-      sidebar_filetypes = {
-        "neo-tree" = {
-          event = "BufWipeout";
-        };
-      };
+      sidebar_filetypes.neo-tree = true;
 
       icons = {
         button = "";
