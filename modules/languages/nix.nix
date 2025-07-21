@@ -9,51 +9,50 @@ lib.utils.modules.mkLanguage' config "nix" {
   plugins = {
     hmts.enable = true;
 
-    lsp.servers.nixd = {
-      enable = true;
-      settings = let
-        flakeExpr =
-          # nix
-          ''(builtins.getFlake "${inputs.self}")'';
-        systemExpr =
-          # nix
-          ''''${builtins.currentSystem}'';
-      in {
-        formatting.command = ["nix fmt"];
-
-        nixpkgs.expr =
-          # nix
-          "import ${flakeExpr}.inputs.nixpkgs { system = ${systemExpr}; }";
-
-        options = {
-          nixvim.expr =
+    lsp.servers = {
+      statix.enable = true;
+      nixd = {
+        enable = true;
+        settings = let
+          flakeExpr =
             # nix
-            "${flakeExpr}.packages.${systemExpr}.nvim.options";
-
-          # TODO: make nixvim not rely on my dotfiles for these options
-
-          nixos.expr =
+            ''(builtins.getFlake "${inputs.self}")'';
+          systemExpr =
             # nix
-            "${flakeExpr}.inputs.dotfiles.nixosConfigurations.shinobi.options";
+            ''''${builtins.currentSystem}'';
+        in {
+          formatting.command = ["nix fmt"];
 
-          home-manager.expr =
+          nixpkgs.expr =
             # nix
-            "${flakeExpr}.inputs.dotfiles.homeConfigurations.mladen.options";
+            "import ${flakeExpr}.inputs.nixpkgs { system = ${systemExpr}; }";
 
-          nix-darwin.expr =
-            # nix
-            "${flakeExpr}.inputs.dotfiles.darwinConfigurations.mcdonalds.options";
+          options = {
+            nixvim.expr =
+              # nix
+              "${flakeExpr}.packages.${systemExpr}.nvim.options";
+
+            # TODO: make nixvim not rely on my dotfiles for these options
+
+            nixos.expr =
+              # nix
+              "${flakeExpr}.inputs.dotfiles.nixosConfigurations.shinobi.options";
+
+            home-manager.expr =
+              # nix
+              "${flakeExpr}.inputs.dotfiles.homeConfigurations.mladen.options";
+
+            nix-darwin.expr =
+              # nix
+              "${flakeExpr}.inputs.dotfiles.darwinConfigurations.mcdonalds.options";
+          };
         };
       };
     };
 
     lint = {
-      linters = {
-        statix.cmd = lib.getExe pkgs.statix;
-        deadnix.cmd = lib.getExe pkgs.deadnix;
-      };
-
-      lintersByFt.nix = ["statix" "deadnix"];
+      linters.deadnix.cmd = lib.getExe pkgs.deadnix;
+      lintersByFt.nix = ["deadnix"];
     };
 
     conform-nvim.settings = {
