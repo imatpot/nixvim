@@ -26,7 +26,6 @@ lib.utils.modules.mkModule' config true "lsp" {
 
     lint = {
       enable = true;
-      lazyLoad.settings.event = ["BufNewFile" "BufRead"];
 
       # FIXME: https://github.com/mfussenegger/nvim-lint/issues/235
       autoCmd.event = [
