@@ -8,9 +8,12 @@ lib.utils.modules.mkModule' config true "formatter" {
 
   plugins = {
     sleuth.enable = true;
-    conform-nvim.enable = true;
-  };
 
+    conform-nvim = {
+      enable = true;
+      settings.formattersByFt."*" = ["injected"];
+    };
+  };
 
   keymaps = let
     runFormatter = "lua require('conform').format()";
