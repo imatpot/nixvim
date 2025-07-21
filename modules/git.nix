@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 lib.utils.modules.mkModule' config true "git" {
@@ -8,6 +9,11 @@ lib.utils.modules.mkModule' config true "git" {
 
   plugins = {
     gitignore.enable = true;
+
+    git-conflict = {
+      enable = true;
+      settings.default_mappings = false;
+    };
 
     gitsigns = {
       enable = true;
@@ -32,7 +38,24 @@ lib.utils.modules.mkModule' config true "git" {
     };
   };
 
+  extraPlugins = with pkgs.vimPlugins; [
+    plenary-nvim
+    telescope-git-conflicts
+  ];
+
   keymaps = with lib.utils.keymaps; [
     (mkKeymap' "<leader>G" "<CMD>Gitignore<CR>" "Generate .gitignore")
+    (mkKeymap' "<localleader>gi" "<CMD>Gitignore<CR>" "Generate .gitignore")
+
+    (mkKeymap' "<localleader>gcl" "<CMD>GitConflictChooseOurs<CR>" "Keep local change")
+    (mkKeymap' "<localleader>gcr" "<CMD>GitConflictChooseTheirs<CR>" "Keep remote change")
+    (mkKeymap' "<localleader>gcb" "<CMD>GitConflictChooseBoth<CR>" "Keep both changes")
+    (mkKeymap' "<localleader>gcq" "<CMD>GitConflictChooseNone<CR>" "Discard both changes")
+    (mkKeymap' "<localleader>gck" "<CMD>GitConflictPrevConflict<CR>" "Go to previous conflict")
+    (mkKeymap' "<localleader>gc<up>" "<CMD>GitConflictPrevConflict<CR>" "Go to previous conflict")
+    (mkKeymap' "<localleader>gcj" "<CMD>GitConflictNextConflict<CR>" "Go to next conflict")
+    (mkKeymap' "<localleader>gc<down>" "<CMD>GitConflictNextConflict<CR>" "Go to next conflict")
+
+    (mkKeymap' "<localleader>gc/" "<CMD>Telescope conflicts<CR>" "Find conflicted files")
   ];
 }

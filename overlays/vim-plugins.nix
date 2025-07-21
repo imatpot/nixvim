@@ -78,5 +78,16 @@
         };
         doCheck = false;
       };
+
+      telescope-git-conflicts = super.vimUtils.buildVimPlugin {
+        name = "telescope-git-conflicts.nvim";
+        src = super.fetchFromGitHub {
+          owner = "Snikimonkd";
+          repo = "telescope-git-conflicts.nvim";
+          rev = "1ac7040f601d16ab3800bdda6f5912a0e385cb29";
+          sha256 = "0n5jwc7pv14fipavqfvam5691qp9fvs2nksdaihjgqrgl5sd12jv";
+        };
+        doCheck = false;
+      };
     };
 }
