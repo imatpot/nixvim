@@ -24,12 +24,6 @@ function FormatCompletion(entry, vim_item)
 
     local strings = vim.split(kind.kind, "%s", { trimempty = true })
     local icon = strings[1] or ""
-    local description = strings[2] or ""
-    local description_delim = ""
-
-    if description ~= "" then
-        description_delim = "."
-    end
 
     if entry.source.name == "rg" then
         icon = "";
@@ -52,7 +46,7 @@ function FormatCompletion(entry, vim_item)
     end
 
     vim_item.kind = " " .. icon .. " "
-    vim_item.menu = "    " .. entry.source.name .. description_delim .. description
+    -- vim_item.menu = "    " .. entry.source.name
 
     return vim_item
 end
