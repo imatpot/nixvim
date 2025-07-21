@@ -9,15 +9,11 @@ lib.utils.modules.mkModule' config true "lsp" {
   plugins = {
     lsp = {
       enable = true;
-      lazyLoad.settings.event = ["BufNewFile" "BufRead"];
-
       inlayHints = false;
     };
 
     trouble = {
       enable = true;
-      lazyLoad.settings.event = ["BufNewFile" "BufRead"];
-
       settings = {
         focus = true;
         warn_no_results = false;

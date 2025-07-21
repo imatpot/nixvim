@@ -6,8 +6,6 @@
 lib.utils.modules.mkModule' config true "otter" {
   plugins.otter = {
     enable = true;
-    lazyLoad.settings.event = ["BufNewFile" "BufRead"];
-
     settings = {
       handle_leading_whitespace = true;
 

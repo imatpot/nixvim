@@ -4,10 +4,7 @@
   ...
 }:
 lib.utils.modules.mkModule' config true "hop" {
-  plugins.hop = {
-    enable = true;
-    lazyLoad.settings.event = ["BufNewFile" "BufRead"];
-  };
+  plugins.hop.enable = true;
 
   keymaps = [
     {

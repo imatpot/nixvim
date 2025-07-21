@@ -13,10 +13,7 @@ lib.utils.modules.mkLanguage' config "typst" {
       formatters_by_ft.typst = ["typstyle"];
     };
 
-    typst-preview = {
-      enable = true;
-      lazyLoad.settings.ft = ["typst"];
-    };
+    typst-preview.enable = true;
   };
 
   files."ftplugin/typst.lua" = {

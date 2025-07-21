@@ -11,7 +11,6 @@ lib.utils.modules.mkLanguage' config "dart"
 
     flutter-tools = {
       enable = true;
-      lazyLoad.settings.ft = ["dart" "yaml.pubspec"];
 
       settings = {
         fvm = true;
@@ -24,7 +23,6 @@ lib.utils.modules.mkLanguage' config "dart"
 
   extraPlugins = with pkgs.vimPlugins; [
     {
-      # TODO: lazy load on ft = yaml.pubspec
       plugin = pubspec-assist;
       config =
         lib.utils.viml.fromLua

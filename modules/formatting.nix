@@ -8,11 +8,7 @@ lib.utils.modules.mkModule' config true "formatter" {
 
   plugins = {
     sleuth.enable = true;
-
-    conform-nvim = {
-      enable = true;
-      lazyLoad.settings.event = ["BufNewFile" "BufRead"];
-    };
+    conform-nvim.enable = true;
   };
 
 

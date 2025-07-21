@@ -40,8 +40,6 @@ lib.utils.modules.mkLanguage' config "javascript, typescript" {
 
     package-info = {
       enable = true;
-      lazyLoad.settings.ft = ["json.package"];
-
       settings = {
         hide_unstable_versions = true;
         icons.style = {
