@@ -150,44 +150,17 @@ function IsUtf8ControlChar(hex)
 end
 
 cmp.register_source('unicode', {
+    keyword_pattern = [[\k\+]],
     complete = function(_, request, callback)
-        return callback({ items = UnicodeCompletions, isIncomplete = false })
+        local word = request.context.cursor_before_line:match("%S+$")
+        local pattern = "^[Uu]%+[A-Za-z0-9]*$"
 
-        -- TODO: only show completions if a prefix is present
-
-        -- local input = request.context.cursor_before_line:lower()
-
-        -- local prefixes = {
-        --     "0x",
-        --     "u+",
-        --     "unicode",
-        --     "utf",
-        -- }
-
-        -- local word = nil
-
-        -- for _, prefix in ipairs(prefixes) do
-        --     _, word = string.match(input, "(" .. prefix .. ")(.+)$")
-        --     if word then
-        --         break
-        --     end
-        -- end
-
-        -- if not word then
-        --     callback({ items = {}, isIncomplete = false })
-        --     return
-        -- end
-
-        -- local matches = {}
-
-        -- for _, item in ipairs(UnicodeCompletions) do
-        --     if item.filter_text:match(word) then
-        --         table.insert(matches, item)
-        --     end
-        -- end
-
-        -- callback({ items = matches, isIncomplete = false })
-    end
+        if word and word:match(pattern) then
+            callback({ items = UnicodeCompletions, isIncomplete = false })
+        else
+            callback({ items = {}, isIncomplete = false })
+        end
+    end,
 })
 
 function PopulateUnicodeCompletions()
@@ -221,9 +194,9 @@ function PopulateUnicodeCompletions()
 
         for _, line in ipairs(UnicodeTable) do
             local sections = vim.split(line, ";")
-            local char = Utf8Character(sections[1])
-            local hex = "U+" .. sections[1]
-            local name = sections[2]
+            local char = Utf8Character(sections[1]):gsub("^%s+", ""):gsub("%s+$", ""):gsub("\n", "")
+            local hex = "U+" .. sections[1]:gsub("^%s+", ""):gsub("%s+$", ""):gsub("\n", "")
+            local name = sections[2]:gsub("^%s+", ""):gsub("%s+$", ""):gsub("\n", "")
 
             if char and name and not IsUtf8ControlChar(sections[1]) then
                 table.insert(UnicodeCompletions, {
