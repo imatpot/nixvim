@@ -62,8 +62,8 @@ lib.utils.modules.mkTheme config "vscode" {
 
             "@string.special.path.nix".fg = color "vscOrange";
 
-            # TODO: why is it still grey???
             BufferTabpageFill.bg = color "vscNone";
+            TabLineFill.bg = color "vscNone";
 
             BufferInactiveMod = BufferInactive // {italic = true;};
             BufferInactiveERROR = BufferInactive // {fg = color "vscRed";};
