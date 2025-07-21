@@ -60,6 +60,7 @@ lib.utils.modules.mkLanguage' config "structured data (json, yaml, toml, xml)" {
       keymaps = with lib.utils.keymaps; [
         (mkBufferKeymap' "<localleader>s" "<CMD>%!yq eval 'sort_keys(..)' -<CR>" "Sort")
         (mkBufferKeymap' "<localleader>S" "<CMD>%!yq eval 'sort_keys(..)' -<CR><CMD>w<CR>" "Sort and save")
+        (mkBufferKeymap' "<localleader>v" "<CMD>Markview<CR>" "Toggle Markview")
       ];
     };
   };

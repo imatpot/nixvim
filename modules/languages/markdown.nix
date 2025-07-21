@@ -20,7 +20,7 @@ lib.utils.modules.mkLanguage' config "markdown" {
 
     markview = {
       enable = true;
-      lazyLoad.settings.ft = ["markdown"];
+      lazyLoad.settings.ft = ["markdown" "typst" "html" "yaml"];
     };
 
     helpview = {
@@ -35,7 +35,7 @@ lib.utils.modules.mkLanguage' config "markdown" {
     };
 
     keymaps = with lib.utils.keymaps; [
-      (mkBufferKeymap' "<localleader>p" "<CMD>Markview<CR>" "Toggle Markview")
+      (mkBufferKeymap' "<localleader>v" "<CMD>Markview<CR>" "Toggle Markview")
     ];
   };
 

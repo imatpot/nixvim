@@ -44,4 +44,10 @@ lib.utils.modules.mkLanguage' config "web (html, css)" {
     # htmlhint
     # stylelint
   ];
+
+  files."ftplugin/html.lua" = {
+    keymaps = with lib.utils.keymaps; [
+      (mkBufferKeymap' "<localleader>v" "<CMD>Markview<CR>" "Toggle Markview")
+    ];
+  };
 }

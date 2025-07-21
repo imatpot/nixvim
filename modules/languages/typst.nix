@@ -29,6 +29,7 @@ lib.utils.modules.mkLanguage' config "typst" {
       (mkBufferKeymap' "<localleader>p" "<CMD>TypstPreviewToggle<CR>" "Toggle preview")
       (mkBufferKeymap' "<localleader>q" "<CMD>TypstPreviewStop<CR>" "Stop review")
       (mkBufferKeymap' "<localleader>u" "<CMD>TypstPreviewUpdate<CR>" "Update preview")
+      (mkBufferKeymap' "<localleader>v" "<CMD>Markview<CR>" "Toggle Markview")
     ];
   };
 }
