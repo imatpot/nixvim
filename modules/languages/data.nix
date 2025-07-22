@@ -11,7 +11,6 @@ lib.utils.modules.mkLanguage' config "structured data (json, yaml, toml, xml)" {
       yamlls.enable = true;
       taplo.enable = true;
       lemminx.enable = true;
-      docker_compose_language_service.enable = true;
     };
 
     conform-nvim.settings = {
