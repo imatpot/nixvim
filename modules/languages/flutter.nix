@@ -64,7 +64,7 @@ lib.utils.modules.mkLanguage' config "dart"
         (mkBufferKeymap' "<leader>ds" "<CMD>lua if require('dap').session() ~= nil then require('dap').continue() else vim.cmd('FlutterRun') end<CR>" "Start / Continue")
 
         (mkBufferKeymap' "<leader>da" "<CMD>FlutterAttach<CR>" "Attach")
-        (mkBufferKeymap' "<leader>dr" "<CMD>FlutterReload<CR>" "Hot-Relod")
+        (mkBufferKeymap' "<leader>dr" "<CMD>FlutterReload<CR>" "Hot-Reload")
         (mkBufferKeymap' "<leader>dR" "<CMD>FlutterRestart<CR>" "Hot-Restart")
         (mkBufferKeymap' "<leader>dQ" "<CMD>FlutterDetach<CR>" "Detach")
 
