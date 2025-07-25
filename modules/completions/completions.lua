@@ -1,125 +1,41 @@
 local cmp = require("cmp")
-local luasnip = require("luasnip")
-local lspkind = require("lspkind")
-local colorful_menu = require("colorful-menu")
-
 local utf8 = require("lua-utf8")
 
-function ExpandSnippet(args)
-    luasnip.lsp_expand(args.body)
+local blink_config = {}
+
+blink_config.has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-function FormatCompletion(entry, vim_item)
-    local highlight = colorful_menu.cmp_highlights(entry)
-
-    if highlight ~= nil then
-        vim_item.abbr_hl_group = highlight.highlights
-        vim_item.abbr = highlight.text
-    end
-
-    local kind = lspkind.cmp_format({
-        mode = "symbol_text",
-        maxwidth = 50
-    })(entry, vim.deepcopy(vim_item))
-
-    local strings = vim.split(kind.kind, "%s", { trimempty = true })
-    local icon = strings[1] or ""
-
-    if entry.source.name == "rg" then
-        icon = "";
-    end
-
-    if entry.source.name == "luasnip" then
-        icon = "";
-    end
-
-    if entry.source.name == "calc" then
-        icon = "";
-    end
-
-    if entry.source.name == "unicode" then
-        icon = "󰻐";
-    end
-
-    if entry.source.name == "copilot" then
-        icon = "";
-    end
-
-    vim_item.kind = " " .. icon .. " "
-    -- vim_item.menu = "    " .. entry.source.name
-
-    return vim_item
-end
-
-function CopilotPriority(a, b)
-    local a_copilot = a.source.name == "copilot"
-    local b_copilot = b.source.name == "copilot"
-    if a_copilot and not b_copilot then
-        return true
-    elseif not a_copilot and b_copilot then
-        return false
-    end
-end
-
-function UnicodePriority(a, b)
-    local a_unicode = a.source.name == "unicode"
-    local b_unicode = b.source.name == "unicode"
-    if a_unicode and b_unicode then
-        local a_code = tonumber(a.filter_text:match("U%+(%x+)"), 16)
-        local b_code = tonumber(b.filter_text:match("U%+(%x+)"), 16)
-        return a_code < b_code
-    end
-end
-
-function ToggleCompletion(fallback)
-    if cmp.visible() then
-        cmp.close()
-    else
-        cmp.complete()
-    end
-end
-
-function SelectNextCompletion(fallback)
-    if not cmp.visible() then
-        fallback()
-    elseif cmp.visible() then
-        cmp.select_next_item()
-    elseif not cmp.select_next_item() and vim.bo.buftype ~= 'prompt' then
-        cmp.complete()
-    else
-        fallback()
-    end
-end
-
-function SelectPreviousCompletion(fallback)
-    if not cmp.visible() then
-        fallback()
-    elseif cmp.visible() then
-        cmp.select_prev_item()
-    elseif not cmp.select_next_item() and vim.bo.buftype ~= 'prompt' then
-        cmp.complete()
-    else
-        fallback()
-    end
-end
-
-function ConfirmCompletionInsert(fallback)
-    if cmp.visible() and cmp.get_active_entry() then
-        if luasnip.expandable() then
-            luasnip.expand()
-        else
-            cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+blink_config.use_kind_name = function(name)
+    return function(context, items)
+        for _, item in ipairs(items) do
+            item.kind_name = name
         end
-    else
-        fallback()
+
+        return items
     end
 end
 
-function AbortCompletion(fallback)
-    if cmp.visible() and cmp.get_active_entry() then
-        cmp.abort()
-    else
-        fallback()
+blink_config.has_selection = function()
+    return require('blink.cmp.completion.list').get_selected_item() ~= nil
+end
+
+blink_config.cancel_completion = function(blink)
+    if blink_config.has_selection() and blink.hide() then
+        vim.cmd.stopinsert()
+        return true
+    end
+end
+
+blink_config.indent_if_no_words_before = function(blink)
+    if not blink_config.has_words_before() then
+        local success, intellitab = pcall(require, 'intellitab')
+        if success then
+            intellitab.indent()
+            return true
+        end
     end
 end
 
@@ -127,15 +43,17 @@ end
 -- | UTF-8 COMPLETIONS | --
 -- +-------------------+ --
 
-UnicodeTable = {}       -- populated in autocommand
-UnicodeCompletions = {} -- populated in autocommand
+local unicode = {
+    table = {},       -- populated in autocommand
+    completions = {}, -- populated in autocommand
+}
 
-function Utf8Character(hex)
+unicode.from_hex = function(hex)
     local code = tonumber(hex, 16)
     return utf8.char(code)
 end
 
-function IsUtf8ControlChar(hex)
+unicode.is_control_char = function(hex)
     local code = tonumber(hex, 16)
 
     return code == 0x7F
@@ -143,21 +61,7 @@ function IsUtf8ControlChar(hex)
         or (code >= 0x80 and code <= 0x9F)
 end
 
-cmp.register_source('unicode', {
-    keyword_pattern = [[\k\+]],
-    complete = function(_, request, callback)
-        local word = request.context.cursor_before_line:match("%S+$")
-        local pattern = "^[Uu]%+[A-Za-z0-9]*$"
-
-        if word and word:match(pattern) then
-            callback({ items = UnicodeCompletions, isIncomplete = false })
-        else
-            callback({ items = {}, isIncomplete = false })
-        end
-    end,
-})
-
-function PopulateUnicodeCompletions()
+unicode.populate_completions = function()
     vim.defer_fn(function()
         local unicode_file = vim.fn.stdpath('data') .. '/site/unicode/UnicodeData.txt'
 
@@ -181,19 +85,19 @@ function PopulateUnicodeCompletions()
         if file then
             local contents = file:read("*a")
             file:close()
-            UnicodeTable = vim.tbl_filter(function(line)
+            unicode.table = vim.tbl_filter(function(line)
                 return line ~= ""
             end, vim.split(contents, "\n"))
         end
 
-        for _, line in ipairs(UnicodeTable) do
+        for _, line in ipairs(unicode.table) do
             local sections = vim.split(line, ";")
-            local char = Utf8Character(sections[1]):gsub("^%s+", ""):gsub("%s+$", ""):gsub("\n", "")
+            local char = unicode.from_hex(sections[1]):gsub("^%s+", ""):gsub("%s+$", ""):gsub("\n", "")
             local hex = "U+" .. sections[1]:gsub("^%s+", ""):gsub("%s+$", ""):gsub("\n", "")
             local name = sections[2]:gsub("^%s+", ""):gsub("%s+$", ""):gsub("\n", "")
 
-            if char and name and not IsUtf8ControlChar(sections[1]) then
-                table.insert(UnicodeCompletions, {
+            if char and name and not unicode.is_control_char(sections[1]) then
+                table.insert(unicode.completions, {
                     word = char,
                     abbr = char,
                     label = char,
@@ -209,3 +113,9 @@ function PopulateUnicodeCompletions()
         end
     end, 1000)
 end
+
+cmp.register_source('unicode', {
+    complete = function(_, request, callback)
+        callback({ items = unicode.completions, isIncomplete = false })
+    end,
+})

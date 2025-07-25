@@ -11,206 +11,223 @@ lib.utils.modules.mkModule config true "completions" {
 }
 {
   performance.combinePlugins.standalonePlugins =
-    lib.optionals
-    config.modules.completions.copilot.enable
-    ["copilot.lua"];
+    [
+      "blink.cmp"
+    ]
+    ++ (lib.optionals
+      config.modules.completions.copilot.enable
+      ["copilot.lua"]);
 
   plugins = {
     luasnip.enable = true;
 
-    cmp = let
-      mkSources = sources: map mkSource sources;
-      mkSource = source:
-        if lib.isAttrs source
-        then
-          {
-            group_index = 2;
-            keyword_length = 1;
-          }
-          // source
-        else {
-          name = source;
-          group_index = 2;
-          keyword_length = 1;
-        };
-    in {
+    blink-cmp = {
+      enable = true;
       luaConfig.pre = builtins.readFile ./completions.lua;
 
-      enable = true;
-      autoEnableSources = true;
-
-      cmdline = let
-        mapping =
-          helpers.mkRaw
-          # lua
-          "cmp.mapping.preset.cmdline()";
-      in {
-        ":" = {
-          inherit mapping;
-          sources = mkSources [
-            "path"
-            "cmdline"
-            "cmdline_history"
-          ];
-        };
-
-        "/" = {
-          inherit mapping;
-          sources = mkSources [
-            "buffer"
-            "cmdline_history"
-            "nvim_lsp_document_symbol"
-          ];
-        };
-
-        "?" = {
-          inherit mapping;
-          sources = mkSources [
-            "cmdline_history"
-          ];
-        };
-      };
-
-      filetype = let
-        dapSources = mkSources ["dap"];
-      in {
-        dap-repl.sources = dapSources;
-        dapui_hover.sources = dapSources;
-        dapui_watches.sources = dapSources;
-      };
-
       settings = {
-        preselect = "cmp.PreselectMode.None";
+        sources = {
+          default =
+            [
+              "path"
+              "lsp"
+              "snippets"
+              "buffer"
+              "ripgrep"
+              "calc"
+            ]
+            ++ lib.optionals config.modules.completions.copilot.enable [
+              "copilot"
+            ]
+            ++ lib.optionals config.modules.completions.unicode.enable [
+              "unicode"
+            ];
 
-        matching.disallowPartialFuzzyMatching = false;
-        snippet.expand = "ExpandSnippet";
+          per_filetype = let
+            dapSources = ["dap"];
+          in {
+            dap-repl = dapSources;
+            dapui_hover = dapSources;
+            dapui_watches = dapSources;
+          };
 
-        formatting = {
-          fields = ["kind" "abbr" "menu"];
-          format = "FormatCompletion";
+          providers = let
+            useKindName = name: helpers.mkRaw "blink_config.use_kind_name('${name}')";
+          in {
+            buffer.min_keyword_length = 5;
+            snippets.min_keyword_length = 3;
+
+            copilot = lib.mkIf config.modules.completions.copilot.enable {
+              async = true;
+              name = "copilot";
+              module = "blink-copilot";
+              score_offset = 100;
+              opts = {
+                max_completions = 1;
+                max_attempts = 2;
+                debounce = 100;
+                auto_refresh = {
+                  backward = false;
+                  forward = false;
+                };
+              };
+            };
+
+            unicode = lib.mkIf config.modules.completions.unicode.enable {
+              async = true;
+              name = "unicode";
+              module = "blink.compat.source";
+              score_offset = -90;
+              transform_items = useKindName "Unicode";
+            };
+
+            ripgrep = {
+              async = true;
+              name = "ripgrep";
+              module = "blink-ripgrep";
+              score_offset = -100;
+              opts = {
+                project_root_marker = []; # always use cwd
+                search_casing = "--smart-case";
+              };
+            };
+
+            calc = {
+              async = true;
+              name = "calc";
+              module = "blink.compat.source";
+              score_offset = -10;
+              transform_items = useKindName "Calc";
+            };
+
+            dap = {
+              name = "dap";
+              module = "blink.compat.source";
+              transform_items = useKindName "DAP";
+            };
+          };
         };
 
-        window = {
-          completion = {
-            scrollbar = true;
-            scrolloff = 2;
+        completion = {
+          list.selection = {
+            preselect = false;
+            auto_insert = false;
+          };
+
+          menu = {
             border = "rounded";
-            winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None";
-            col_offset = -4;
-            side_padding = 0;
+            scrolloff = 3;
+
+            min_width = 20;
+            max_height = helpers.mkRaw "math.floor(vim.o.lines / 2)";
+
+            draw = {
+              gap = 2;
+              padding = [1 2];
+            };
           };
 
           documentation = {
-            border = "rounded";
-            max_height =
-              # lua
-              "math.floor(vim.o.lines / 2)";
+            window.border = "rounded";
+            auto_show = true;
+            auto_show_delay_ms = 0;
           };
         };
 
-        sources = mkSources (
-          lib.optionals config.modules.completions.copilot.enable [
-            "copilot"
-          ]
-          ++ [
-            {
-              name = "nvim_lsp";
-              keyword_length = 0;
-            }
-            "nvim_lsp_signature_help"
-            "async_path"
-            "calc"
-            {
-              name = "treesitter";
-              keyword_length = 3;
-            }
-            {
-              name = "luasnip";
-              keyword_length = 3;
-            }
-          ]
-          ++ lib.optionals config.modules.completions.unicode.enable [
-            "unicode"
-          ]
-          ++ [
-            {
-              name = "buffer";
-              keyword_length = 5;
-            }
-            {
-              name = "rg";
-              keyword_length = 5;
-            }
-          ]
-        );
+        signature.enabled = true;
+        term.keymap.preset = "inherit";
 
-        sorting = {
-          priority_weight = 2;
-          comparators =
-            lib.optionals config.modules.completions.copilot.enable [
-              "CopilotPriority"
-            ]
-            ++ lib.optionals config.modules.completions.unicode.enable [
-              "UnicodePriority"
-            ]
-            ++ [
-              "cmp.config.compare.offset"
-              "cmp.config.compare.exact"
-              "cmp.config.compare.score"
-              "cmp.config.compare.recently_used"
-              "cmp.config.compare.kind"
-              "cmp.config.compare.length"
-              "cmp.config.compare.order"
-            ];
+        cmdline = {
+          keymap.preset = "inherit";
+          completion = {
+            menu.auto_show = true;
+            list.selection = {
+              preselect = false;
+              auto_insert = false;
+            };
+          };
         };
 
-        mapping = {
-          "<C-Space>" =
-            # lua
-            "cmp.mapping(ToggleCompletion, { 'i', 'n', 'v' })";
+        appearance = {
+          use_nvim_cmp_as_default = true;
 
-          "<Down>" =
-            # lua
-            "cmp.mapping(SelectNextCompletion, { 'i', 's' })";
+          kind_icons = {
+            Event = "";
+            Keyword = "󱌱";
+            Operator = "󱓉";
+            Reference = "";
+            Snippet = "";
+            TypeParameter = "󱗽";
+            Unit = "";
 
-          "<Up>" =
-            # lua
-            "cmp.mapping(SelectPreviousCompletion, { 'i', 's' })";
+            Calc = "";
+            DAP = "";
+            Unicode = "󰻐";
+          };
+        };
 
-          "<CR>" =
-            # lua
-            ''
-              cmp.mapping({
-                i = ConfirmCompletionInsert,
-                s = cmp.mapping.confirm({ select = false }),
-                c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-              })
-            '';
+        keymap = {
+          # https://cmp.saghen.dev/configuration/keymap.html#commands
+          # https://github.com/Saghen/blink.cmp/blob/main/lua/blink/cmp/init.lua
 
-          "<C-j>" =
-            # lua
-            "cmp.mapping.scroll_docs(-4)";
+          preset = "enter";
 
-          "<C-k>" =
-            # lua
-            "cmp.mapping.scroll_docs(4)";
+          "<C-space>" = [
+            "show"
+            "hide"
+          ];
 
-          "<Esc>" =
-            # lua
-            "cmp.mapping(AbortCompletion)";
+          "<down>" = [
+            "select_next"
+            "fallback"
+          ];
+
+          "<up>" = [
+            "select_prev"
+            "fallback"
+          ];
+
+          "<C-j>" = [
+            "scroll_documentation_down"
+            "fallback"
+          ];
+
+          "<C-l>" = [
+            "scroll_documentation_up"
+            "fallback"
+          ];
+
+          "<tab>" = [
+            (helpers.mkRaw "blink_config.indent_if_no_words_before")
+            "fallback"
+          ];
+
+          "<esc>" = [
+            (helpers.mkRaw "blink_config.cancel_completion")
+            "fallback"
+          ];
         };
       };
     };
+
+    blink-cmp-dictionary.enable = true;
+    blink-copilot.enable = true;
+    blink-ripgrep.enable = true;
+
+    blink-compat = {
+      enable = true;
+      settings.impersonate_nvim_cmp = true;
+    };
+
+    cmp-calc.enable = true;
+    cmp-dap.enable = true;
   };
 
   autoCmd = lib.optionals config.modules.completions.unicode.enable [
     {
       event = ["VimEnter"];
       pattern = ["*"];
-      callback =
-        helpers.mkRaw
-        # lua
-        "function() PopulateUnicodeCompletions() end";
+      callback = helpers.mkRaw "unicode.populate_completions";
     }
   ];
 

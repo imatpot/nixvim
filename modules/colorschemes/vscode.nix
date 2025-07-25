@@ -40,15 +40,23 @@ lib.utils.modules.mkTheme config "vscode" {
 
             DiagnosticWarn.fg = color "vscYellowOrange";
             DiagnosticHint.fg = color "vscBlueGreen";
-            StatusLine.bg = color "vscNone";
+            StatusLine.bg = "none";
 
             CursorLine.bg = color "vscBack";
             CursorColumn.link = "CursorLine";
 
+            BlinkCmpMenu.bg = "none";
+            BlinkCmpMenuBorder.bg = "none";
+            BlinkCmpDoc.bg = "none";
+            BlinkCmpDocBorder.bg = "none";
+            BlinkCmpDocSeparator.bg = "none";
+
+            TreesitterContext.bg = "#101010";
+
             NeoTreeFileIcon.link = "MiniIconsGrey";
             NeoTreeGitIgnored.fg = color "vscGray";
             NeoTreeIndentMarker2 = {
-              bg = color "vscNone";
+              bg = "none";
               fg = color "vscGray";
             };
 
@@ -62,8 +70,8 @@ lib.utils.modules.mkTheme config "vscode" {
 
             "@string.special.path.nix".fg = color "vscOrange";
 
-            BufferTabpageFill.bg = color "vscNone";
-            TabLineFill.bg = color "vscNone";
+            BufferTabpageFill.bg = "none";
+            TabLineFill.bg = "none";
 
             BufferInactiveMod = BufferInactive // {italic = true;};
             BufferInactiveERROR = BufferInactive // {fg = color "vscRed";};
@@ -71,7 +79,7 @@ lib.utils.modules.mkTheme config "vscode" {
             BufferInactiveINFO = BufferInactive // {fg = color "vscBlue";};
             BufferInactiveHINT = BufferInactive // {fg = color "vscBlueGreen";};
             BufferInactive = {
-              bg = color "vscNone";
+              bg = "none";
               fg = color "vscLeftLight";
             };
 
