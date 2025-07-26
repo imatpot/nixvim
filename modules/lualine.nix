@@ -14,6 +14,7 @@ lib.utils.modules.mkModule' config true "lualine" {
       options = {
         always_divide_middle = false;
         globalstatus = true;
+        refresh.statusline = 50;
 
         disabled_filetypes = [
           "snacks_dashboard"

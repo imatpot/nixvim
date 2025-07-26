@@ -67,6 +67,7 @@
       undofile = true;
       undolevels = 1000;
       whichwrap = "b,s,>,l,<,h";
+      wrap = false;
     };
 
     globals = {

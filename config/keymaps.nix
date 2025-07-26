@@ -18,7 +18,7 @@
 
       (mkKeymap' "<leader>l" "<CMD>set cursorline!<CR>" "Toggle cursorline")
       (mkKeymap' "<leader>L" "<CMD>set cursorcolumn!<CR>" "Toggle cursorcolumn")
-      (mkKeymap' "<leader> " "<CMD>nohlsearch<CR>" "Turn off highlighted matches")
+      (mkKeymap' "<leader> " "<CMD>nohlsearch<CR><CMD>lua vim.snippet.stop()<CR>" "Turn off highlighted matches")
       (mkKeymap' "<leader><Esc>" "<CMD>nohlsearch<CR>" "Turn off highlighted matches")
 
       (mkKeymap' "<leader>:" ":lua " "Run Lua")

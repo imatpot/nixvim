@@ -13,6 +13,7 @@ lib.utils.modules.mkModule' config true "lines" {
       settings = {
         char = "╎";
         virtcolumn = "81,101,121";
+        highlight = "VirtColumn";
       };
     };
   };
