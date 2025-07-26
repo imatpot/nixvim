@@ -7,16 +7,9 @@
 }:
 lib.utils.modules.mkModule config true "completions" {
   unicode.enable = lib.utils.mkDefaultEnableOption config.modules.completions.enable "unicode";
-  copilot.enable = lib.utils.mkDefaultEnableOption config.modules.completions.enable "copilot";
 }
 {
-  performance.combinePlugins.standalonePlugins =
-    [
-      "blink.cmp"
-    ]
-    ++ (lib.optionals
-      config.modules.completions.copilot.enable
-      ["copilot.lua"]);
+  performance.combinePlugins.standalonePlugins = ["blink.cmp"];
 
   plugins = {
     luasnip.enable = true;
@@ -36,7 +29,7 @@ lib.utils.modules.mkModule config true "completions" {
               "ripgrep"
               "calc"
             ]
-            ++ lib.optionals config.modules.completions.copilot.enable [
+            ++ lib.optionals config.modules.copilot.enable [
               "copilot"
             ]
             ++ lib.optionals config.modules.completions.unicode.enable [
@@ -57,7 +50,7 @@ lib.utils.modules.mkModule config true "completions" {
             buffer.min_keyword_length = 5;
             snippets.min_keyword_length = 3;
 
-            copilot = lib.mkIf config.modules.completions.copilot.enable {
+            copilot = lib.mkIf config.modules.copilot.enable {
               async = true;
               name = "copilot";
               module = "blink-copilot";
@@ -208,8 +201,8 @@ lib.utils.modules.mkModule config true "completions" {
       };
     };
 
+    blink-copilot.enable = lib.mkIf config.modules.copilot.enable true;
     blink-cmp-dictionary.enable = true;
-    blink-copilot.enable = true;
     blink-ripgrep.enable = true;
 
     blink-compat = {

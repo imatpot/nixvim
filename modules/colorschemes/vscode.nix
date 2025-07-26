@@ -89,7 +89,7 @@ lib.utils.modules.mkTheme config "vscode" {
             BufferCurrentINFO = BufferCurrent // {fg = color "vscBlue";};
             BufferCurrentHINT = BufferCurrent // {fg = color "vscBlueGreen";};
             BufferCurrent = {
-              bg = color "vscTabOther";
+              bg = color "vscBack";
               fg = color "vscFront";
             };
 
@@ -100,6 +100,9 @@ lib.utils.modules.mkTheme config "vscode" {
             PackageInfoUpToDateVersion.link = "Comment";
             PackageInfoOutdatedVersion.link = "WarningMsg";
             PackageInfoInErrorVersion.link = "ErrorMsg";
+
+            CopilotChatHeader.fg = color "vscSuggestion";
+            CopilotChatSeparator.fg = color "vscContext";
           }
           (
             let

@@ -21,6 +21,10 @@ lib.utils.modules.mkModule' config true "icons" {
           };
         };
 
+        filetype = {
+          copilot-chat.glyph = "";
+        };
+
         extension = {
           json.glyph = "";
           yaml.glyph = "";
