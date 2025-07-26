@@ -22,11 +22,15 @@ blink_config.has_selection = function()
     return require('blink.cmp.completion.list').get_selected_item() ~= nil
 end
 
-blink_config.cancel_completion = function(blink)
-    if blink_config.has_selection() and blink.hide() then
+blink_config.cancel = function(blink)
+    if blink.hide() then
         vim.cmd.stopinsert()
-        return true
+    else
+        -- https://github.com/Saghen/blink.cmp/issues/547#issuecomment-2593493560
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-c>", true, true, true), "n", true)
     end
+
+    return true
 end
 
 blink_config.indent_if_no_words_before = function(blink)

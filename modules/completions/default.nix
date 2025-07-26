@@ -108,6 +108,8 @@ lib.utils.modules.mkModule config true "completions" {
           };
         };
 
+        signature.enabled = true;
+
         completion = {
           list.selection = {
             preselect = false;
@@ -133,9 +135,6 @@ lib.utils.modules.mkModule config true "completions" {
             auto_show_delay_ms = 0;
           };
         };
-
-        signature.enabled = true;
-        term.keymap.preset = "inherit";
 
         cmdline = {
           keymap.preset = "inherit";
@@ -203,8 +202,7 @@ lib.utils.modules.mkModule config true "completions" {
           ];
 
           "<esc>" = [
-            (helpers.mkRaw "blink_config.cancel_completion")
-            "fallback"
+            (helpers.mkRaw "blink_config.cancel")
           ];
         };
       };
