@@ -149,12 +149,13 @@ lib.utils.modules.mkModule config true "completions" {
 
           kind_icons = {
             Event = "";
-            Keyword = "󱌱";
+            Keyword = "󰌆";
             Operator = "󱓉";
             Reference = "";
             Snippet = "";
             TypeParameter = "󱗽";
             Unit = "";
+            Variable = "󰆧";
 
             Calc = "";
             DAP = "";
