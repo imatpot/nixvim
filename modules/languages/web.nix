@@ -10,6 +10,7 @@ lib.utils.modules.mkLanguage' config "web (html, css)" {
       html.enable = true;
       cssls.enable = true;
       emmet_language_server.enable = true;
+      tailwindcss.enable = true;
     };
 
     # FIXME: these linters are, like, really annoying
@@ -37,6 +38,8 @@ lib.utils.modules.mkLanguage' config "web (html, css)" {
 
       css = ["prettierd"];
     };
+
+    tailwind-tools.enable = true;
   };
 
   extraPackages = with pkgs; [
