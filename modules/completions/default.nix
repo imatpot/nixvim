@@ -9,10 +9,14 @@ lib.utils.modules.mkModule config true "completions" {
   unicode.enable = lib.utils.mkDefaultEnableOption config.modules.completions.enable "unicode";
 }
 {
-  performance.combinePlugins.standalonePlugins = ["blink.cmp"];
+  performance.combinePlugins.standalonePlugins = [
+    "blink.cmp"
+    "friendly-snippets" # https://github.com/nix-community/nixvim/issues/2746
+  ];
 
   plugins = {
     luasnip.enable = true;
+    friendly-snippets.enable = true;
 
     blink-cmp = {
       enable = true;
@@ -190,7 +194,13 @@ lib.utils.modules.mkModule config true "completions" {
           ];
 
           "<tab>" = [
+            "snippet_forward"
             (helpers.mkRaw "blink_config.indent_if_no_words_before")
+            "fallback"
+          ];
+
+          "<S-tab>" = [
+            "snippet_backward"
             "fallback"
           ];
 
