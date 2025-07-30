@@ -43,18 +43,17 @@ lib.utils.modules.mkModule' config true "git" {
   ];
 
   keymaps = with lib.utils.keymaps; [
-    (mkKeymap' "<leader>G" "<CMD>Gitignore<CR>" "Generate .gitignore")
-    (mkKeymap' "<localleader>gi" "<CMD>Gitignore<CR>" "Generate .gitignore")
+    (mkKeymap' "<leader>Gi" "<CMD>Gitignore<CR>" "Generate .gitignore")
 
-    (mkKeymap' "<localleader>gcl" "<CMD>GitConflictChooseOurs<CR>" "Keep local change")
-    (mkKeymap' "<localleader>gcr" "<CMD>GitConflictChooseTheirs<CR>" "Keep remote change")
-    (mkKeymap' "<localleader>gcb" "<CMD>GitConflictChooseBoth<CR>" "Keep both changes")
-    (mkKeymap' "<localleader>gcq" "<CMD>GitConflictChooseNone<CR>" "Discard both changes")
-    (mkKeymap' "<localleader>gck" "<CMD>GitConflictPrevConflict<CR>" "Go to previous conflict")
-    (mkKeymap' "<localleader>gc<up>" "<CMD>GitConflictPrevConflict<CR>" "Go to previous conflict")
-    (mkKeymap' "<localleader>gcj" "<CMD>GitConflictNextConflict<CR>" "Go to next conflict")
-    (mkKeymap' "<localleader>gc<down>" "<CMD>GitConflictNextConflict<CR>" "Go to next conflict")
+    (mkKeymap' "<leader>Gcl" "<CMD>GitConflictChooseOurs<CR>" "Keep local change")
+    (mkKeymap' "<leader>Gcr" "<CMD>GitConflictChooseTheirs<CR>" "Keep remote change")
+    (mkKeymap' "<leader>Gcb" "<CMD>GitConflictChooseBoth<CR>" "Keep both changes")
+    (mkKeymap' "<leader>Gcq" "<CMD>GitConflictChooseNone<CR>" "Discard both changes")
+    (mkKeymap' "<leader>Gck" "<CMD>GitConflictPrevConflict<CR>" "Go to previous conflict")
+    (mkKeymap' "<leader>Gc<up>" "<CMD>GitConflictPrevConflict<CR>" "Go to previous conflict")
+    (mkKeymap' "<leader>Gcj" "<CMD>GitConflictNextConflict<CR>" "Go to next conflict")
+    (mkKeymap' "<leader>Gc<down>" "<CMD>GitConflictNextConflict<CR>" "Go to next conflict")
 
-    (mkKeymap' "<localleader>gc/" "<CMD>Telescope conflicts<CR>" "Find conflicted files")
+    (mkKeymap' "<leader>Gc/" "<CMD>Telescope conflicts<CR>" "Find conflicted files")
   ];
 }
