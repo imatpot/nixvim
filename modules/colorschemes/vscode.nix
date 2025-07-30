@@ -69,6 +69,7 @@ lib.utils.modules.mkTheme config "vscode" {
             SnacksDashboardKey.fg = color "vscLineNumber";
 
             "@string.special.path.nix".fg = color "vscOrange";
+            "@constructor.typescript".fg = "none";
 
             BufferTabpageFill.bg = "none";
             TabLineFill.bg = "none";
