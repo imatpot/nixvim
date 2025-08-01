@@ -20,6 +20,6 @@ lib.utils.modules.mkModule' config true "todos" {
   };
 
   keymaps = with lib.utils.keymaps; [
-    (mkKeymap' "<leader>T" "<CMD>Trouble todo<CR>" "Show TODOs")
+    (mkKeymap' "<leader>gT" "<CMD>Trouble todo<CR>" "Show TODOs")
   ];
 }

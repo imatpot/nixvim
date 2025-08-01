@@ -54,11 +54,30 @@ lib.utils.modules.mkModule' config true "telescope" {
 
   keymaps = let
     search = "lua require('search')";
-    teleOpts = "tele_opts = { no_ignore = true, no_ignore_parent = true, hidden = true, use_regex = true, file_ignore_patterns = { '^.git/' }  }";
+    teleOpts =
+      # lua
+      ''
+        tele_opts = {
+          no_ignore = true,
+          no_ignore_parent = true,
+          hidden = true,
+          use_regex = true,
+          file_ignore_patterns = {
+            "^.git/",
+            "^node_modules/",
+            "^.dart_tool/",
+          },
+        }
+      '';
   in
     with lib.utils.keymaps; [
-      (mkKeymap ["n"] "<leader>p" "<CMD>${search}.open({ tab_name = 'Files', ${teleOpts} })<CR>" "Search files")
-      (mkKeymap ["n"] "<leader>/" "<CMD>${search}.open({ tab_name = 'Grep', ${teleOpts} })<CR>" "Grep files")
+      (mkKeymap' "<leader>p" "<CMD>${search}.open({ tab_name = 'Files', ${teleOpts} })<CR>" "Search files")
+      (mkKeymap' "<leader>/" "<CMD>${search}.open({ tab_name = 'Grep', ${teleOpts} })<CR>" "Grep files")
+
+      (mkKeymap' "gi" "<CMD>Telescope lsp_implementations<CR>" "Go to implementations")
+      (mkKeymap' "gd" "<CMD>Telescope lsp_definitions<CR>" "Go to definitions")
+      (mkKeymap' "gr" "<CMD>Telescope lsp_references<CR>" "Go to references")
+      (mkKeymap' "gt" "<CMD>Telescope lsp_type_definitions<CR>" "Go to type definitions")
     ];
 
   extraPackages = with pkgs; [
