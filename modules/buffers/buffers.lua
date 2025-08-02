@@ -20,7 +20,7 @@ function CloseBuffer()
   if counts.normal <= 1 then
     vim.api.nvim_exec(":q", true)
   else
-    vim.api.nvim_exec(":bprevious | bdelete #", true)
+    vim.api.nvim_exec("lua Snacks.bufdelete()", true)
   end
 end
 

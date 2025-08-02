@@ -11,6 +11,7 @@ lib.utils.modules.mkModule' config true "snacks" {
       bigfile.enabled = true;
       quickfile.enabled = true;
       words.enabled = true;
+      bufdelete.enable = true;
     };
   };
 }
