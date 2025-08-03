@@ -31,7 +31,7 @@ lib.utils.modules.mkModule' config true "git" {
         current_line_blame_opts = {
           virt_text = true;
           virt_text_pos = "right_align";
-          delay = 1000;
+          delay = 0;
         };
       };
     };
