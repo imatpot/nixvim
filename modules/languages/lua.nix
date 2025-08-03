@@ -8,13 +8,17 @@ lib.utils.modules.mkLanguage' config "lua" {
   plugins = {
     lsp.servers.lua_ls = {
       enable = true;
-      settings.diagnostics.globals = [
-        "vim"
-      ];
+      settings = {
+        diagnostics.globals = ["vim"];
+        runtime.version = "Lua 5.1";
+      };
     };
 
     lint = {
-      linters.luacheck.cmd = lib.getExe pkgs.luajitPackages.luacheck;
+      linters.luacheck = {
+        cmd = lib.getExe pkgs.luajitPackages.luacheck;
+        args = ["--read-globals" "vim"];
+      };
       lintersByFt.lua = ["luacheck"];
     };
 

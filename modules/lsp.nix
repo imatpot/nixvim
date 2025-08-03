@@ -30,6 +30,20 @@ lib.utils.modules.mkModule' config true "lsp" {
         "InsertLeave"
       ];
     };
+
+    tiny-inline-diagnostic = {
+      enable = true;
+
+      settings.options = {
+        use_icons_from_diagnostic = true;
+        show_all_diags_on_cursorline = true;
+        multilines = {
+          enabled = true;
+          always_show = true;
+          trim_whitespaces = true;
+        };
+      };
+    };
   };
 
   files."ftplugin/Trouble.lua".opts.wrap = true;

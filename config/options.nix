@@ -8,10 +8,10 @@
 
     diagnostic.settings = let
       signs = {
-        E = "";
-        W = "";
-        I = "";
-        H = "";
+        E = " ";
+        W = " ";
+        I = " ";
+        H = " ";
       };
     in {
       signs.text = [
@@ -21,19 +21,20 @@
         signs.H
       ];
 
-      virtual_text = {
-        virt_text_pos = "eol_right_align";
-        suffix = " ";
-        prefix =
-          helpers.mkRaw
-          # lua
-          ''
-            function(diagnostic)
-              local signs = { "${signs.E}", "${signs.W}", "${signs.I}", "${signs.H}" }
-              return (signs[diagnostic.severity] or "") .. " "
-            end
-          '';
-      };
+      virtual_text = false;
+      # {
+      #   virt_text_pos = "eol_right_align";
+      #   suffix = " ";
+      #   prefix =
+      #     helpers.mkRaw
+      #     # lua
+      #     ''
+      #       function(diagnostic)
+      #         local signs = { "${signs.E}", "${signs.W}", "${signs.I}", "${signs.H}" }
+      #         return (signs[diagnostic.severity] or "") .. " "
+      #       end
+      #     '';
+      # };
     };
 
     opts = {
