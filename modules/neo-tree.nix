@@ -44,6 +44,7 @@ lib.utils.modules.mkModule' config true "neo-tree" {
           ".git"
           ".DS_Store"
           "thumbs.db"
+          "desktop.ini"
         ];
       };
     };
