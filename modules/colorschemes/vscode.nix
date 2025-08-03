@@ -76,7 +76,7 @@ lib.utils.modules.mkTheme config "vscode" {
 
             BufferInactiveMod = BufferInactive // {italic = true;};
             BufferInactiveERROR = BufferInactive // {fg = color "vscRed";};
-            BufferInactiveWARN = BufferInactive // {fg = color "vscYellow";};
+            BufferInactiveWARN = BufferInactive // {fg = color "vscYellowOrange";};
             BufferInactiveINFO = BufferInactive // {fg = color "vscBlue";};
             BufferInactiveHINT = BufferInactive // {fg = color "vscBlueGreen";};
             BufferInactive = {
@@ -86,10 +86,20 @@ lib.utils.modules.mkTheme config "vscode" {
 
             BufferCurrentMod = BufferCurrent // {italic = true;};
             BufferCurrentERROR = BufferCurrent // {fg = color "vscRed";};
-            BufferCurrentWARN = BufferCurrent // {fg = color "vscYellow";};
+            BufferCurrentWARN = BufferCurrent // {fg = color "vscYellowOrange";};
             BufferCurrentINFO = BufferCurrent // {fg = color "vscBlue";};
             BufferCurrentHINT = BufferCurrent // {fg = color "vscBlueGreen";};
             BufferCurrent = {
+              bg = color "vscBack";
+              fg = color "vscFront";
+            };
+
+            BufferVisibleMod = BufferVisible // {italic = true;};
+            BufferVisibleERROR = BufferVisible // {fg = color "vscRed";};
+            BufferVisibleWARN = BufferVisible // {fg = color "vscYellowOrange";};
+            BufferVisibleINFO = BufferVisible // {fg = color "vscBlue";};
+            BufferVisibleHINT = BufferVisible // {fg = color "vscBlueGreen";};
+            BufferVisible = {
               bg = color "vscBack";
               fg = color "vscFront";
             };
