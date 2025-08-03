@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 lib.utils.modules.mkModule' config true "lsp" {
@@ -10,6 +11,24 @@ lib.utils.modules.mkModule' config true "lsp" {
     lsp = {
       enable = true;
       inlayHints = false;
+
+      onAttach =
+        # lua
+        ''
+          local ignored = {"^copilot", "^otter-ls%[.+%]"}
+          local is_ignored = false
+
+          for _, pattern in ipairs(ignored) do
+            if client.name:match(pattern) then
+              is_ignored = true
+              break
+            end
+          end
+
+          if not is_ignored then
+            require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
+          end
+        '';
     };
 
     trouble = {
@@ -75,4 +94,8 @@ lib.utils.modules.mkModule' config true "lsp" {
     ''
       vim.lsp.set_log_level("off")
     '';
+
+  extraPlugins = with pkgs.vimPlugins; [
+    workspace-diagnostics
+  ];
 }

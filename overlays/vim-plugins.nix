@@ -89,5 +89,16 @@
         };
         doCheck = false;
       };
+
+      workspace-diagnostics = super.vimUtils.buildVimPlugin {
+        name = "workspace-diagnostics.nvim";
+        src = super.fetchFromGitHub {
+          owner = "artemave";
+          repo = "workspace-diagnostics.nvim";
+          rev = "60f9175b2501ae3f8b1aba9719c0df8827610c8e";
+          sha256 = "1plx01fcwqxym5z86wfwvc52if2qm5nfg51skxzjmjn6m5l4lald";
+        };
+        doCheck = false;
+      };
     };
 }
