@@ -15,17 +15,17 @@ lib.utils.modules.mkModule' config true "lsp" {
       onAttach =
         # lua
         ''
-          local ignored = {"^copilot", "^otter-ls%[.+%]"}
-          local is_ignored = false
+          local ignored_clients = {"^copilot", "^otter-ls"}
+          local is_client_ignored = false
 
-          for _, pattern in ipairs(ignored) do
+          for _, pattern in ipairs(ignored_clients) do
             if client.name:match(pattern) then
-              is_ignored = true
+              is_client_ignored = true
               break
             end
           end
 
-          if not is_ignored then
+          if not is_client_ignored then
             require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
           end
         '';
@@ -64,7 +64,7 @@ lib.utils.modules.mkModule' config true "lsp" {
     };
 
     nvim-lightbulb = {
-      enable = true;
+      enable = false;
       settings = {
         sign.text = "󰇘";
         autocmd.enabled = true;
