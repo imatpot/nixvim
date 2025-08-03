@@ -33,7 +33,6 @@ lib.utils.modules.mkModule' config true "lsp" {
 
     tiny-inline-diagnostic = {
       enable = true;
-
       settings.options = {
         use_icons_from_diagnostic = true;
         show_all_diags_on_cursorline = true;
@@ -42,6 +41,14 @@ lib.utils.modules.mkModule' config true "lsp" {
           always_show = true;
           trim_whitespaces = true;
         };
+      };
+    };
+
+    nvim-lightbulb = {
+      enable = true;
+      settings = {
+        sign.text = "󰇘";
+        autocmd.enabled = true;
       };
     };
   };
