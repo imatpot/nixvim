@@ -8,6 +8,14 @@ blink_config.has_words_before = function()
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+blink_config.colorize_text = function(context)
+    return require("colorful-menu").blink_components_text(context)
+end
+
+blink_config.colorize_highlights = function(context)
+    return require("colorful-menu").blink_components_highlight(context)
+end
+
 blink_config.use_kind_name = function(name)
     return function(context, items)
         for _, item in ipairs(items) do

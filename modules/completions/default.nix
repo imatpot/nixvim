@@ -18,6 +18,13 @@ lib.utils.modules.mkModule config true "completions" {
     luasnip.enable = true;
     friendly-snippets.enable = true;
 
+    lspkind = {
+      enable = true;
+      cmp.enable = true;
+    };
+
+    colorful-menu.enable = true;
+
     blink-cmp = {
       enable = true;
       luaConfig.pre = builtins.readFile ./completions.lua;
@@ -123,6 +130,18 @@ lib.utils.modules.mkModule config true "completions" {
             draw = {
               gap = 2;
               padding = [1 2];
+
+              columns = [
+                [ "kind_icon" ]
+                [ "label" ]
+              ];
+
+              components = {
+                label = {
+                  text = helpers.mkRaw "blink_config.colorize_text";
+                  highlight = helpers.mkRaw "blink_config.colorize_highlights";
+                };
+              };
             };
           };
 
@@ -242,13 +261,8 @@ lib.utils.modules.mkModule config true "completions" {
       luautf8
     ];
 
-  extraPlugins = with pkgs.vimPlugins; (
-    [
-      colorful-menu-nvim
-      lspkind-nvim
-    ]
-    ++ lib.optionals config.modules.completions.unicode.enable [
+  extraPlugins = with pkgs.vimPlugins;
+    lib.optionals config.modules.completions.unicode.enable [
       unicode-vim
-    ]
-  );
+    ];
 }
