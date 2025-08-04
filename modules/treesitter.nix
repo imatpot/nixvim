@@ -25,6 +25,7 @@ lib.utils.modules.mkModule' config true "treesitter" {
     };
 
     treesitter-textobjects.enable = true;
+    dropbar.enable = true;
   };
 
   extraConfigLuaPost =
