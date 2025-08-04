@@ -46,17 +46,6 @@
         doCheck = false;
       };
 
-      plenary-nvim = super.vimUtils.buildVimPlugin {
-        name = "plenary-nvim";
-        src = super.fetchFromGitHub {
-          owner = "nvim-lua";
-          repo = "plenary.nvim";
-          rev = "857c5ac632080dba10aae49dba902ce3abf91b35";
-          sha256 = "0jxx9nfga7z87v78cifglqs8w4mrpf99wcp483kb0hbv6537jmgh";
-        };
-        doCheck = false;
-      };
-
       pubspec-assist = super.vimUtils.buildVimPlugin {
         name = "pubspec-assist.nvim";
         src = super.fetchFromGitHub {

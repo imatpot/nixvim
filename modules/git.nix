@@ -38,7 +38,6 @@ lib.utils.modules.mkModule' config true "git" {
   };
 
   extraPlugins = with pkgs.vimPlugins; [
-    plenary-nvim
     telescope-git-conflicts
   ];
 

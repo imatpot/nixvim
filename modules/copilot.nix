@@ -139,10 +139,6 @@ lib.utils.modules.mkModule' config true "copilot" {
     (mkKeymap' "<F1>r" "<CMD>CopilotChatReview<CR>" "Copilot review")
   ];
 
-  extraPlugins = with pkgs.vimPlugins; [
-    plenary-nvim
-  ];
-
   extraLuaPackages = rocks:
     with rocks; [
       tiktoken_core
