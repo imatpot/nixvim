@@ -125,15 +125,15 @@ lib.utils.modules.mkModule config true "completions" {
             scrolloff = 3;
 
             min_width = 20;
-            max_height = helpers.mkRaw "math.floor(vim.o.lines / 2)";
+            max_height = helpers.mkRaw "math.floor(vim.o.lines / 3)";
 
             draw = {
               gap = 2;
               padding = [1 2];
 
               columns = [
-                [ "kind_icon" ]
-                [ "label" ]
+                ["kind_icon"]
+                ["label"]
               ];
 
               components = {
