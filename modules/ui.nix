@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 lib.utils.modules.mkModule' config true "ui" {
@@ -57,4 +58,16 @@ lib.utils.modules.mkModule' config true "ui" {
       };
     };
   };
+
+  extraPlugins = with pkgs.vimPlugins; [
+    {
+      plugin = hml;
+      config =
+        lib.utils.viml.fromLua
+        # lua
+        ''
+          require('hml').setup()
+        '';
+    }
+  ];
 }

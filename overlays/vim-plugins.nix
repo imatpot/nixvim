@@ -89,5 +89,16 @@
         };
         doCheck = false;
       };
+
+      hml = super.vimUtils.buildVimPlugin {
+        name = "hml.nvim";
+        src = super.fetchFromGitHub {
+          owner = "mawkler";
+          repo = "hml.nvim";
+          rev = "54b4d0a4d800f79310443f9a26d54023daeb9e7c";
+          sha256 = "0892cljk7ddw43cihc3yf06ccssbvgg7y8acln9mlhxq8b5iinr1";
+        };
+        doCheck = false;
+      };
     };
 }
