@@ -129,6 +129,7 @@ lib.utils.modules.mkTheme config "vscode" {
             CopilotChatHeader.fg = color "vscSuggestion";
             CopilotChatSeparator.fg = color "vscContext";
 
+            CsvViewDelimiter.link = "NonText";
             DropBarIconUISeparator.link = "NonText";
             WinBar.bold = false;
           }
