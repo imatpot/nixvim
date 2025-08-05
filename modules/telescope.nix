@@ -16,6 +16,7 @@ lib.utils.modules.mkModule' config true "telescope" {
         "^%.dart_tool/"
         "^%.git/"
         "^%.venv/"
+        "^%.angular/"
         "^node_modules/"
         "^venv/"
       ];
