@@ -50,7 +50,7 @@ lib.utils.modules.mkModule' config true "neo-tree" {
     };
 
     defaultComponentConfigs = {
-      modified.symbol = "•";
+      modified.symbol = "";
 
       indent = {
         highlight = "NeoTreeIndentMarker2";
@@ -72,13 +72,13 @@ lib.utils.modules.mkModule' config true "neo-tree" {
       };
 
       gitStatus.symbols = {
-        added = "+";
-        conflict = "ϟ";
-        deleted = "×";
+        added = "";
+        conflict = "⚡";
+        deleted = "";
         ignored = "";
-        modified = "*";
-        renamed = "»";
-        staged = "S";
+        modified = "";
+        renamed = "";
+        staged = "";
         unstaged = "";
         untracked = "";
       };

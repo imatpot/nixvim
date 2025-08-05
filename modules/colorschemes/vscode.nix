@@ -54,10 +54,24 @@ lib.utils.modules.mkTheme config "vscode" {
             TreesitterContext.bg = "#101010";
 
             NeoTreeFileIcon.link = "MiniIconsGrey";
-            NeoTreeGitIgnored.fg = color "vscGray";
             NeoTreeIndentMarker2 = {
               bg = "none";
               fg = color "vscGray";
+            };
+
+            NeoTreeGitModified.fg = color "vscGitModified";
+            NeoTreeGitIgnored.fg = color "vscGray";
+            NeoTreeGitAdded.fg = color "vscGitAdded";
+            NeoTreeGitDeleted.fg = color "vscGitDeleted";
+            NeoTreeGitRenamed.fg = color "vscBlueGreen";
+            NeoTreeModified.link = "NeoTreeGitModified";
+            NeoTreeGitUnstaged.link = "NeoTreeGitModified";
+            NeoTreeGitStaged.link = "NeoTreeGitAdded";
+            NeoTreeGitUntracked.link = "NeoTreeGitAdded";
+
+            NeoTreeGitConflict = {
+              fg = color "vscPink";
+              italic = true;
             };
 
             VirtColumn.fg = color "vscCursorDarkDark";
