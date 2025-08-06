@@ -56,7 +56,7 @@ lib.utils.modules.mkModule' config true "dashboard" {
               action = ":lua Snacks.dashboard.pick('oldfiles')";
             }
           ]
-          ++ lib.optionals config.modules.neo-tree.enable [
+          ++ lib.optionals config.modules.file-tree.enable [
             {
               icon = "";
               key = "e";
@@ -64,7 +64,7 @@ lib.utils.modules.mkModule' config true "dashboard" {
               action = "<leader>e";
             }
           ]
-          ++ lib.optionals config.modules.toggleterm.enable [
+          ++ lib.optionals config.modules.terminal.enable [
             {
               icon = "";
               key = "g";

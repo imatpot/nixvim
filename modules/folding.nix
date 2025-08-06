@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.utils.modules.mkModule' config true "ufo" {
+lib.utils.modules.mkModule' config true "folding" {
   plugins.nvim-ufo = {
     enable = true;
   };

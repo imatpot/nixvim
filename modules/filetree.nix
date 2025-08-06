@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkModule' config true "neo-tree" {
+lib.utils.modules.mkModule' config true "file-tree" {
   modules.icons.enable = lib.mkForce true;
 
   plugins.neo-tree = {

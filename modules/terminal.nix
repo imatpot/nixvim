@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.utils.modules.mkModule' config true "toggleterm" {
+lib.utils.modules.mkModule' config true "terminal" {
   plugins.toggleterm = {
     enable = true;
     settings = {
