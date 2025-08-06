@@ -132,6 +132,8 @@ lib.utils.modules.mkTheme config "vscode" {
             CsvViewDelimiter.link = "NonText";
             DropBarIconUISeparator.link = "NonText";
             WinBar.bold = false;
+
+            UfoFoldedEllipsis.fg = "#607DB8";
           }
           (
             let
