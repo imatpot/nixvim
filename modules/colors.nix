@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  helpers,
   ...
 }:
 lib.utils.modules.mkModule' config true "colors" {
@@ -12,7 +11,7 @@ lib.utils.modules.mkModule' config true "colors" {
         user_default_options = {
           mode = "virtualtext";
           virtualtext = "";
-          virtualtext_inline = helpers.mkRaw "'before'";
+          virtualtext_inline = lib.nixvim.mkRaw "'before'";
 
           names = true;
           names_opts = {

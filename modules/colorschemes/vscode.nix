@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  helpers,
   ...
 }:
 lib.utils.modules.mkTheme config "vscode" {
@@ -17,7 +16,7 @@ lib.utils.modules.mkTheme config "vscode" {
       group_overrides = let
         # https://github.com/Mofiqul/vscode.nvim/blob/main/lua/vscode/colors.lua
         color = name:
-          helpers.mkRaw
+          lib.nixvim.mkRaw
           # lua
           "require('vscode.colors').get_colors().${name}";
       in

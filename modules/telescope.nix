@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  helpers,
   ...
 }:
 lib.utils.modules.mkModule' config true "telescope" {
@@ -10,7 +9,7 @@ lib.utils.modules.mkModule' config true "telescope" {
     enable = true;
 
     settings.defaults = {
-      mappings.i."<esc>" = helpers.mkRaw "require('telescope.actions').close";
+      mappings.i."<esc>" = lib.nixvim.mkRaw "require('telescope.actions').close";
 
       file_ignore_patterns = [
         "^%.dart_tool/"
@@ -50,7 +49,7 @@ lib.utils.modules.mkModule' config true "telescope" {
       ui-select = {
         enable = true;
         settings = {
-          __unkeyed_1 = helpers.mkRaw "require('telescope.themes').get_cursor()";
+          __unkeyed_1 = lib.nixvim.mkRaw "require('telescope.themes').get_cursor()";
         };
       };
     };

@@ -1,4 +1,4 @@
-{helpers, ...}: {
+{lib, ...}: {
   config = {
     autoCmd = [
       {
@@ -15,7 +15,7 @@
       }
       {
         event = ["BufWritePre"];
-        callback = helpers.mkRaw ''
+        callback = lib.nixvim.mkRaw ''
           function (event)
             if event.match:match("^%w%w+:[\\/][\\/]") then
               return

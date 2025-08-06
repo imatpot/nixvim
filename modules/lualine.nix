@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  helpers,
   pkgs,
   ...
 }:
@@ -35,7 +34,7 @@ lib.utils.modules.mkModule' config true "lualine" {
         lualine_a = [
           {
             __unkeyed =
-              helpers.mkRaw
+              lib.nixvim.mkRaw
               # lua
               ''
                 function()
@@ -44,7 +43,7 @@ lib.utils.modules.mkModule' config true "lualine" {
               '';
 
             fmt =
-              helpers.mkRaw
+              lib.nixvim.mkRaw
               # lua
               ''
                 function(register)
@@ -53,7 +52,7 @@ lib.utils.modules.mkModule' config true "lualine" {
               '';
 
             cond =
-              helpers.mkRaw
+              lib.nixvim.mkRaw
               # lua
               ''
                 function()
@@ -63,7 +62,7 @@ lib.utils.modules.mkModule' config true "lualine" {
           }
           {
             __unkeyed =
-              helpers.mkRaw
+              lib.nixvim.mkRaw
               # lua
               ''
                 function()
@@ -72,7 +71,7 @@ lib.utils.modules.mkModule' config true "lualine" {
               '';
 
             fmt =
-              helpers.mkRaw
+              lib.nixvim.mkRaw
               # lua
               ''
                 function(status)
@@ -81,7 +80,7 @@ lib.utils.modules.mkModule' config true "lualine" {
               '';
 
             cond =
-              helpers.mkRaw
+              lib.nixvim.mkRaw
               # lua
               ''
                 function()
@@ -130,7 +129,7 @@ lib.utils.modules.mkModule' config true "lualine" {
               newfile = "New file";
             };
             cond =
-              helpers.mkRaw
+              lib.nixvim.mkRaw
               # lua
               ''
                 function()
@@ -170,7 +169,7 @@ lib.utils.modules.mkModule' config true "lualine" {
           {
             __unkeyed = "filetype";
             cond =
-              helpers.mkRaw
+              lib.nixvim.mkRaw
               # lua
               ''
                 function()
@@ -197,7 +196,7 @@ lib.utils.modules.mkModule' config true "lualine" {
               __unkeyed = "󰗊";
               # TODO: lualine doesn't update this color on refresh, it only runs once
               color.fg =
-                helpers.mkRaw
+                lib.nixvim.mkRaw
                 # lua
                 "BufferLanguageColor()";
             };

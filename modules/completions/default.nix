@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  helpers,
   pkgs,
   ...
 }:
@@ -56,7 +55,7 @@ lib.utils.modules.mkModule config true "completions" {
           };
 
           providers = let
-            useKindName = name: helpers.mkRaw "blink_config.use_kind_name('${name}')";
+            useKindName = name: lib.nixvim.mkRaw "blink_config.use_kind_name('${name}')";
           in {
             buffer.min_keyword_length = 5;
             snippets.min_keyword_length = 3;
@@ -125,7 +124,7 @@ lib.utils.modules.mkModule config true "completions" {
             scrolloff = 3;
 
             min_width = 20;
-            max_height = helpers.mkRaw "math.floor(vim.o.lines / 3)";
+            max_height = lib.nixvim.mkRaw "math.floor(vim.o.lines / 3)";
 
             draw = {
               gap = 2;
@@ -138,8 +137,8 @@ lib.utils.modules.mkModule config true "completions" {
 
               components = {
                 label = {
-                  text = helpers.mkRaw "blink_config.colorize_text";
-                  highlight = helpers.mkRaw "blink_config.colorize_highlights";
+                  text = lib.nixvim.mkRaw "blink_config.colorize_text";
+                  highlight = lib.nixvim.mkRaw "blink_config.colorize_highlights";
                 };
               };
             };
@@ -215,7 +214,7 @@ lib.utils.modules.mkModule config true "completions" {
 
           "<tab>" = [
             "snippet_forward"
-            (helpers.mkRaw "blink_config.indent_if_no_words_before")
+            (lib.nixvim.mkRaw "blink_config.indent_if_no_words_before")
             "fallback"
           ];
 
@@ -225,7 +224,7 @@ lib.utils.modules.mkModule config true "completions" {
           ];
 
           "<esc>" = [
-            (helpers.mkRaw "blink_config.cancel")
+            (lib.nixvim.mkRaw "blink_config.cancel")
           ];
         };
       };
@@ -248,7 +247,7 @@ lib.utils.modules.mkModule config true "completions" {
     {
       event = ["VimEnter"];
       pattern = ["*"];
-      callback = helpers.mkRaw "unicode.populate_completions";
+      callback = lib.nixvim.mkRaw "unicode.populate_completions";
     }
   ];
 

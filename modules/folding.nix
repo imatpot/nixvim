@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  helpers,
   ...
 }:
 lib.utils.modules.mkModule' config true "folding" {
@@ -10,7 +9,7 @@ lib.utils.modules.mkModule' config true "folding" {
 
     settings = {
       fold_virt_text_handler =
-        helpers.mkRaw
+        lib.nixvim.mkRaw
         # lua
         ''
           -- https://github.com/kevinhwang91/nvim-ufo?tab=readme-ov-file#customize-fold-text

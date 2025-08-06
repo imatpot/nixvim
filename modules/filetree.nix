@@ -150,7 +150,7 @@ lib.utils.modules.mkModule' config true "file-tree" {
     #   event = ["VimEnter"];
     #   pattern = ["*"];
     #   callback =
-    #     helpers.mkRaw
+    #     lib.nixvim.mkRaw
     #     # lua
     #     ''
     #     function()

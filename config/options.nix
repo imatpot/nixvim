@@ -1,4 +1,4 @@
-{helpers, ...}: {
+{...}: {
   config = {
     enableMan = false;
     clipboard.register = "unnamedplus";
@@ -26,7 +26,7 @@
       #   virt_text_pos = "eol_right_align";
       #   suffix = " ";
       #   prefix =
-      #     helpers.mkRaw
+      #     lib.nixvim.mkRaw
       #     # lua
       #     ''
       #       function(diagnostic)

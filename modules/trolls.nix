@@ -27,7 +27,7 @@ lib.utils.modules.mkModule' config false "trolls" {
   #       "BufReadPost"
   #     ];
   #     callback =
-  #       helpers.mkRaw
+  #       lib.nixvim.mkRaw
   #       # lua
   #       ''
   #         function()

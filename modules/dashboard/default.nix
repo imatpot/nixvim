@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  helpers,
   pkgs,
   ...
 }:
@@ -15,7 +14,7 @@ lib.utils.modules.mkModule' config true "dashboard" {
 
       sections = [
         (
-          helpers.mkRaw "GetPokemonSection()"
+          lib.nixvim.mkRaw "GetPokemonSection()"
         )
         {
           padding = 2;
@@ -96,7 +95,7 @@ lib.utils.modules.mkModule' config true "dashboard" {
     {
       event = "BufNew";
       callback =
-        helpers.mkRaw
+        lib.nixvim.mkRaw
         # lua
         ''
           function()
