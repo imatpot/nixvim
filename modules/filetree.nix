@@ -7,6 +7,27 @@
 lib.utils.modules.mkModule' config true "file-tree" {
   modules.icons.enable = lib.mkForce true;
 
+  extraPlugins = [
+    # {
+    #   plugin = pkgs.vimPlugins.fyler;
+    #   config = lib.utils.plugins.setup "fyler" {
+    #     views = {
+    #       explorer = {
+    #         win = {
+    #           kind = "split_left_most";
+    #           buf_opts.buflisted = true;
+    #           kind_presets.split_left_most = {
+    #             width = 0.2;
+    #           };
+    #         };
+    #
+    #         indentscope.marker = "▏";
+    #       };
+    #     };
+    #   };
+    # }
+  ];
+
   plugins.neo-tree = {
     enable = true;
     package = pkgs.master.vimPlugins.neo-tree-nvim;

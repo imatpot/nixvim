@@ -100,5 +100,16 @@
         };
         doCheck = false;
       };
+
+      fyler = super.vimUtils.buildVimPlugin {
+        name = "fyler.nvim";
+        src = super.fetchFromGitHub {
+          owner = "A7Lavinraj";
+          repo = "fyler.nvim";
+          rev = "fe413ab9c8587d98321683828d01a465fe456831";
+          sha256 = "0ii2pgmr5wx6vw7pkakmibj9pb16layqbnsfm6vm845xhabisb5q";
+        };
+        doCheck = false;
+      };
     };
 }
