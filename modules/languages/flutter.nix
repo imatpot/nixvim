@@ -24,12 +24,7 @@ lib.utils.modules.mkLanguage' config "dart"
   extraPlugins = with pkgs.vimPlugins; [
     {
       plugin = pubspec-assist;
-      config =
-        lib.utils.viml.fromLua
-        # lua
-        ''
-          require("pubspec-assist").setup()
-        '';
+      config = lib.utils.plugins.setup' "pubspec-assist";
     }
   ];
 

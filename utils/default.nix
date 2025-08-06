@@ -6,6 +6,7 @@ args @ {
 }: rec {
   modules = import ./modules.nix (args // {inherit mkDefaultEnableOption;});
   keymaps = import ./keymaps.nix args;
+  plugins = import ./plugins.nix (args // {inherit viml;});
   viml = import ./viml.nix args;
 
   umport = inputs.nypkgs.lib.${system}.umport;

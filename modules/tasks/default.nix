@@ -26,14 +26,9 @@ lib.utils.modules.mkModule' config true "tasks" {
   extraPlugins = with pkgs.vimPlugins; [
     {
       plugin = nx-nvim;
-      config =
-        lib.utils.viml.fromLua
-        # lua
-        ''
-          require("nx").setup({
-            nx_cmd_root = "npx nx",
-          })
-        '';
+      config = lib.utils.plugins.setup "nx" {
+        nx_cmd_root = "npx nx";
+      };
     }
   ];
 }
