@@ -23,6 +23,7 @@ lib.utils.modules.mkModule' config true "icons" {
 
         filetype = {
           copilot-chat.glyph = "";
+          http.glyph = "";
         };
 
         extension = {
@@ -33,6 +34,8 @@ lib.utils.modules.mkModule' config true "icons" {
           dart.glyph = ""; # let's be real, that's the only reason people use dart
           gradle.glyph = "";
           properties.glyph = "";
+          http.glyph = "";
+          rest.glyph = "";
 
           temp.glyph = "";
           tmp.glyph = "";
