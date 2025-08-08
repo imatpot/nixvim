@@ -106,8 +106,19 @@
         src = super.fetchFromGitHub {
           owner = "A7Lavinraj";
           repo = "fyler.nvim";
-          rev = "fe413ab9c8587d98321683828d01a465fe456831";
-          sha256 = "0ii2pgmr5wx6vw7pkakmibj9pb16layqbnsfm6vm845xhabisb5q";
+          rev = "6d1be02c824918a31e7becf0676e76275a64b910";
+          sha256 = "1bvvrlz585i5dj2fy4h4c4wr14pkmxwjni1h02yqpra5dk1b2ssz";
+        };
+        doCheck = false;
+      };
+
+      cmp-dotenv = super.vimUtils.buildVimPlugin {
+        name = "cmp-dotenv";
+        src = super.fetchFromGitHub {
+          owner = "SergioRibera";
+          repo = "cmp-dotenv";
+          rev = "4dd53aab60982f1f75848aec5e6214986263325e";
+          sha256 = "0pkkxfwsmp2rn77x8jbsb1j0avjx813n5kp4q6f0v0rfmjxk538i";
         };
         doCheck = false;
       };

@@ -38,6 +38,7 @@ lib.utils.modules.mkModule config true "completions" {
               "buffer"
               "ripgrep"
               "calc"
+              "dotenv"
             ]
             ++ lib.optionals config.modules.copilot.enable [
               "copilot"
@@ -108,6 +109,15 @@ lib.utils.modules.mkModule config true "completions" {
               module = "blink.compat.source";
               transform_items = useKindName "DAP";
             };
+
+            dotenv = {
+              name = "dotenv";
+              module = "blink.compat.source";
+              transform_items = useKindName "Env";
+              opts = {
+                load_shell = true;
+              };
+            };
           };
         };
 
@@ -169,7 +179,7 @@ lib.utils.modules.mkModule config true "completions" {
             Event = "";
             Keyword = "󰌆";
             Operator = "󱓉";
-            Reference = "";
+            Reference = "";
             Snippet = "";
             TypeParameter = "󱗽";
             Unit = "";
@@ -177,6 +187,7 @@ lib.utils.modules.mkModule config true "completions" {
 
             Calc = "";
             DAP = "";
+            Env = "";
             Unicode = "󰻐";
           };
         };
@@ -261,7 +272,10 @@ lib.utils.modules.mkModule config true "completions" {
     ];
 
   extraPlugins = with pkgs.vimPlugins;
-    lib.optionals config.modules.completions.unicode.enable [
+    [
+      cmp-dotenv
+    ]
+    ++ lib.optionals config.modules.completions.unicode.enable [
       unicode-vim
     ];
 }
