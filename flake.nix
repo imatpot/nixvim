@@ -76,6 +76,10 @@
         '';
       };
 
+      overlays.default = final: prev: {
+        neovim = nvim;
+      };
+
       checks.default = nixvimLib.check.mkTestDerivationFromNvim {
         inherit nvim;
         name = "mkTestDerivationFromNvim";
