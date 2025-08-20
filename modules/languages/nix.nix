@@ -20,6 +20,9 @@ lib.utils.modules.mkLanguage' config "nix" {
           systemExpr =
             # nix
             ''''${builtins.currentSystem}'';
+          dotfilesExpr =
+            # nix
+            ''(builtins.getFlake "github:imatpot/dotfiles")'';
         in {
           formatting.command = ["nix fmt"];
 
@@ -32,19 +35,17 @@ lib.utils.modules.mkLanguage' config "nix" {
               # nix
               "${flakeExpr}.packages.${systemExpr}.nvim.options";
 
-            # TODO: make nixvim not rely on my dotfiles for these options
-
             nixos.expr =
               # nix
-              "${flakeExpr}.inputs.dotfiles.nixosConfigurations.shinobi.options";
+              "${dotfilesExpr}.nixosConfigurations.shinobi.options";
 
             home-manager.expr =
               # nix
-              "${flakeExpr}.inputs.dotfiles.homeConfigurations.mladen.options";
+              "${dotfilesExpr}.homeConfigurations.mladen.options";
 
             nix-darwin.expr =
               # nix
-              "${flakeExpr}.inputs.dotfiles.darwinConfigurations.mcdonalds.options";
+              "${dotfilesExpr}.darwinConfigurations.mcdonalds.options";
           };
         };
       };
