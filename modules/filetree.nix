@@ -5,6 +5,7 @@
   ...
 }:
 lib.utils.modules.mkModule' config true "file-tree" {
+  performance.combinePlugins.standalonePlugins = ["neo-tree"];
   modules.icons.enable = lib.mkForce true;
 
   extraPlugins = [
