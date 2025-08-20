@@ -5,6 +5,8 @@
   ...
 }:
 lib.utils.modules.mkModule' config true "lualine" {
+  performance.combinePlugins.standalonePlugins = ["neo-tree"];
+
   plugins.lualine = {
     enable = true;
     package = pkgs.master.vimPlugins.lualine-nvim;
