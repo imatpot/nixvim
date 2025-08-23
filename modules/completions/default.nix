@@ -19,7 +19,7 @@ lib.utils.modules.mkModule config true "completions" {
 
     lspkind = {
       enable = true;
-      cmp.enable = true;
+      cmp.enable = config.plugins.cmp.enable;
     };
 
     colorful-menu.enable = true;
