@@ -114,6 +114,7 @@ lib.utils.modules.mkModule config true "completions" {
               name = "dotenv";
               module = "blink.compat.source";
               transform_items = useKindName "Env";
+              score_offset = -100;
               opts = {
                 load_shell = true;
               };
