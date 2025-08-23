@@ -106,8 +106,8 @@
         src = super.fetchFromGitHub {
           owner = "A7Lavinraj";
           repo = "fyler.nvim";
-          rev = "6d1be02c824918a31e7becf0676e76275a64b910";
-          sha256 = "1bvvrlz585i5dj2fy4h4c4wr14pkmxwjni1h02yqpra5dk1b2ssz";
+          rev = "d421f2e667c72f1a2b4a75f0634298abee4712a7";
+          sha256 = "1nhcfjairy79qk6aimvxjcxhadki9366cnfcxpd7m3mvisnr75f1";
         };
         doCheck = false;
       };
