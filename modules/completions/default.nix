@@ -44,7 +44,7 @@ lib.utils.modules.mkModule config true "completions" {
               "copilot"
             ]
             ++ lib.optionals config.modules.completions.unicode.enable [
-              "unicode"
+              # "unicode" # FIXME: this causes fuzzy matching to crash
             ];
 
           per_filetype = let

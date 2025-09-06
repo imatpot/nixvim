@@ -21,6 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    blink-cmp = {
+      url = "github:saghen/blink.cmp/rework-frecency";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # dotfiles = {
     #   url = "github:imatpot/dotfiles";
     #   inputs.nixpkgs.follows = "nixpkgs";
