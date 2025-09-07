@@ -104,23 +104,27 @@ unicode.populate_completions = function()
 
         for _, line in ipairs(unicode.table) do
             local sections = vim.split(line, ";")
-            local char = unicode.from_hex(sections[1]):gsub("^%s+", ""):gsub("%s+$", ""):gsub("\n", "")
-            local hex = "U+" .. sections[1]:gsub("^%s+", ""):gsub("%s+$", ""):gsub("\n", "")
-            local name = sections[2]:gsub("^%s+", ""):gsub("%s+$", ""):gsub("\n", "")
 
-            if char and name and not unicode.is_control_char(sections[1]) then
-                table.insert(unicode.completions, {
-                    word = char,
-                    abbr = char,
-                    label = char,
-                    insertText = char,
-                    filterText = char .. " " .. hex .. " " .. name,
-                    kind = cmp.lsp.CompletionItemKind.Text,
-                    documentation = {
-                        kind = "markdown",
-                        value = "**" .. hex .. "** *" .. name .. "*",
-                    },
-                })
+            if sections and #sections >= 2 then
+                local hex = sections[1]:gsub("^%s+", ""):gsub("%s+$", ""):gsub("\n", "")
+                local char = unicode.from_hex(hex)
+                local uhex = "U+" .. hex
+                local name = sections[2]:gsub("^%s+", ""):gsub("%s+$", ""):gsub("\n", "")
+
+                if char and name and not unicode.is_control_char(hex) then
+                    table.insert(unicode.completions, {
+                        word = char,
+                        abbr = char,
+                        label = char,
+                        insertText = char,
+                        filterText = char .. " " .. uhex .. " " .. name,
+                        kind = cmp.lsp.CompletionItemKind.Text,
+                        documentation = {
+                            kind = "markdown",
+                            value = "**" .. uhex .. "** *" .. name .. "*",
+                        },
+                    })
+                end
             end
         end
     end, 1000)
