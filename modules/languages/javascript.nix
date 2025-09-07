@@ -8,15 +8,23 @@ lib.utils.modules.mkLanguage' config "javascript, typescript" {
   plugins = {
     lsp.servers = {
       eslint.enable = true;
-      ts_ls.enable = true;
       angularls.enable = true;
 
+      # FIXME: https://github.com/neovim/nvim-lspconfig/issues/3728#issuecomment-2966741537
+      # Adding rootMarkers & setting workspace_required=true did not actually fix the issue for ts_ls.
+
+      ts_ls = {
+        enable = true;
+        autostart = false;
+        rootMarkers = ["package.json"];
+        extraOptions.workspace_required = true;
+      };
+
       denols = {
-        enable = false; # FIXME: https://github.com/neovim/nvim-lspconfig/issues/3728#issuecomment-2966741537
-        settings = {
-          root_markers = ["deno.json" "deno.jsonc"];
-          workspace_required = true;
-        };
+        enable = true;
+        autostart = false;
+        rootMarkers = ["deno.json" "deno.jsonc"];
+        extraOptions.workspace_required = true;
       };
     };
 
