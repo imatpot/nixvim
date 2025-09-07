@@ -92,7 +92,7 @@ lib.utils.modules.mkModule config true "completions" {
               score_offset = -100;
               opts = {
                 project_root_marker = []; # always use cwd
-                search_casing = "--smart-case";
+                backend.ripgrep.search_casing = "--smart-case";
               };
             };
 
