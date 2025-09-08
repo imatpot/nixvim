@@ -253,6 +253,21 @@
         "type": "github"
       }
     },
+    "nixpkgsTeapot": {
+      "locked": {
+        "lastModified": 1757345397,
+        "narHash": "sha256-kUuEjAfQxhEQDVvoKHywxALCGZysAxNs2lnzVKtPi+k=",
+        "owner": "imatpot",
+        "repo": "nixpkgs",
+        "rev": "a61e8df1448a5d7ae370c50d7f8fe63c423c5359",
+        "type": "github"
+      },
+      "original": {
+        "owner": "imatpot",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -326,6 +341,7 @@
         "flakeUtils": "flakeUtils",
         "nixpkgs": "nixpkgs",
         "nixpkgsMaster": "nixpkgsMaster",
+        "nixpkgsTeapot": "nixpkgsTeapot",
         "nixvim": "nixvim",
         "nypkgs": "nypkgs"
       }

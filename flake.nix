@@ -6,6 +6,8 @@
     nixpkgsMaster.url = "github:nixos/nixpkgs/master";
     flakeUtils.url = "github:numtide/flake-utils";
 
+    nixpkgsTeapot.url = "github:imatpot/nixpkgs";
+
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,7 +42,7 @@
   }:
     flakeUtils.lib.eachDefaultSystem (system: let
       lib'' = nixpkgs.lib;
-      lib' = lib''.extend inputs.nixvim.lib.overlay;
+      lib' = lib''.extend nixvim.lib.overlay;
       pkgs = import nixpkgs {
         inherit system;
         config = {allowUnfree = true;};
