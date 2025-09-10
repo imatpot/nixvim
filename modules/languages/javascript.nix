@@ -15,7 +15,7 @@ lib.utils.modules.mkLanguage' config "javascript, typescript" {
 
       ts_ls = {
         enable = true;
-        autostart = false;
+        autostart = true;
         rootMarkers = ["package.json"];
         extraOptions.workspace_required = true;
       };
