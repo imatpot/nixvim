@@ -58,7 +58,7 @@
       relativenumber = true;
       scrolloff = 10;
       shiftwidth = 2;
-      showbreak = "↪ ";
+      showbreak = "󱞩 ";
       smartcase = true;
       smartindent = true;
       smarttab = true;
