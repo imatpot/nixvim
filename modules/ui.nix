@@ -34,9 +34,15 @@ lib.utils.modules.mkModule' config true "ui" {
         messages.view = "mini";
         notify.view = "notify";
 
-        lsp.progress = {
-          enabled = false;
-          view = "mini";
+        lsp = {
+          progress = {
+            enabled = false;
+            view = "mini";
+          };
+
+          signature = {
+            enabled = false;
+          };
         };
 
         cmdline.format.find_and_replace = {

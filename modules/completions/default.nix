@@ -122,7 +122,10 @@ lib.utils.modules.mkModule config true "completions" {
           };
         };
 
-        signature.enabled = true;
+        signature = {
+          enabled = true;
+          window.show_documentation = true;
+        };
 
         completion = {
           list.selection = {
