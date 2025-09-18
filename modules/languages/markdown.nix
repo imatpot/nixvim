@@ -12,10 +12,10 @@ lib.utils.modules.mkLanguage' config "markdown" {
 
     conform-nvim.settings = {
       formatters_by_ft.markdown = ["deno_fmt"];
-    };
-
-    lint = {
-      lintersByFt.markdown = ["markdownlint-cli2"];
+      formatters.deno_fmt.append_args = lib.concatLists [
+        ["--line-width" "2147483647"]
+        ["--prose-wrap" "preserve"]
+      ];
     };
 
     helpview.enable = true;
