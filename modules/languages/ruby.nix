@@ -9,7 +9,6 @@ lib.utils.modules.mkLanguage' config "ruby" {
   plugins = {
     lsp.servers.solargraph.enable = true;
     lint.lintersByFt.ruby = ["ruby"];
-    conform-nvim.settings.formatters_by_ft.ruby.lsp_format = "prefer";
   };
 
   filetype.filename = {

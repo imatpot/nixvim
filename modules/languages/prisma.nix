@@ -12,7 +12,5 @@ lib.utils.modules.mkLanguage' config "prisma" {
         package = pkgs.prisma-language-server;
       };
     };
-
-    conform-nvim.settings.formatters_by_ft.prisma.lsp_format = "prefer";
   };
 }

@@ -11,7 +11,10 @@ lib.utils.modules.mkModule' config true "formatter" {
 
     conform-nvim = {
       enable = true;
-      settings.formattersByFt."*" = ["injected"];
+      settings = {
+        formattersByFt."*" = ["injected"];
+        default_format_opts.lsp_format = "fallback";
+      };
     };
   };
 

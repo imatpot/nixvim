@@ -7,8 +7,6 @@
 lib.utils.modules.mkLanguage' config "dart"
 {
   plugins = {
-    conform-nvim.settings.formatters_by_ft.dart.lsp_format = "prefer";
-
     flutter-tools = {
       enable = true;
 
