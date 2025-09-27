@@ -18,6 +18,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    prettypst = {
+      url = "github:antonwetzel/prettypst";
+      flake = false;
+    };
+
     # dotfiles = {
     #   url = "github:imatpot/dotfiles";
     #   inputs.nixpkgs.follows = "nixpkgs";

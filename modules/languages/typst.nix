@@ -9,8 +9,34 @@ lib.utils.modules.mkLanguage' config "typst" {
     lsp.servers.tinymist.enable = true;
 
     conform-nvim.settings = {
-      formatters.typstyle.command = lib.getExe pkgs.typstyle;
-      formatters_by_ft.typst = ["typstyle"];
+      formatters = {
+        typstyle.command = lib.getExe pkgs.typstyle;
+
+        prettypst = {
+          command = lib.getExe' pkgs.prettypst "prettypst";
+          append_args = ["--use-configuration"];
+
+          # prettypst fails when --use-configuration is passed but no prettypst.toml exists
+          condition =
+            lib.nixvim.mkRaw
+            # lua
+            ''
+              function(self, context)
+                local path = vim.fn.findfile("prettypst.toml", ".;")
+                return path ~= "" and path or nil
+              end
+            '';
+        };
+      };
+
+      formatters_by_ft.typst =
+        {
+          stop_after_first = true;
+        }
+        // lib.nixvim.utils.listToUnkeyedAttrs [
+          "prettypst"
+          "typstyle"
+        ];
     };
 
     typst-preview.enable = true;

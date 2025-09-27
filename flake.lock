@@ -198,6 +198,22 @@
         "type": "github"
       }
     },
+    "prettypst": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1745315115,
+        "narHash": "sha256-33bmev9oSx0xVGFvx8oqDzO3H1SF3OI6GewpGLJo5o4=",
+        "owner": "antonwetzel",
+        "repo": "prettypst",
+        "rev": "ecd55c5f8fb6c48821324a5d24e5dbb04394f358",
+        "type": "github"
+      },
+      "original": {
+        "owner": "antonwetzel",
+        "repo": "prettypst",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flakeUtils": "flakeUtils",
@@ -205,7 +221,8 @@
         "nixpkgsMaster": "nixpkgsMaster",
         "nixpkgsTeapot": "nixpkgsTeapot",
         "nixvim": "nixvim",
-        "nypkgs": "nypkgs"
+        "nypkgs": "nypkgs",
+        "prettypst": "prettypst"
       }
     },
     "systems": {
