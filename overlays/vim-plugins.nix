@@ -1,13 +1,7 @@
-{
-  inputs,
-  system,
-  ...
-}: self: super: {
+{...}: self: super: {
   vimPlugins =
     super.vimPlugins
     // {
-      blink-cmp = inputs.blink-cmp.packages.${system}.blink-cmp;
-
       search = super.vimUtils.buildVimPlugin {
         name = "search.nvim";
         src = super.fetchFromGitHub {
