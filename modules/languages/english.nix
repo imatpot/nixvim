@@ -14,9 +14,12 @@ lib.utils.modules.mkLanguage' config "english" {
         isolateEnglish = true;
 
         linters = {
+          OxfordComma = true; # my beloved
+
           Dashes = false;
+          LongSentences = false;
           PossessiveNoun = true;
-          SentenceCapitalization = false; # sometimes i prefer everything to be lowercase
+          SentenceCapitalization = false;
           SpelledNumbers = true;
           UseGenitive = true;
         };
