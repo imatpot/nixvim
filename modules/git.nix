@@ -43,6 +43,7 @@ lib.utils.modules.mkModule' config true "git" {
 
   keymaps = with lib.utils.keymaps; [
     (mkKeymap' "<leader>Gi" "<CMD>Gitignore<CR>" "Generate .gitignore")
+    (mkKeymap' "<leader>Gb" "<CMD>Gitsigns toggle_current_line_blame<CR>" "Toggle line blame")
 
     (mkKeymap' "<leader>Gcl" "<CMD>GitConflictChooseOurs<CR>" "Keep local change")
     (mkKeymap' "<leader>Gcr" "<CMD>GitConflictChooseTheirs<CR>" "Keep remote change")
