@@ -65,10 +65,20 @@
       splitbelow = true;
       splitright = true;
       swapfile = false;
+      tabstop = 4;
       undofile = true;
       undolevels = 1000;
       whichwrap = "b,s,>,l,<,h";
       wrap = false;
+
+      list = true;
+      listchars = {
+        tab = ''\ '';
+        trail = "·";
+        nbsp = "⎵";
+        precedes = "‹";
+        extends = "›";
+      };
     };
 
     globals = {
