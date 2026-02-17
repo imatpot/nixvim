@@ -33,108 +33,122 @@ lib.utils.modules.mkModule' config true "file-tree" {
     enable = true;
     package = pkgs.master.vimPlugins.neo-tree-nvim;
 
-    hideRootNode = true;
-    closeIfLastWindow = true;
+    settings = {
+      hide_root_node = true;
+      close_if_last_window = true;
 
-    window = {
-      width = 48;
-    };
-
-    filesystem = {
-      scanMode = "deep";
-      groupEmptyDirs = false;
-      followCurrentFile.enabled = true;
-      useLibuvFileWatcher = true;
-
-      window.mappings = {
-        e = "noop";
-
-        n = "add";
-        N = "add_directory";
-
-        "<Tab>" = "open";
-        ";" = "navigate_up";
-        "." = "toggle_hidden";
+      window = {
+        width = 48;
       };
 
-      filteredItems = {
-        showHiddenCount = false;
-        hideDotfiles = false;
-        hideGitignored = false;
+      default_component_configs = {
+        modified.symbol = "";
 
-        hideByName = [
-          ".git"
-          ".DS_Store"
-          "thumbs.db"
-          "desktop.ini"
+        indent = {
+          highlight = "NeoTreeIndentMarker2";
+        };
+
+        icon = {
+          default = "";
+          folder_closed = "󰉋";
+          folder_empty = "󰉋";
+          folder_open = "󰝰";
+          folder_empty_open = "󰝰";
+        };
+
+        diagnostics.symbols = {
+          error = "";
+          warn = "";
+          info = "";
+          hint = "";
+        };
+
+        git_status.symbols = {
+          added = "";
+          conflict = "⚡";
+          deleted = "";
+          ignored = "";
+          modified = "";
+          renamed = "";
+          staged = "";
+          unstaged = "";
+          untracked = "";
+        };
+      };
+
+      filesystem = {
+        scan_mode = "deep";
+        group_empty_dirs = false;
+        follow_current_file.enabled = true;
+        use_libuv_file_watcher = true;
+
+        window.mappings = {
+          e = "noop";
+
+          n = "add";
+          N = "add_directory";
+
+          "<Tab>" = "open";
+          ";" = "navigate_up";
+          "." = "toggle_hidden";
+        };
+
+        filtered_items = {
+          show_hidden_count = false;
+          hide_dotfiles = false;
+          hide_gitignored = false;
+
+          hide_by_name = [
+            ".git"
+            ".DS_Store"
+            "thumbs.db"
+            "desktop.ini"
+          ];
+        };
+      };
+
+      renderers = {
+        directory = [
+          {
+            __unkeyed = "indent";
+          }
+          {
+            __unkeyed = "icon";
+          }
+          {
+            __unkeyed = "name";
+          }
+          {
+            name = "container";
+            content = [
+              {
+                name = "git_status";
+                align = "right";
+                hide_when_expanded = true;
+                zindex = 10;
+              }
+              {
+                name = "diagnostics";
+                align = "right";
+                errors_only = true;
+                hide_when_expanded = true;
+                zindex = 10;
+              }
+            ];
+          }
         ];
       };
-    };
-
-    defaultComponentConfigs = {
-      modified.symbol = "";
-
-      indent = {
-        highlight = "NeoTreeIndentMarker2";
-      };
-
-      icon = {
-        default = "";
-        folderClosed = "󰉋";
-        folderEmpty = "󰉋";
-        folderOpen = "󰝰";
-        folderEmptyOpen = "󰝰";
-      };
-
-      diagnostics.symbols = {
-        error = "";
-        warn = "";
-        info = "";
-        hint = "";
-      };
-
-      gitStatus.symbols = {
-        added = "";
-        conflict = "⚡";
-        deleted = "";
-        ignored = "";
-        modified = "";
-        renamed = "";
-        staged = "";
-        unstaged = "";
-        untracked = "";
-      };
-    };
-
-    renderers = {
-      directory = [
-        "indent"
-        "icon"
-        "name"
-        {
-          name = "container";
-          content = [
-            {
-              name = "git_status";
-              align = "right";
-              hide_when_expanded = true;
-              zindex = 10;
-            }
-            {
-              name = "diagnostics";
-              align = "right";
-              errors_only = true;
-              hide_when_expanded = true;
-              zindex = 10;
-            }
-          ];
-        }
-      ];
 
       file = [
-        "indent"
-        "icon"
-        "name"
+        {
+          __unkeyed = "indent";
+        }
+        {
+          __unkeyed = "icon";
+        }
+        {
+          __unkeyed = "name";
+        }
         {
           name = "container";
           content = [

@@ -38,8 +38,6 @@ lib.utils.modules.mkLanguage' config "web (html, css)" {
 
       css = ["prettierd"];
     };
-
-    tailwind-tools.enable = true;
   };
 
   extraPackages = with pkgs; [
