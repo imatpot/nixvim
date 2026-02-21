@@ -10,6 +10,7 @@ lib.utils.modules.mkLanguage' config "prisma" {
       prismals = {
         enable = true;
         package = pkgs.prisma-language-server;
+        packageFallback = true;
       };
     };
   };

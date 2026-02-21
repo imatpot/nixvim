@@ -7,6 +7,8 @@ lib.utils.modules.mkLanguage' config "english" {
   plugins = {
     lsp.servers.harper_ls = {
       enable = true;
+      packageFallback = true;
+
       autostart = false;
 
       settings.harper-ls = {

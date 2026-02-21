@@ -8,7 +8,10 @@ lib.utils.modules.mkLanguage' config "markdown" {
   performance.combinePlugins.standalonePlugins = ["helpview.nvim" "markview.nvim"];
 
   plugins = {
-    lsp.servers.marksman.enable = true;
+    lsp.servers.marksman = {
+      enable = true;
+      packageFallback = true;
+    };
 
     conform-nvim.settings = {
       formatters_by_ft.markdown = ["deno_fmt"];

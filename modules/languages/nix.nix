@@ -10,9 +10,14 @@ lib.utils.modules.mkLanguage' config "nix" {
     hmts.enable = true;
 
     lsp.servers = {
-      statix.enable = true;
+      statix = {
+        enable = true;
+        packageFallback = true;
+      };
+
       nixd = {
         enable = true;
+        packageFallback = true;
         settings = let
           flakeExpr =
             # nix

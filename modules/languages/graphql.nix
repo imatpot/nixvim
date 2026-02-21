@@ -8,6 +8,8 @@ lib.utils.modules.mkLanguage' config "graphql" {
   plugins = {
     lsp.servers.graphql = {
       enable = true;
+      packageFallback = true;
+
       package = pkgs.graphql-language-service-cli;
     };
 

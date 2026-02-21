@@ -6,7 +6,10 @@
 }:
 lib.utils.modules.mkLanguage' config "shell" {
   plugins = {
-    lsp.servers.bashls.enable = true;
+    lsp.servers.bashls = {
+      enable = true;
+      packageFallback = true;
+    };
 
     lint = {
       linters.shellcheck.cmd = lib.getExe pkgs.shellcheck;

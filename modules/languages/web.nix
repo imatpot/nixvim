@@ -7,10 +7,25 @@
 lib.utils.modules.mkLanguage' config "web (html, css)" {
   plugins = {
     lsp.servers = {
-      html.enable = true;
-      cssls.enable = true;
-      emmet_language_server.enable = true;
-      tailwindcss.enable = true;
+      html = {
+        enable = true;
+        packageFallback = true;
+      };
+
+      cssls = {
+        enable = true;
+        packageFallback = true;
+      };
+
+      emmet_language_server = {
+        enable = true;
+        packageFallback = true;
+      };
+
+      tailwindcss = {
+        enable = true;
+        packageFallback = true;
+      };
     };
 
     # FIXME: these linters are, like, really annoying

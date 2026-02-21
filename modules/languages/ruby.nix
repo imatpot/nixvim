@@ -7,7 +7,11 @@ lib.utils.modules.mkLanguage' config "ruby" {
   withRuby = true;
 
   plugins = {
-    lsp.servers.solargraph.enable = true;
+    lsp.servers.solargraph = {
+      enable = true;
+      packageFallback = true;
+    };
+
     lint.lintersByFt.ruby = ["ruby"];
   };
 

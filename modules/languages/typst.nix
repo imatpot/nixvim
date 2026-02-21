@@ -6,7 +6,10 @@
 }:
 lib.utils.modules.mkLanguage' config "typst" {
   plugins = {
-    lsp.servers.tinymist.enable = true;
+    lsp.servers.tinymist = {
+      enable = true;
+      packageFallback = true;
+    };
 
     conform-nvim.settings = {
       formatters = {

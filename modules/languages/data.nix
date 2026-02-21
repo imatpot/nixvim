@@ -7,10 +7,26 @@
 lib.utils.modules.mkLanguage' config "structured data (json, yaml, toml, xml, csv)" {
   plugins = {
     lsp.servers = {
-      jsonls.enable = true;
-      yamlls.enable = true;
-      taplo.enable = true;
-      lemminx.enable = true;
+      jsonls = {
+        enable = true;
+        packageFallback = true;
+      };
+
+      yamlls = {
+        enable = true;
+        packageFallback = true;
+      };
+
+      taplo = {
+        enable = true;
+        packageFallback = true;
+      };
+
+      lemminx = {
+        enable = true;
+        packageFallback = true;
+      };
+
     };
 
     conform-nvim.settings = {

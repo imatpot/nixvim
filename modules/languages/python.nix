@@ -6,7 +6,10 @@
 }:
 lib.utils.modules.mkLanguage' config "python" {
   plugins = {
-    lsp.servers.ruff.enable = true;
+    lsp.servers.ruff = {
+      enable = true;
+      packageFallback = true;
+    };
 
     conform-nvim.settings = {
       formatters_by_ft.python = [

@@ -7,14 +7,22 @@
 lib.utils.modules.mkLanguage' config "javascript, typescript" {
   plugins = {
     lsp.servers = {
-      eslint.enable = true;
-      angularls.enable = true;
+      eslint = {
+        enable = true;
+        packageFallback = true;
+      };
+
+      angularls = {
+        enable = true;
+        packageFallback = true;
+      };
 
       # FIXME: https://github.com/neovim/nvim-lspconfig/issues/3728#issuecomment-2966741537
       # Adding rootMarkers & setting workspace_required=true did not actually fix the issue for ts_ls.
 
       ts_ls = {
         enable = true;
+        packageFallback = true;
         autostart = true;
         rootMarkers = ["package.json"];
         extraOptions.workspace_required = true;
@@ -22,6 +30,7 @@ lib.utils.modules.mkLanguage' config "javascript, typescript" {
 
       denols = {
         enable = true;
+        packageFallback = true;
         autostart = false;
         rootMarkers = ["deno.json" "deno.jsonc"];
         extraOptions.workspace_required = true;

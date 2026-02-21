@@ -8,6 +8,7 @@ lib.utils.modules.mkLanguage' config "lua" {
   plugins = {
     lsp.servers.lua_ls = {
       enable = true;
+      packageFallback = true;
       settings = {
         diagnostics.globals = ["vim"];
         runtime.version = "Lua 5.1";

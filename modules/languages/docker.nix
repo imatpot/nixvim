@@ -7,8 +7,15 @@
 lib.utils.modules.mkLanguage' config "docker" {
   plugins = {
     lsp.servers = {
-      dockerls.enable = true;
-      docker_compose_language_service.enable = true;
+      dockerls = {
+        enable = true;
+        packageFallback = true;
+      };
+
+      docker_compose_language_service = {
+        enable = true;
+        packageFallback = true;
+      };
     };
 
     # TODO: https://github.com/reteps/dockerfmt
