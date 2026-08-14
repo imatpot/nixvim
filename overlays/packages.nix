@@ -1,9 +1,10 @@
 {inputs, ...}: self: super: {
   prettypst = let
-    cargoTOML = builtins.fromTOML <| builtins.readFile <| inputs.prettypst + "/Cargo.toml";
+    cargoLock = builtins.fromTOML <| builtins.readFile <| inputs.prettypst + "/Cargo.lock";
+    package = builtins.head <| builtins.filter (package: package.name == "prettypst") cargoLock.package;
   in
     self.rustPlatform.buildRustPackage {
-      inherit (cargoTOML.package) version name;
+      inherit (package) version name;
       src = inputs.prettypst;
       cargoLock.lockFile = inputs.prettypst + "/Cargo.lock";
     };

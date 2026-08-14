@@ -72,10 +72,11 @@
         inherit nvim;
         default = nvim;
 
-        updater = pkgs.writeShellScriptBin "nixvim-flake-updater" ''
-          ${lib''.getExe pkgs.update-nix-fetchgit} --verbose ./**/*.nix 2>&1 | grep --line-buffered -i "updating"
-          nix flake update
-        '';
+        # FIXME: update-nix-fetchgit not working as indended as of 14 Aug 2026
+        # updater = pkgs.writeShellScriptBin "nixvim-flake-updater" ''
+        #   ${lib''.getExe pkgs.update-nix-fetchgit} --verbose ./**/*.nix 2>&1 | grep --line-buffered -i "updating"
+        #   nix flake update
+        # '';
       };
 
       overlays.default = final: prev: {
