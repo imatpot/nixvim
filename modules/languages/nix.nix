@@ -7,7 +7,7 @@
 }:
 lib.utils.modules.mkLanguage' config "nix" {
   plugins = {
-    hmts.enable = true;
+    hmts.enable = false; # FIXME: https://github.com/calops/hmts.nvim/pull/40
 
     lsp.servers = {
       statix = {
