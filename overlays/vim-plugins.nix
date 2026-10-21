@@ -18,8 +18,8 @@
         src = super.fetchFromGitHub {
           owner = "mirlge";
           repo = "kak.nvim";
-          rev = "b9a7cc37dfd02084087540ba8a1cdb174716b31f";
-          sha256 = "0w69xbmk8s05h0c34d426fjmg217d8475mhbqfaxm92zqvlczdsg";
+          rev = "b299d2689429b48afe48b1b294a6046487dacb6b";
+          sha256 = "0g0avb88yda69psxa0hxif8x1zq2fllgy2zjpqfj0id13qqfymxa";
         };
         doCheck = false;
       };
@@ -29,8 +29,8 @@
         src = super.fetchFromGitHub {
           owner = "nvimdev";
           repo = "indentmini.nvim";
-          rev = "0dc4bc2b3fc763420793e748b672292bc43ee722";
-          sha256 = "1n8vb7wgkb81x9zqhmsdrl2ilx40l4r6jg9qnmd3ihbfwbsjgi48";
+          rev = "38572ce5a7a064a5deb89d6d861b7c40fc929ab1";
+          sha256 = "06i8i5dbp8p2g35sp6r8rcv52z0y7ww9rr0af8662cn5pcv03jjx";
         };
         doCheck = false;
       };
@@ -84,8 +84,8 @@
         src = super.fetchFromGitHub {
           owner = "artemave";
           repo = "workspace-diagnostics.nvim";
-          rev = "60f9175b2501ae3f8b1aba9719c0df8827610c8e";
-          sha256 = "1plx01fcwqxym5z86wfwvc52if2qm5nfg51skxzjmjn6m5l4lald";
+          rev = "ea93521c0344fa2530c6f6da8b059d1b944ca550";
+          sha256 = "0nv8mmqpzmy1in8fzc662r8d0d414ybyxgm5w6zgx7ryxiq5hmn5";
         };
         doCheck = false;
       };
@@ -106,8 +106,8 @@
         src = super.fetchFromGitHub {
           owner = "A7Lavinraj";
           repo = "fyler.nvim";
-          rev = "5b49720ca3ed97b0947216d6a4f09a7ba05e569f";
-          sha256 = "0b9yq17v3wxkz30i3ikyq926x8hrp9hafj92v7f18q9czgygdbq6";
+          rev = "e1626ff3815a7ebd15698fd6c6d1188a079993d6";
+          sha256 = "1byzcdsn56h9blcbi4qfh77vwb6gnxf7wiy0i5qb5gf42ksshand";
         };
         doCheck = false;
       };

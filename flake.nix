@@ -2,11 +2,8 @@
   description = "Personal IDE setup powered by NixVim";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgsMaster.url = "github:nixos/nixpkgs/master";
+    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
     flakeUtils.url = "github:numtide/flake-utils";
-
-    nixpkgsTeapot.url = "github:imatpot/nixpkgs";
 
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -22,11 +19,6 @@
       url = "github:antonwetzel/prettypst";
       flake = false;
     };
-
-    # dotfiles = {
-    #   url = "github:imatpot/dotfiles";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
   };
 
   outputs = inputs @ {
@@ -72,11 +64,11 @@
         inherit nvim;
         default = nvim;
 
-        # FIXME: update-nix-fetchgit not working as indended as of 14 Aug 2026
-        # updater = pkgs.writeShellScriptBin "nixvim-flake-updater" ''
-        #   ${lib''.getExe pkgs.update-nix-fetchgit} --verbose ./**/*.nix 2>&1 | grep --line-buffered -i "updating"
-        #   nix flake update
-        # '';
+        # FIXME: update-nix-fetchgit is unmaintained and doesn't support pipe operators, so using ./**/*.nix is no longer possible.
+        updater = pkgs.writeShellScriptBin "nixvim-flake-updater" ''
+          ${lib''.getExe pkgs.update-nix-fetchgit} --verbose ./overlays/vim-plugins.nix 2>&1 | grep --line-buffered -i "updating"
+          nix flake update
+        '';
       };
 
       overlays.default = final: prev: {

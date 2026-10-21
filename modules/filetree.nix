@@ -31,7 +31,7 @@ lib.utils.modules.mkModule' config true "file-tree" {
 
   plugins.neo-tree = {
     enable = true;
-    package = pkgs.master.vimPlugins.neo-tree-nvim;
+    package = pkgs.vimPlugins.neo-tree-nvim;
 
     settings = {
       hide_root_node = true;
